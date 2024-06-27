@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 import { SD59x18, sd } from "@prb/math/src/SD59x18.sol";
 
 contract LatLong {
-  enum Kinds { message, path, media }
+  enum Kinds { Message, Path, Media }
 
   struct Embed {
     uint id;
@@ -22,8 +22,12 @@ contract LatLong {
   struct Layer {
     string name;
     string description;
+    uint embedN;
     Embed[] embeds;
   }
+
+  //constants
+  // min lat, min long, max lat, max long
 
   mapping (string => Layer) layers;
 
@@ -46,23 +50,27 @@ function addLayer(string calldata name, string calldata description) public {
     emit LayerAdded(name, description);
 }
 
-function addEmbed(
-    Embed calldata embed,
+function addMessage(
     string calldata layerName,
     SD59x18 lat,
-    SD59x18 long
+    SD59x18 long,
+    string calldata message
 ) public {
-    // Check if lat and long are valid (implement your own validation)
-    // For example: require(lat >= -90 && lat <= 90, "Invalid latitude");
-    // require(long >= -180 && long <= 180, "Invalid longitude");
 
     // Check if the layer exists
     require(bytes(layers[layerName].name).length != 0, "Layer does not exist");
+    // Check if lat and long are valid
+    require(lat.gt(sd(-90e18)) && lat.lt(sd(90e18)) && long.gt(sd(-180)) && long.lt(sd(180)), "Invalid location");
 
-    // Add the message to the layer
+    Location memory location = Location(lat, long);
+    Layer memory layer = layers[layerName];
+    Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, location);
+
     layers[layerName].embeds.push(embed);
-
-    // Emit event for adding a message
-    emit EmbedAdded(layerName, embed.message, lat, long);
 }
+
+function getEmbeds(string calldata layerName) public {
+  //
+}
+
 }
