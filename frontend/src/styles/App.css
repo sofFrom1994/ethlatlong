@@ -12,7 +12,6 @@
   overflow-y: auto;
   color: rgba(255, 255, 255);
   background-color: var(--dark-bg-color-5);
-
   --dark-bg-color-1: rgb(32, 32, 32);
   --dark-bg-color-2: rgb(26, 40, 53);
   --dark-bg-color-3: rgb(34, 48, 41);
@@ -26,7 +25,7 @@
 
   --first-column-width: 10ch;
   --time-scroll-padding: 9ch;
-  --time-scroll-padding-lg: calc(var(--first-column-width) + var(--first-column-grid-gap) );
+  --time-scroll-padding-lg: calc(var(--first-column-width) + var(--first-column-grid-gap));
   --first-column-grid-gap: 0.3rem;
   --channel-name-color: rgb(31, 73, 180);
   --channel-name-hover: rgb(90, 108, 154);
@@ -90,6 +89,41 @@
       var(--times-color) 0%,
       var(--programs-color) 40%,
       var(--program-bg-color) 100%);
+
+  /* Sky Colors */
+  --sky-dark: #1A3A5F;
+  --sky-medium: #305880;
+  --sky-light: #4A78A0;
+
+  /* Cloud Colors */
+  --cloud-dark: #4F4F4F;
+  --cloud-medium: #B0B0B0;
+  --cloud-light: #E0E0E0;
+
+  /* Thunder Colors */
+  --thunder-dark: #805500;
+  --thunder-medium: #BF8000;
+  --thunder-light: #FFD700;
+
+  /* Green Colors */
+  --green-dark: #1A4D20;
+  --green-medium: #2E6B38;
+  --green-light: #3E8B50;
+
+  /* Water Colors */
+  --water-dark: #00334D;
+  --water-medium: #005580;
+  --water-light: #0073A6;
+
+  /* Rock Colors */
+  --rock-dark: #2E2E2E;
+  --rock-medium: #6E6E6E;
+  --rock-light: #9E9E9E;
+
+  --logo-gradient: linear-gradient(135deg, #1A3A5F, #FFD700);
+  --scrollbar-gradient: linear-gradient(180deg, #3E8B50, #00334D);
+
+
 
 }
 
@@ -175,7 +209,7 @@ footer {
   scroll-padding-inline: var(--time-scroll-padding);
   touch-action: pan-x pan-y;
   scroll-padding-block: var(--time-scroll-padding);
-  grid-template-rows: auto 1fr ;
+  grid-template-rows: auto 1fr;
   grid-gap: 0.37rem;
   border-radius: 0.5rem;
   /*background-color: var(--program-bg-color);*/
@@ -197,6 +231,7 @@ footer {
     scroll-padding-inline: var(--time-scroll-padding-lg);
     scroll-padding-block: var(--time-scroll-padding-lg);
   }
+
   main {
     padding-left: 1.2rem;
     padding-right: 1.7rem;
@@ -322,8 +357,8 @@ footer {
 
 @media (min-width: 824px) {
   .channels {
-  grid-gap: 0.25rem;
-  grid-auto-rows: 4.16%;
+    grid-gap: 0.25rem;
+    grid-auto-rows: 4.16%;
   }
 }
 
