@@ -23,14 +23,10 @@ dd {
   margin: 0;
   color:rgba(255, 255, 255)!important;
   opacity: 1;
+  /*
   -webkit-text-fill-color: rgba(255, 255, 255);
+  */
   -webkit-opacity: 1;
-}
-
-/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
-  list-style: none;
 }
 
 :root {
@@ -45,10 +41,18 @@ ol[role='list'] {
   overflow-x: hidden;
   opacity: 1;
 
+  /*
   -webkit-text-fill-color: rgba(255, 255, 255);
+  */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
 }
 
 html:focus-within {
