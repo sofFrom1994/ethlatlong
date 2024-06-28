@@ -23,15 +23,8 @@ export const abi = [
     inputs: [
       { internalType: 'string', name: 'name', type: 'string' },
       { internalType: 'string', name: 'description', type: 'string' },
-      {
-        internalType: 'tuple',
-        name: 'startingLocation',
-        type: 'struct EthLatLong.Location',
-        components: [
-          { internalType: 'SD59x18', name: 'long', type: 'int256' },
-          { internalType: 'SD59x18', name: 'lat', type: 'int256' },
-        ],
-      },
+      { internalType: 'SD59x18', name: 'lat', type: 'int256' },
+      { internalType: 'SD59x18', name: 'long', type: 'int256' },
     ],
     outputs: [],
     stateMutability: 'nonpayable',

@@ -25,7 +25,8 @@ contract EthLatLong {
     // maybe owner / have a permissioned layer
     uint embedN;
     Embed[] embeds;
-    Location startingLoc;
+    SD59x18 lat;
+    SD59x18 long;
   }
 
   //constants
@@ -54,15 +55,16 @@ contract EthLatLong {
     return layer.embeds;
   }
   
-  function addLayer(string calldata name, string calldata description, Location calldata startingLocation) public {
+  function addLayer(string calldata name, string calldata description, SD59x18 lat, SD59x18 long) public {
       require(bytes(layers[name].name).length == 0, "Layer already exists");
-      require(startingLocation.lat.gt(sd(-90e18)) && startingLocation.lat.lt(sd(90e18)) && startingLocation.long.gt(sd(-180)) && startingLocation.long.lt(sd(180)), "Invalid location");
+      require(lat.gt(sd(-90e18)) && lat.lt(sd(90e18)) && long.gt(sd(-180)) && long.lt(sd(180)), "Invalid location");
   
       // Initialize the new layer
       Layer storage newLayer = layers[name];
       newLayer.name = name;
       newLayer.description = description;
-      newLayer.startingLoc = startingLocation;
+      newLayer.lat = lat;
+      newLayer.long = long;
   
       // Emit event for adding a layer
       emit LayerAdded(name, description);
