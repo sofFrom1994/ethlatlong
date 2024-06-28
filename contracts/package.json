@@ -11,7 +11,8 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "5.0.0",
     "@nomicfoundation/hardhat-toolbox-viem": "3.0.0",
-    "hardhat": "2.22.5"
+    "hardhat": "2.22.5",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@prb/math": "4.0.3"
