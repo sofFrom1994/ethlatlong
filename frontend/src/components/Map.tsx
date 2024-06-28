@@ -1,11 +1,5 @@
-"use client"
-
 import { MapContainer, TileLayer } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from 'leaflet';
-
-import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-import "leaflet-defaulticon-compatibility";
 
 import { Color } from "../types/util";
 
@@ -52,21 +46,30 @@ const defaults : MapProps = {
   layers: [baseLayer]
 };
 
+function MapPlaceholder() {
+  return (
+    <p>
+      Map.{' '}
+      <noscript>You need to enable JavaScript to see this map.</noscript>
+    </p>
+  )
+}
+
 const Map = (Map: MapProps) => {
   const { zoom = defaults.zoom, posix = defaults.posix } = Map;
-
   return (
-    <MapContainer
-      center={posix}
-      zoom={zoom}
-      scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-    </MapContainer>
+      <MapContainer
+        zoom={zoom}
+        scrollWheelZoom={false}
+        placeholder={<MapPlaceholder />}
+        center={[-300, 300]}
+        style={{height: "300px"}}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+      </MapContainer>
   );
 };
 
