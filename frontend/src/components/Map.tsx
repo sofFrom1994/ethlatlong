@@ -1,33 +1,6 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from 'leaflet';
-
-import { Color } from "../types/util";
-
-type Message = string
-
-type Cast = {
-  message : string
-}
-
-type Media = {
-  name: string
-  url : string
-}
-
-type ContentTypes = Message | Cast | Media
-
-type Content = {
-  name: string,
-  data: ContentTypes
-  color: Color
-}
-
-type Layer = {
-  name : string,
-  content? : [Content]
-  baseLocation : LatLngExpression | LatLngTuple
-  color?: Color
-}
+import { Layer } from "./types"
 
 interface MapProps {
     posix?: LatLngExpression | LatLngTuple,
@@ -56,14 +29,14 @@ function MapPlaceholder() {
 }
 
 const Map = (Map: MapProps) => {
-  const { zoom = defaults.zoom, posix = defaults.posix } = Map;
+  const { zoom = defaults.zoom } = Map;
   return (
     <MapContainer
       zoom={zoom}
       scrollWheelZoom={false}
       placeholder={<MapPlaceholder />}
       center={[51.505, -0.09]}
-      style={{ height: "300px" }}
+      style={{ height: "60%", width: "80%" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
