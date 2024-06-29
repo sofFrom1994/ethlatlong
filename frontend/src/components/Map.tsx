@@ -1,10 +1,8 @@
 import {
-  Circle,
   FeatureGroup,
   LayerGroup,
   LayersControl,
   MapContainer,
-  Popup,
   TileLayer,
 } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
@@ -28,8 +26,6 @@ const defaults: MapProps = {
   posix: [0, 0],
   layers: [baseLayer],
 };
-
-const center = [51.505, -0.09] as LatLngTuple;
 
 function MapPlaceholder() {
   return (
@@ -60,30 +56,12 @@ const Map = (Map: MapProps) => {
         </LayersControl.Overlay>
         <LayersControl.Overlay checked name="Layer group with circles">
           <LayerGroup>
-            <Circle
-              center={center}
-              pathOptions={{ fillColor: "blue" }}
-              radius={200}
-            />
-            <Circle
-              center={center}
-              pathOptions={{ fillColor: "red" }}
-              radius={100}
-              stroke={false}
-            />
             <LayerGroup>
-              <Circle
-                center={[51.51, -0.08]}
-                pathOptions={{ color: "green", fillColor: "green" }}
-                radius={100}
-              />
             </LayerGroup>
           </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="Feature group">
           <FeatureGroup pathOptions={{ color: "purple" }}>
-            <Popup>Popup in FeatureGroup</Popup>
-            <Circle center={[51.51, -0.06]} radius={200} />
           </FeatureGroup>
         </LayersControl.Overlay>
       </LayersControl>
