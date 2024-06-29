@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNKNOWN 
+// a license
 pragma solidity ^0.8.24;
 
 import { SD59x18, sd } from "@prb/math/src/SD59x18.sol";
@@ -10,13 +10,8 @@ contract EthLatLong {
     uint id;
     Kinds kind;
     string message;
-    Location location;
-  }
-
-  struct Location {
-    // 6 decimal places (e.g., 38.900000, -77.000000) gives a precision of about 0.11 meters (11 centimeters).
-    SD59x18 long; // [-180, 180]
-    SD59x18 lat; // [-90, 90]
+    SD59x18 lat;
+    SD59x18 long;
   }
 
   struct Layer {
@@ -82,8 +77,7 @@ contract EthLatLong {
       // check if layer exists
       require(bytes(layer.name).length != 0);
   
-      Location memory location = Location(lat, long);
-      Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, location);
+      Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, lat, long);
   
       layers[layerName].embeds.push(embed);
   }
