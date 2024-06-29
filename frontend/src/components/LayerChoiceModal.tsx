@@ -1,8 +1,9 @@
-import { abi } from "./ethLatLongABI";
-
 import { useReadContract } from 'wagmi'
+import { ethLatLongAbi } from '../generated'
 
-export const getLayer = () => {
+const abi = ethLatLongAbi;
+
+export const LayerChoiceModal = () => {
   const { 
     data,
     error,
@@ -24,6 +25,6 @@ export const getLayer = () => {
     )
 
   return (
-    <div>Layer: {data?.toString()}</div>
+    <div>Layer: {data?.name}</div>
   )
 }
