@@ -5,17 +5,20 @@ export const Header = () => {
     <header>
       <div className="header-content">
         <h1>eth-lat-long</h1>
-        <ConnectButton
-          label="Sign in"
-          accountStatus={{
-            smallScreen: 'avatar',
-            largeScreen: 'full'
-          }}
-          showBalance={{
-            smallScreen: false,
-            largeScreen: false,
-          }}
-        />
+        <div className="account-manager">
+
+          <ConnectButton
+            label="Sign in"
+            accountStatus={{
+              smallScreen: 'avatar',
+              largeScreen: 'full'
+            }}
+            showBalance={{
+              smallScreen: false,
+              largeScreen: false,
+            }}
+          />
+        </div>
       </div>
     </header>
   );

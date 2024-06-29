@@ -38,35 +38,40 @@ function MapPlaceholder() {
 const Map = (Map: MapProps) => {
   const { zoom = defaults.zoom } = Map;
   return (
-    <MapContainer
-      zoom={zoom}
-      scrollWheelZoom={false}
-      placeholder={<MapPlaceholder />}
-      center={[51.505, -0.09]}
-      style={{ height: "80%", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <div className="map-wrapper" >
+      <MapContainer
+        zoom={zoom}
+        scrollWheelZoom={false}
+        placeholder={<MapPlaceholder />}
+        center={[51.505, -0.09]}
+        style={{ height: "80%", width: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
-      <LayersControl position="topright">
-        <LayersControl.Overlay name="draggable marker">
-          <DraggableMarker />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Layer group with circles">
-          <LayerGroup>
+        <LayersControl position="topright">
+          <LayersControl.Overlay name="draggable marker">
+            <DraggableMarker />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name="Layer group with circles">
             <LayerGroup>
+              <LayerGroup>
+              </LayerGroup>
             </LayerGroup>
-          </LayerGroup>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Feature group">
-          <FeatureGroup pathOptions={{ color: "purple" }}>
-          </FeatureGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
-      <MinimapControl position="bottomright" zoom={5}/>
-    </MapContainer>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Feature group">
+            <FeatureGroup pathOptions={{ color: "purple" }}>
+            </FeatureGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
+        <MinimapControl position="bottomright" zoom={5} />
+      </MapContainer>
+      <div className="map-controls">
+        <p> a control </p>
+      </div>
+    </div>
   );
 };
 

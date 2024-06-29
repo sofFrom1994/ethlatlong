@@ -303,6 +303,10 @@ footer {
   }
 }
 
+.account-manager {
+  justify-self: right;
+}
+
 .timebar {
   top: 0;
   position: sticky;

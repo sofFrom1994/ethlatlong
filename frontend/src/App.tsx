@@ -1,4 +1,4 @@
-import  Map  from "./components/Map"
+import Map from "./components/Map"
 
 import { Header } from "./components/Header";
 import { LayerChoiceModal } from "./components/LayerChoiceModal";
@@ -9,7 +9,6 @@ function App() {
       <main>
         <Header />
         <Map />
-        <LayerChoiceModal />
       </main>
     </div>
   );
