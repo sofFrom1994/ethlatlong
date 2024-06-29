@@ -1,7 +1,7 @@
-//import "./styles/App.css"
 import  Map  from "./components/Map"
 
 import { Header } from "./components/Header";
+import { LayerChoiceModal } from "./components/LayerChoiceModal";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <main>
         <Header />
         <Map />
+        <LayerChoiceModal />
       </main>
     </div>
   );
