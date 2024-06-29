@@ -9,13 +9,12 @@ export default defineConfig({
     hardhat(
       {
         project: "../contracts",
-        exclude: [ 
-        // the following patterns are excluded by default
-        'build-info/**', 
-        '*.dbg.json', 
-        // need to exclude typescript type definitions
-        '*.d.ts'
-      ], 
+      include: [
+        "*.json"
+      ],
+      exclude: [
+        "*.*"
+      ],
       artifacts: "artifacts/contracts/EthLatLong.sol"
       }
     ),
