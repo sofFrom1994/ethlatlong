@@ -12,6 +12,7 @@ contract EthLatLong {
     string message;
     SD59x18 lat;
     SD59x18 long;
+    address author;
   }
 
   struct Layer {
@@ -22,6 +23,7 @@ contract EthLatLong {
     Embed[] embeds;
     SD59x18 lat;
     SD59x18 long;
+    address author;
   }
 
   //constants
@@ -57,6 +59,7 @@ contract EthLatLong {
       newLayer.description = description;
       newLayer.lat = lat;
       newLayer.long = long;
+      newLayer.author = msg.sender;
 
       layerNames.push(name);
   
@@ -77,7 +80,7 @@ contract EthLatLong {
       // check if layer exists
       require(bytes(layer.name).length != 0);
   
-      Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, lat, long);
+      Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, lat, long, msg.sender);
   
       layers[layerName].embeds.push(embed);
   }
