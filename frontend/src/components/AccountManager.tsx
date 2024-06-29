@@ -1,3 +1,4 @@
+/*
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 const AccountManager = () => {
@@ -44,3 +45,5 @@ const AccountManager = () => {
 };
 
 export default AccountManager;
+
+*/
