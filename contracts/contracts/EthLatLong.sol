@@ -31,16 +31,13 @@ contract EthLatLong {
 
   //constants
   // min lat, min long, max lat, max long
-
+  string[] public layerNames;
   mapping (string => Layer) layers;
 
   // Define a new event to notify when a layer is added
   event LayerAdded(string name, string description);
   
-  // Define a new event to notify when a message is added
-  event EmbedAdded(string layer, string content, SD59x18 lat, SD59x18 long);
-
-  function getLayer( string calldata name) public view returns (Layer memory) {
+  function getLayer( string memory name) public view returns (Layer memory) {
     Layer memory layer = layers[name];
     // check if layer exists
     require(bytes(layer.name).length != 0);
@@ -65,6 +62,8 @@ contract EthLatLong {
       newLayer.description = description;
       newLayer.lat = lat;
       newLayer.long = long;
+
+      layerNames.push(name);
   
       // Emit event for adding a layer
       emit LayerAdded(name, description);
@@ -88,4 +87,37 @@ contract EthLatLong {
   
       layers[layerName].embeds.push(embed);
   }
+    function getAllLayers() public view returns (Layer[] memory) {
+        Layer[] memory allLayers = new Layer[](layerNames.length);
+
+        for (uint i = 0; i < layerNames.length; i++) {
+            string memory layerName = layerNames[i]; // Load layer name into memory 
+            allLayers[i] = getLayer(layerName); // Pass it to getLayer
+        }
+
+        return allLayers;
+    }
+
+    function getAllEmbeds() public view returns (Embed[] memory) {
+        Layer[] memory allLayers = getAllLayers();
+        uint totalEmbedCount = 0;
+
+        // Calculate total number of embeds
+        for (uint i = 0; i < allLayers.length; i++) {
+            totalEmbedCount += allLayers[i].embeds.length;
+        }
+
+        Embed[] memory allEmbeds = new Embed[](totalEmbedCount);
+        uint embedIndex = 0;
+        
+        // Gather all embeds
+        for (uint i = 0; i < allLayers.length; i++) {
+            for (uint j = 0; j < allLayers[i].embeds.length; j++) {
+                allEmbeds[embedIndex++] = allLayers[i].embeds[j];
+            }
+        }
+
+        return allEmbeds;
+    }
+
 }
