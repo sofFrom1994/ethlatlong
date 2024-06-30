@@ -44,7 +44,7 @@ const Map = (Map: MapProps) => {
         scrollWheelZoom={false}
         placeholder={<MapPlaceholder />}
         center={[51.505, -0.09]}
-        style={{ height: "80%", width: "100%" }}
+        style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -69,7 +69,9 @@ const Map = (Map: MapProps) => {
         <MinimapControl position="bottomright" zoom={5} />
       </MapContainer>
       <div className="map-controls">
-        <p> a control </p>
+        <p> your location </p>
+        <div className="plus"> + </div>
+        <p> filter </p>
       </div>
     </div>
   );
