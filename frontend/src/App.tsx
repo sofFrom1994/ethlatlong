@@ -2,6 +2,7 @@ import Map from "./components/Map"
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { AddMessageRA } from "./components/AddMessageRA";
+import { LayerChoiceModal } from "./components/LayerChoiceModal";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Footer />
       </main>
       <AddMessageRA />
+      <LayerChoiceModal />
     </div>
   );
 }

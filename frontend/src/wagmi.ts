@@ -1,15 +1,11 @@
 import { fallback, http } from 'viem'
 import { createConfig } from 'wagmi'
-import { localhost } from 'wagmi/chains'
 
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { coinbaseWallet, injectedWallet, metaMaskWallet } from "@rainbow-me/rainbowkit/wallets"
+import { hardhat } from 'wagmi/chains';
 
-import {
-  getDefaultConfig,
-} from '@rainbow-me/rainbowkit';
-
-const walletConnectors = connectorsForWallets([
+const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [metaMaskWallet, coinbaseWallet]
@@ -23,19 +19,12 @@ const walletConnectors = connectorsForWallets([
   appName: "ethLatLong"
 })
 
-export const config = getDefaultConfig(
+export const config = createConfig(
   {
-    appName: 'My RainbowKit App',
-    projectId: 'YOUR_PROJECT_ID',
-    ssr: false, // If your dApp uses server side rendering (SSR)
-    chains: [localhost],
-    connectors: walletConnectors,
+    connectors,
+    chains: [hardhat],
     transports: {
-      [localhost.id]: fallback([http("http://127.0.0.1:8545/")])
-      /*
-      [mainnet.id] : http:(),
-      [sepolia.id] : http:(),
-      */
+      [31_337]: http("http://127.0.0.1:8545/")
     }
   }
 );

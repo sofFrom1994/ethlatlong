@@ -1,7 +1,8 @@
-// a license
 pragma solidity ^0.8.24;
 
 import { SD59x18, sd } from "@prb/math/src/SD59x18.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+
 
 contract EthLatLong {
   enum Kinds { Message, Path, Media }
@@ -48,6 +49,39 @@ contract EthLatLong {
 
     return layer.embeds;
   }
+
+    function getAllLayers() public view returns (Layer[] memory) {
+        Layer[] memory allLayers = new Layer[](layerNames.length);
+
+        for (uint i = 0; i < layerNames.length; i++) {
+            string memory layerName = layerNames[i]; // Load layer name into memory 
+            allLayers[i] = layers[layerName]; // Pass it to getLayer
+        }
+
+        return allLayers;
+    }
+
+    function getAllEmbeds() public view returns (Embed[] memory) {
+        Layer[] memory allLayers = getAllLayers();
+        uint totalEmbedCount = 0;
+
+        // Calculate total number of embeds
+        for (uint i = 0; i < allLayers.length; i++) {
+            totalEmbedCount += allLayers[i].embeds.length;
+        }
+
+        Embed[] memory allEmbeds = new Embed[](totalEmbedCount);
+        uint embedIndex = 0;
+        
+        // Gather all embeds
+        for (uint i = 0; i < allLayers.length; i++) {
+            for (uint j = 0; j < allLayers[i].embeds.length; j++) {
+                allEmbeds[embedIndex++] = allLayers[i].embeds[j];
+            }
+        }
+
+        return allEmbeds;
+    }
   
   function addLayer(string calldata name, string calldata description, SD59x18 lat, SD59x18 long) public {
       require(bytes(layers[name].name).length == 0, "Layer already exists");
@@ -84,37 +118,61 @@ contract EthLatLong {
   
       layers[layerName].embeds.push(embed);
   }
-    function getAllLayers() public view returns (Layer[] memory) {
-        Layer[] memory allLayers = new Layer[](layerNames.length);
 
-        for (uint i = 0; i < layerNames.length; i++) {
-            string memory layerName = layerNames[i]; // Load layer name into memory 
-            allLayers[i] = getLayer(layerName); // Pass it to getLayer
-        }
-
-        return allLayers;
+/*
+  // Struct to hold metadata
+    struct Metadata {
+        string description;
+        int256 latitude;
+        int256 longitude;
     }
 
-    function getAllEmbeds() public view returns (Embed[] memory) {
-        Layer[] memory allLayers = getAllLayers();
-        uint totalEmbedCount = 0;
+    // Mapping from ERC-721 contract address to token ID to metadata
+    mapping(address => mapping(uint256 => Metadata)) private _metadata;
 
-        // Calculate total number of embeds
-        for (uint i = 0; i < allLayers.length; i++) {
-            totalEmbedCount += allLayers[i].embeds.length;
-        }
+    // Event to log the addition of metadata
+    event MetadataAdded(address indexed erc721Address, uint256 indexed tokenId, string description, int256 latitude, int256 longitude);
 
-        Embed[] memory allEmbeds = new Embed[](totalEmbedCount);
-        uint embedIndex = 0;
-        
-        // Gather all embeds
-        for (uint i = 0; i < allLayers.length; i++) {
-            for (uint j = 0; j < allLayers[i].embeds.length; j++) {
-                allEmbeds[embedIndex++] = allLayers[i].embeds[j];
-            }
-        }
+    // Function to add metadata to a token
+    function addMetadata(
+        address erc721Address,
+        uint256 tokenId,
+        string calldata description,
+        int256 latitude,
+        int256 longitude
+    ) external {
+        // Verify the caller is the owner of the token
+        IERC721 erc721 = IERC721(erc721Address);
+        address tokenOwner = erc721.ownerOf(tokenId);
+        require(tokenOwner == msg.sender, "Caller is not the owner of the token");
 
-        return allEmbeds;
+        // Validate latitude and longitude
+        require(latitude >= -90 && latitude <= 90, "Latitude must be between -90 and 90");
+        require(longitude >= -180 && longitude <= 180, "Longitude must be between -180 and 180");
+
+        // Update the metadata
+        _metadata[erc721Address][tokenId] = Metadata(description, latitude, longitude);
+
+        // Emit an event for logging
+        emit MetadataAdded(erc721Address, tokenId, description, latitude, longitude);
     }
+
+    // Function to get the metadata of a token
+    function getMetadata(address erc721Address, uint256 tokenId) external view returns (string memory description, int256 latitude, int256 longitude) {
+        Metadata storage metadata = _metadata[erc721Address][tokenId];
+        return (metadata.description, metadata.latitude, metadata.longitude);
+    }
+
+    // Function to remove metadata from a token
+    function removeMetadata(address erc721Address, uint256 tokenId) external {
+        // Verify the caller is the owner of the token
+        IERC721 erc721 = IERC721(erc721Address);
+        address tokenOwner = erc721.ownerOf(tokenId);
+        require(tokenOwner == msg.sender, "Caller is not the owner of the token");
+
+        // Delete the metadata
+        delete _metadata[erc721Address][tokenId];
+    }
+    */
 
 }

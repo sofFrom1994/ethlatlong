@@ -8,6 +8,11 @@ const config: HardhatUserConfig = {
     tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts",
+  },
+  networks: {
+    hardhat: {
+      chainId: 31337
+    }
   }
 };
 

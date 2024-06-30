@@ -11,8 +11,7 @@ export const LayerChoiceModal = () => {
   } = useReadContract({
     abi,
     address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    functionName: 'getLayer',
-    args: ["layer 1"],
+    functionName: 'getAllLayers',
   })
 
   if (isPending) return <div>Loading...</div>
@@ -25,6 +24,6 @@ export const LayerChoiceModal = () => {
     )
 
   return (
-    <div>Layer: {data?.name}</div>
+    <div>Layer: {data?.map(l => l.name)}</div>
   )
 }
