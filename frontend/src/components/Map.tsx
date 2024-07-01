@@ -9,6 +9,7 @@ import { LatLngExpression, LatLngTuple } from "leaflet";
 import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
 import { DraggableMarker } from "./DraggableMarker";
+import { LayerChoiceModal } from "./LayerChoiceModal";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
@@ -35,6 +36,7 @@ function MapPlaceholder() {
   );
 }
 
+
 const Map = (Map: MapProps) => {
   const { zoom = defaults.zoom } = Map;
   return (
@@ -50,22 +52,7 @@ const Map = (Map: MapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="draggable marker">
-            <DraggableMarker />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked name="Layer group with circles">
-            <LayerGroup>
-              <LayerGroup>
-              </LayerGroup>
-            </LayerGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Feature group">
-            <FeatureGroup pathOptions={{ color: "purple" }}>
-            </FeatureGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
+        <LayerChoiceModal />
         <MinimapControl position="bottomright" zoom={5} />
       </MapContainer>
       <div className="map-controls">
