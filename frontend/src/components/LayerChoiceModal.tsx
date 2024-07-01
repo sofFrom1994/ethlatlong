@@ -1,5 +1,6 @@
 import { useReadContract } from 'wagmi'
 import { ethLatLongAbi } from '../generated'
+import { LayersControl, Marker, Popup } from 'react-leaflet';
 
 const abi = ethLatLongAbi;
 
@@ -23,7 +24,52 @@ export const LayerChoiceModal = () => {
       </div>
     )
 
+   return (
+    <LayersControl>
+      {
+        data?.map(l => (
+          layerToLayerControlOverlay(l)
+        ))
+      }
+    </LayersControl>
+   )
+}
+
+const layerToLayerControlOverlay = (
+  l: {
+    name: string;
+    description: string;
+    embedN: bigint;
+    embeds: readonly {
+        id: bigint;
+        kind: number;
+        message: string;
+        lat: bigint;
+        long: bigint;
+        author: `0x${string}`;
+    }[];
+    lat: bigint;
+    long: bigint;
+    author: `0x${string}`;
+}
+) => {
+
+
   return (
-    <div>Layer: {data?.map(l => l.name)}</div>
+
+   <LayersControl.Overlay name={l.name}>
+
+{ l.embeds.map(em => 
+        <Marker position={[Number(em.lat), Number(em.long)] }>
+          <Popup>
+            {em.message}
+              by 
+            {em.author}
+          </Popup>
+        </Marker>
+
+)
+}
+      </LayersControl.Overlay>
   )
 }
