@@ -20,13 +20,13 @@ export function AddMessageRA() {
     const lat = formData.get("lat") as string;
     const long = formData.get("long") as string;
     const layerName = formData.get("layerName") as string;
-    const description = formData.get("description") as string;
+    const message = formData.get("message") as string;
 
     writeContract({
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi,
-      functionName: "addLayer",
-      args: [layerName, description, BigInt(lat), BigInt(long)],
+      functionName: "addMessage",
+      args: [layerName, BigInt(Math.floor(Number(lat))), BigInt(Math.floor(Number(long))), message],
     });
   }
 
@@ -38,9 +38,9 @@ export function AddMessageRA() {
   }, layerNameRef);
 
   const { inputProps: descriptionInputProps } = useTextField({
-    label: "Description",
+    label: "Message",
     placeholder: "hello world",
-    name: "description",
+    name: "message",
     isRequired: true
   }, descriptionRef);
 
@@ -69,7 +69,7 @@ export function AddMessageRA() {
         <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
       </div>
       <div>
-        <label htmlFor="description">Description</label>
+        <label htmlFor="Message">Message</label>
         <input {...descriptionInputProps} ref={descriptionRef} id="description" />
       </div>
       <div>

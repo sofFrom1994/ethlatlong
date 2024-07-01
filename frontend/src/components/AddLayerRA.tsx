@@ -22,16 +22,11 @@ export function AddLayerRA() {
     const layerName = formData.get("layerName") as string;
     const description = formData.get("description") as string;
 
-    console.log(lat);
-    console.log(long);
-    console.log(layerName);
-    console.log(description);
-
     writeContract({
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi,
       functionName: "addLayer",
-      args: [layerName, description, BigInt(lat), BigInt(long)],
+      args: [layerName, description, BigInt(Math.floor(Number(lat))), BigInt(Math.floor(Number(long)))],
     });
   }
 
@@ -70,20 +65,20 @@ export function AddLayerRA() {
   return (
     <form onSubmit={submit}>
       <div>
-        <label>Layer Name</label>
-        <input {...layerNameInputProps} ref={layerNameRef} />
+        <label htmlFor="layerName">Layer Name</label>
+        <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
       </div>
       <div>
-        <label>Description</label>
-        <input {...descriptionInputProps} ref={descriptionRef} />
+        <label htmlFor="description">Description</label>
+        <input {...descriptionInputProps} ref={descriptionRef} id="description" />
       </div>
       <div>
-        <label>Latitude</label>
-        <input {...latInputProps} ref={latRef} />
+        <label htmlFor="lat">Latitude</label>
+        <input {...latInputProps} ref={latRef} id="lat" />
       </div>
       <div>
-        <label>Longitude</label>
-        <input {...longInputProps} ref={longRef} />
+        <label htmlFor="long">Longitude</label>
+        <input {...longInputProps} ref={longRef} id="long" />
       </div>
       <button {...buttonProps} ref={buttonRef}>Post</button>
     </form>
