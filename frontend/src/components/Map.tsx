@@ -10,6 +10,7 @@ import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
 import { DraggableMarker } from "./DraggableMarker";
 import { LayerChoiceModal } from "./LayerChoiceModal";
+import { Add } from "./Add";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
@@ -57,7 +58,7 @@ const Map = (Map: MapProps) => {
       </MapContainer>
       <div className="map-controls">
         <p> your location </p>
-        <div className="plus"> + </div>
+        <Add />
         <p> filter </p>
       </div>
     </div>
