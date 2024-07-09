@@ -1,3 +1,5 @@
+import "../styles/react-aria.css"
+
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
 import { useButton } from "@react-aria/button";

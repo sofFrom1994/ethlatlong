@@ -1,3 +1,5 @@
+@import "colors.css";
+
 @media (prefers-color-scheme: light) {
   #root {
     color: #213547;
@@ -12,45 +14,6 @@
   overflow-y: auto;
   color: rgba(255, 255, 255);
   background-color: var(--dark-bg-color-5);
-
-  /* Sky Colors */
-  --sky-dark: #1A3A5F;
-  --sky-medium: #305880;
-  --sky-light: #4A78A0;
-
-  /* Cloud Colors */
-  --cloud-dark: #4F4F4F;
-  --cloud-medium: #B0B0B0;
-  --cloud-light: #E0E0E0;
-
-  /* Thunder Colors */
-  --thunder-dark: #805500;
-  --thunder-medium: #BF8000;
-  --thunder-light: #FFD700;
-
-  /* Green Colors */
-  --green-dark: #1A4D20;
-  --green-medium: #2E6B38;
-  --green-light: #3E8B50;
-
-  /* Water Colors */
-  --water-dark: #00334D;
-  --water-medium: #005580;
-  --water-light: #0073A6;
-
-  /* Rock Colors */
-  --rock-dark: #2E2E2E;
-  --rock-medium: #6E6E6E;
-  --rock-light: #9E9E9E;
-
-  --dark-bg-color-5: rgb(25, 29, 36);
-  
-  --full-gradient: linear-gradient(66deg,
-      var(--thunder-light) 0%,
-      var(--sky-medium) 15%,
-      var(--water-light) 40%,
-      var(--green-light) 60%,
-      var(--thunder-light) 100%);
 }
 
 main {
@@ -60,10 +23,6 @@ main {
   display: grid;
   grid-template-rows: min-content 80svh;
   grid-gap: 0.7rem;
-}
-
-.account-manager {
-  justify-self: right;
 }
 
 @media (min-height: 800px) {
@@ -79,95 +38,4 @@ main {
     padding-block: 1.5rem;
     grid-template-rows: min-content 87dvh;
   }
-
-  .header-content button {
-    padding-inline: 0.3rem;
-    padding-block: 0.2rem;
-    border-style: groove;
-    border-width: 0.2rem;
-    border-color: var(--programs-color);
-  }
-}
-
-.header-content {
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr;
-}
-
-.header-content h1 {
-  font-size: 1.5rem;
-  line-height: 2.5rem;
-  border-radius: 0.3rem;
-  grid-column: 1;
-  justify-self: left;
-  align-items: center;
-  -webkit-text-fill-color: initial;
-  padding-inline: 0.5rem;
-  background-image: var(--full-gradient);
-  border-style: groove;
-  border-width: 0.12rem;
-  border-color: var(--sky-light);
-}
-
-.map-wrapper {
-  display: grid;
-  grid-template-rows: 1fr 8vh;
-  height: 100%;
-  box-sizing: border-box;
-  gap: 0.25rem;
-  border-style: groove;
-  border-radius: 0.5rem;
-  border-color: var(--green-medium);
-}
-
-.map-controls {
-  background-color: var(--green-medium);
-  display: grid;
-  align-items: center;
-  font-size: 1.1em;
-  box-sizing: border-box;
-  padding: 0.3em;
-  justify-content: center;
-  grid-template-columns: 0.3fr 0.4fr 0.2fr;
-}
-
-.map-controls>p {
-  display: grid;
-  background-color: var(--green-light);
-  border-radius: 0.3rem;
-  border-style: groove;
-  border-width: 0.1rem;
-  border-color: var(--sky-light)
-}
-
-.plus{
-  border-radius: 1rem;
-  padding-inline: 1rem;
-  justify-self: center;
-  background-color: var(--green-light);
-  border-style: groove;
-  border-width: 0.16rem;
-  border-color: var(--sky-light)
-}
-
-footer {
-  display: grid;
-  justify-content: center;
-  padding-inline: 1rem;
-  grid-template-columns: 0.4fr 1fr 0.4fr;
-  border-style: groove;
-  border-radius: 0.1rem;
-  border-color: var(--sky-light);
-  grid-gap: 1rem;
-  background-color: var(--water-medium);
-}
-
-footer>p {
-  background-color: var(--water-light);
-  justify-self: center;
-  padding: 1svh;
-  border-radius: 0.05rem;
-  border-color: var(--sky-light);
 }

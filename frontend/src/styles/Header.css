@@ -1,0 +1,38 @@
+@import "colors.css";
+
+.account-manager {
+  justify-self: right;
+}
+
+.header-content {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+.header-content h1 {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  border-radius: 0.3rem;
+  grid-column: 1;
+  justify-self: left;
+  align-items: center;
+  -webkit-text-fill-color: initial;
+  padding-inline: 0.5rem;
+  background-image: var(--full-gradient);
+  border-style: groove;
+  border-width: 0.12rem;
+  border-color: var(--sky-light);
+}
+
+@media (min-width: 824px) {
+  .header-content button {
+    padding-inline: 0.3rem;
+    padding-block: 0.2rem;
+    border-style: groove;
+    border-width: 0.2rem;
+    border-color: var(--programs-color);
+  }
+}
+

@@ -1,0 +1,20 @@
+
+footer {
+  display: grid;
+  justify-content: center;
+  padding-inline: 1rem;
+  grid-template-columns: 0.4fr 1fr 0.4fr;
+  border-style: groove;
+  border-radius: 0.1rem;
+  border-color: var(--sky-light);
+  grid-gap: 1rem;
+  background-color: var(--water-medium);
+}
+
+footer>p {
+  background-color: var(--water-light);
+  justify-self: center;
+  padding: 1svh;
+  border-radius: 0.05rem;
+  border-color: var(--sky-light);
+}

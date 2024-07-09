@@ -1,3 +1,4 @@
+import "../styles/Header.css"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const Header = () => {

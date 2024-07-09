@@ -1,16 +1,14 @@
 import {
-  FeatureGroup,
-  LayerGroup,
-  LayersControl,
   MapContainer,
   TileLayer,
 } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
-import { DraggableMarker } from "./DraggableMarker";
 import { LayerChoiceModal } from "./LayerChoiceModal";
 import { Add } from "./Add";
+
+import "../styles/Map.css"
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;

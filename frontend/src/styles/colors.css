@@ -1,0 +1,40 @@
+#root {
+  /* Sky Colors */
+  --sky-dark: #1A3A5F;
+  --sky-medium: #305880;
+  --sky-light: #4A78A0;
+
+  /* Cloud Colors */
+  --cloud-dark: #4F4F4F;
+  --cloud-medium: #B0B0B0;
+  --cloud-light: #E0E0E0;
+
+  /* Thunder Colors */
+  --thunder-dark: #805500;
+  --thunder-medium: #BF8000;
+  --thunder-light: #FFD700;
+
+  /* Green Colors */
+  --green-dark: #1A4D20;
+  --green-medium: #2E6B38;
+  --green-light: #3E8B50;
+
+  /* Water Colors */
+  --water-dark: #00334D;
+  --water-medium: #005580;
+  --water-light: #0073A6;
+
+  /* Rock Colors */
+  --rock-dark: #2E2E2E;
+  --rock-medium: #6E6E6E;
+  --rock-light: #9E9E9E;
+
+  --dark-bg-color-5: rgb(25, 29, 36);
+
+  --full-gradient: linear-gradient(66deg,
+      var(--thunder-light) 0%,
+      var(--sky-medium) 15%,
+      var(--water-light) 40%,
+      var(--green-light) 60%,
+      var(--thunder-light) 100%);
+}
