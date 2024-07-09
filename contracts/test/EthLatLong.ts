@@ -150,18 +150,64 @@ describe("EthLatLong", function () {
     });
   });
 
-  describe("Layer and Embed Retrieval", function () {
-    it("Should retrieve all layers", async function () {
-      // Test implementation needed
-    });
+describe("Layer and Embed Retrieval", function () {
+  it("Should retrieve all layers", async function () {
+    const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
+    const layerName1 = "Layer1";
+    const layerName2 = "Layer2";
+    const description1 = "This is layer 1";
+    const description2 = "This is layer 2";
+    const lat1 = BigInt(40.7128e18);
+    const long1 = BigInt(-74.0060e18);
+    const lat2 = BigInt(34.0522e18);
+    const long2 = BigInt(-118.2437e18);
 
-    it("Should retrieve all embeds", async function () {
-      // Test implementation needed
-    });
+    await ethLatLong.write.addLayer([layerName1, description1, lat1, long1], { account: owner.account });
+    await ethLatLong.write.addLayer([layerName2, description2, lat2, long2], { account: owner.account });
 
-    it("Should retrieve embeds for a specific layer", async function () {
-      // Test implementation needed
-    });
+    const allLayers = await ethLatLong.read.getAllLayers();
+    expect(allLayers.length).to.equal(2);
+    expect(allLayers[0].name).to.equal(layerName1);
+    expect(allLayers[1].name).to.equal(layerName2);
   });
+
+  it("Should retrieve all embeds", async function () {
+    const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
+    const layerName = "EmbedLayer";
+    const description = "This layer is for embeds";
+    const lat = BigInt(40.7128e18);
+    const long = BigInt(-74.0060e18);
+    const message1 = "Hello, World!";
+    const message2 = "Hello, Ethereum!";
+
+    await ethLatLong.write.addLayer([layerName, description, lat, long], { account: owner.account });
+    await ethLatLong.write.addMessage([layerName, lat, long, message1], { account: owner.account });
+    await ethLatLong.write.addMessage([layerName, lat, long, message2], { account: owner.account });
+
+    const allEmbeds = await ethLatLong.read.getAllEmbeds();
+    expect(allEmbeds.length).to.equal(2);
+    expect(allEmbeds[0].message).to.equal(message1);
+    expect(allEmbeds[1].message).to.equal(message2);
+  });
+
+  it("Should retrieve embeds for a specific layer", async function () {
+    const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
+    const layerName = "SpecificLayer";
+    const description = "This layer is for specific embeds";
+    const lat = BigInt(40.7128e18);
+    const long = BigInt(-74.0060e18);
+    const message1 = "Hello, World!";
+    const message2 = "Hello, Ethereum!";
+
+    await ethLatLong.write.addLayer([layerName, description, lat, long], { account: owner.account });
+    await ethLatLong.write.addMessage([layerName, lat, long, message1], { account: owner.account });
+    await ethLatLong.write.addMessage([layerName, lat, long, message2], { account: owner.account });
+
+    const embeds = await ethLatLong.read.getEmbeds([layerName]);
+    expect(embeds.length).to.equal(2);
+    expect(embeds[0].message).to.equal(message1);
+    expect(embeds[1].message).to.equal(message2);
+  });
+});
 
 });
