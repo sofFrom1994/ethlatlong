@@ -1,3 +1,5 @@
+import "../styles/Add.css"
+
 import  { useState } from 'react';
 import { Button, Dialog, DialogTrigger, Heading, Modal } from 'react-aria-components';
 import { AddMessageRA } from './AddMessageRA';

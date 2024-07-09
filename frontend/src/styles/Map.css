@@ -30,13 +30,3 @@
   border-width: 0.1rem;
   border-color: var(--sky-light)
 }
-
-.plus{
-  border-radius: 1rem;
-  padding-inline: 1rem;
-  justify-self: center;
-  background-color: var(--green-light);
-  border-style: groove;
-  border-width: 0.16rem;
-  border-color: var(--sky-light)
-}
