@@ -6,7 +6,7 @@ import { LatLngExpression, LatLngTuple } from "leaflet";
 import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
 import { LayerChoiceModal } from "./LayerChoiceModal";
-import { Add } from "./Add";
+import { AddMenu } from "./Add";
 
 import "../styles/Map.css"
 
@@ -56,7 +56,7 @@ const Map = (Map: MapProps) => {
       </MapContainer>
       <div className="map-controls">
         <p> your location </p>
-        <Add />
+        <AddMenu />
         <p> filter </p>
       </div>
     </div>

@@ -1,25 +1,54 @@
-import "../styles/Add.css"
-
-import  { useState } from 'react';
-import { Button, Dialog, DialogTrigger, Heading, Modal } from 'react-aria-components';
+import React, { useState } from 'react';
+import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import { AddMessageRA } from './AddMessageRA';
 import { AddLayerRA } from './AddLayerRA';
+import "../styles/Add.css";
 
-export const Add = () => {
-  const [isOpen, setOpen] = useState(false);
+const AddModal = ({ children }) => {
+  const [isOpen, setOpen] = useState(true);
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
-      <Button>
-        <div className="plus"> + </div>
-      </Button>
-      <Modal>
+      <Modal isDismissable>
         <Dialog>
           <Heading>Add</Heading>
-          <AddLayerRA />
-          <AddMessageRA />
+          {children}
         </Dialog>
       </Modal>
     </DialogTrigger>
+  );
+}
+
+export const AddMenu = () => {
+  const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+
+  const handleAction = (key: React.Key) => {
+    if (key === "layer") {
+      setModalContent(<AddLayerRA />);
+    } else if (key === "message") {
+      setModalContent(<AddMessageRA />);
+    } else if (key === "media") {
+      alert("Can't add media via UI yet");
+    } else {
+      console.log("Invalid choice: ", key);
+    }
+  };
+
+  return (
+    <>
+      <MenuTrigger>
+        <Button aria-label="Menu">
+          <div className="plus"> + </div>
+        </Button>
+        <Popover>
+          <Menu onAction={handleAction}>
+            <MenuItem id="layer">Layer</MenuItem>
+            <MenuItem id="message">Message</MenuItem>
+            <MenuItem id="media">Media</MenuItem>
+          </Menu>
+        </Popover>
+      </MenuTrigger>
+      {modalContent && <AddModal>{modalContent}</AddModal>}
+    </>
   );
 }
