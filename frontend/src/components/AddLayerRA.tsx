@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import { useWriteContract } from "wagmi";
+import { parseLatLong } from "../utils";
 
 const abi = ethLatLongAbi;
 
@@ -19,8 +20,8 @@ export function AddLayerRA() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const lat = formData.get("lat") as string;
-    const long = formData.get("long") as string;
+    const lat = parseLatLong(formData.get("lat") as string);
+    const long = parseLatLong(formData.get("long") as string);
     const layerName = formData.get("layerName") as string;
     const description = formData.get("description") as string;
 
@@ -28,7 +29,7 @@ export function AddLayerRA() {
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi,
       functionName: "addLayer",
-      args: [layerName, description, BigInt(Math.floor(Number(lat))), BigInt(Math.floor(Number(long)))],
+      args: [layerName, description, lat, long],
     });
   }
 
