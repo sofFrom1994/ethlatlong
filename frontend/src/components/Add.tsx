@@ -4,57 +4,8 @@ import { AddMessageRA } from './AddMessageRA';
 import { AddLayerRA } from './AddLayerRA';
 import "../styles/Add.css";
 
-/*
-const AddModal = ({ children }) => {
-  const [isOpen, setOpen] = useState(true);
-
-  return (
-    <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
-      <Modal isDismissable>
-        <Dialog>
-          <Heading>Add</Heading>
-          {children}
-        </Dialog>
-      </Modal>
-    </DialogTrigger>
-  );
-}
-
-export const AddMenu = () => {
-  const [modalContent, setModalContent] = useState<React.ReactNode>(null);
-
-  const handleAction = (key: React.Key) => {
-    if (key === "layer") {
-      setModalContent(<AddLayerRA />);
-    } else if (key === "message") {
-      setModalContent(<AddMessageRA />);
-    } else if (key === "media") {
-      alert("Can't add media via UI yet");
-    } else {
-      console.log("Invalid choice: ", key);
-    }
-  };
-
-  return (
-    <>
-      <MenuTrigger>
-        <Button aria-label="Menu">
-          <div className="plus"> + </div>
-        </Button>
-        <Popover>
-          <Menu onAction={handleAction}>
-            <MenuItem id="layer">Layer</MenuItem>
-            <MenuItem id="message">Message</MenuItem>
-            <MenuItem id="media">Media</MenuItem>
-          </Menu>
-        </Popover>
-      </MenuTrigger>
-      {modalContent && <AddModal>{modalContent}</AddModal>}
-    </>
-  );
-}
-
-*/
+// todo : add preview of the place in the map with the correct icon where the 
+// user is posting.
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -90,9 +41,9 @@ export const AddMenu = () => {
     <>
       <MenuTrigger>
         <Button aria-label="Menu">
-          <div className="plus"> + </div>
+          <div className="plus">+</div>
         </Button>
-        <Popover>
+        <Popover placement='top'>
           <Menu onAction={handleAction}>
             <MenuItem id="layer">Layer</MenuItem>
             <MenuItem id="message">Message</MenuItem>
