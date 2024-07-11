@@ -80,14 +80,12 @@ const Map = (Map: MapProps) => {
       style={{ height: "100%", width: "100%" }}
       className="map-wrapper"
     >
-      <div className="map-elements">
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <LayerChoiceModal />
-        <MinimapControl position="bottomright" zoom={5} />
-      </div>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <LayerChoiceModal />
+      <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
         <AddMenu />

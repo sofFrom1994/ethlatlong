@@ -99,6 +99,7 @@ export const ethLatLongAbi = [
         internalType: 'struct EthLatLong.Layer[]',
         type: 'tuple[]',
         components: [
+          { name: 'id', internalType: 'uint256', type: 'uint256' },
           { name: 'name', internalType: 'string', type: 'string' },
           { name: 'description', internalType: 'string', type: 'string' },
           { name: 'embedN', internalType: 'uint256', type: 'uint256' },
@@ -166,6 +167,7 @@ export const ethLatLongAbi = [
         internalType: 'struct EthLatLong.Layer',
         type: 'tuple',
         components: [
+          { name: 'id', internalType: 'uint256', type: 'uint256' },
           { name: 'name', internalType: 'string', type: 'string' },
           { name: 'description', internalType: 'string', type: 'string' },
           { name: 'embedN', internalType: 'uint256', type: 'uint256' },

@@ -19,6 +19,7 @@ contract EthLatLong {
   }
 
   struct Layer {
+    uint id;
     string name;
     string description;
     // maybe owner / have a permissioned layer
@@ -30,6 +31,7 @@ contract EthLatLong {
     address author;
   }
 
+  uint layerCount;
   string[] public layerNames;
   mapping (string => Layer) layers;
 
@@ -103,8 +105,10 @@ contract EthLatLong {
       newLayer.lat = lat;
       newLayer.long = long;
       newLayer.author = msg.sender;
+      newLayer.id = layerCount;
 
       layerNames.push(name);
+      layerCount++;
   
       // Emit event for adding a layer
       emit LayerAdded(name, description);

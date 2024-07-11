@@ -35,3 +35,5 @@
 .greyed-out {
   opacity: 0.4
 }
+
+.leaflet-bottom.leaflet-right { position: absolute; bottom: 4rem } 
