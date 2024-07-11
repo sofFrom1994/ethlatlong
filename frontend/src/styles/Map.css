@@ -1,32 +1,37 @@
 @import "colors.css";
 
-.map-wrapper {
-  display: grid;
-  grid-template-rows: 1fr 8vh;
-  height: 100%;
-  box-sizing: border-box;
-  gap: 0.25rem;
-  border-style: groove;
-  border-radius: 0.5rem;
-  border-color: var(--green-medium);
-}
-
 .map-controls {
   background-color: var(--green-medium);
   display: grid;
+  z-index: 240000000;
+  gap: 2rem;
   align-items: center;
   font-size: 1.1em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   box-sizing: border-box;
-  padding: 0.3em;
   justify-content: center;
-  grid-template-columns: 0.3fr 0.4fr 0.2fr;
+  grid-template-columns: 0.2fr 0.2fr 0.2fr;
+  height: 3rem;
 }
 
-.map-controls>p {
+.map-controls>* {
   display: grid;
   background-color: var(--green-light);
+  height: 85%;
+  width: 100%;
+  justify-content: center;
+  justify-self: center;
+  justify-items: center;
+  align-items: center;
   border-radius: 0.3rem;
   border-style: groove;
-  border-width: 0.1rem;
-  border-color: var(--sky-light)
+  border-width: 0.12rem;
+  border-color: var(--sky-light);
+  justify-content: center;
+}
+
+.greyed-out {
+  opacity: 0.4
 }

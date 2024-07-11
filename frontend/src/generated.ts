@@ -39,6 +39,20 @@ export const ethLatLongAbi = [
   {
     type: 'function',
     inputs: [
+      { name: 'erc721Address', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'lat', internalType: 'SD59x18', type: 'int256' },
+      { name: 'long', internalType: 'SD59x18', type: 'int256' },
+      { name: 'layerName', internalType: 'string', type: 'string' },
+      { name: 'description', internalType: 'string', type: 'string' },
+    ],
+    name: 'addMedia',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
       { name: 'layerName', internalType: 'string', type: 'string' },
       { name: 'lat', internalType: 'SD59x18', type: 'int256' },
       { name: 'long', internalType: 'SD59x18', type: 'int256' },
@@ -68,6 +82,8 @@ export const ethLatLongAbi = [
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
+          { name: 'url', internalType: 'string', type: 'string' },
+          { name: 'description', internalType: 'string', type: 'string' },
         ],
       },
     ],
@@ -101,6 +117,8 @@ export const ethLatLongAbi = [
               { name: 'lat', internalType: 'SD59x18', type: 'int256' },
               { name: 'long', internalType: 'SD59x18', type: 'int256' },
               { name: 'author', internalType: 'address', type: 'address' },
+              { name: 'url', internalType: 'string', type: 'string' },
+              { name: 'description', internalType: 'string', type: 'string' },
             ],
           },
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
@@ -131,6 +149,8 @@ export const ethLatLongAbi = [
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
+          { name: 'url', internalType: 'string', type: 'string' },
+          { name: 'description', internalType: 'string', type: 'string' },
         ],
       },
     ],
@@ -164,6 +184,8 @@ export const ethLatLongAbi = [
               { name: 'lat', internalType: 'SD59x18', type: 'int256' },
               { name: 'long', internalType: 'SD59x18', type: 'int256' },
               { name: 'author', internalType: 'address', type: 'address' },
+              { name: 'url', internalType: 'string', type: 'string' },
+              { name: 'description', internalType: 'string', type: 'string' },
             ],
           },
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
@@ -180,6 +202,16 @@ export const ethLatLongAbi = [
     name: 'layerNames',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
     stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'erc721Address', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'removeMetadata',
+    outputs: [],
+    stateMutability: 'nonpayable',
   },
 ] as const
 
@@ -252,12 +284,29 @@ export const useWriteEthLatLongAddLayer = /*#__PURE__*/ createUseWriteContract({
 })
 
 /**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"addMedia"`
+ */
+export const useWriteEthLatLongAddMedia = /*#__PURE__*/ createUseWriteContract({
+  abi: ethLatLongAbi,
+  functionName: 'addMedia',
+})
+
+/**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"addMessage"`
  */
 export const useWriteEthLatLongAddMessage =
   /*#__PURE__*/ createUseWriteContract({
     abi: ethLatLongAbi,
     functionName: 'addMessage',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMetadata"`
+ */
+export const useWriteEthLatLongRemoveMetadata =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ethLatLongAbi,
+    functionName: 'removeMetadata',
   })
 
 /**
@@ -277,12 +326,30 @@ export const useSimulateEthLatLongAddLayer =
   })
 
 /**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"addMedia"`
+ */
+export const useSimulateEthLatLongAddMedia =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ethLatLongAbi,
+    functionName: 'addMedia',
+  })
+
+/**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"addMessage"`
  */
 export const useSimulateEthLatLongAddMessage =
   /*#__PURE__*/ createUseSimulateContract({
     abi: ethLatLongAbi,
     functionName: 'addMessage',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMetadata"`
+ */
+export const useSimulateEthLatLongRemoveMetadata =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ethLatLongAbi,
+    functionName: 'removeMetadata',
   })
 
 /**

@@ -36,6 +36,6 @@ main {
     padding-left: 1.2rem;
     padding-right: 1.7rem;
     padding-block: 1.5rem;
-    grid-template-rows: min-content 87dvh;
+    grid-template-rows: auto 87dvh;
   }
 }
