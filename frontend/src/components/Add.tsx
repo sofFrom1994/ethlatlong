@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
-import { AddMessageRA } from './AddMessageRA';
-import { AddLayerRA } from './AddLayerRA';
 import "../styles/Add.css";
-
-// todo : add preview of the place in the map with the correct icon where the 
-// user is posting.
+import { AddLayerForm } from './AddLayerForm';
+import { AddMessageForm } from './AddMessageForm';
+import L, { LatLng } from 'leaflet';
+import { Marker, Popup, useMap } from "react-leaflet";
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -20,21 +19,67 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
   );
 }
 
+export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
+  return (
+    <Marker
+      draggable={draggable}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}>
+      <Popup minWidth={90}>
+        <span onClick={toggleDraggable}>
+          {draggable
+            ? 'Marker is draggable'
+            : 'Click here to make marker draggable'}
+        </span>
+      </Popup>
+    </Marker>
+  );
+}
+
 export const AddMenu = () => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
+  const map = useMap();
 
+  // add marker
+  const [draggable, setDraggable] = useState(true);
+  const [position, setPosition] = useState<LatLng>(map.getCenter());
+  const markerRef = useRef<L.Marker<any>>(null);
+
+  const markerEventHandler = useMemo(() => ({
+    dragend() {
+      const marker = markerRef.current;
+      if (marker != null) {
+        const wrappedPos = marker.getLatLng().wrap();
+        setPosition(wrappedPos);
+        if (requireMarkerPlacement) {
+          setRequireMarkerPlacement(false);
+          setIsModalOpen(true);
+        }
+      }
+    },
+  }), [requireMarkerPlacement]);
+
+  const toggleDraggable = useCallback(() => {
+    setDraggable((d) => !d);
+  }, []);
+
+  // menu handler
   const handleAction = (key: React.Key) => {
     if (key === "layer") {
-      setModalContent(<AddLayerRA />);
+      setModalContent(<AddLayerForm lat={position.lat} long={position.lng}/>);
     } else if (key === "message") {
-      setModalContent(<AddMessageRA />);
+      setModalContent(<AddMessageForm lat={position.lat} long={position.lng}/>);
     } else if (key === "media") {
-      alert("Can't add media via UI yet");
+      alert("Can't add media via UI yet. only via smart contract atm.");
+      return;
     } else {
       console.log("Invalid choice: ", key);
+      return;
     }
-    setIsModalOpen(true);
+    setRequireMarkerPlacement(true);
   };
 
   return (
@@ -43,7 +88,7 @@ export const AddMenu = () => {
         <Button aria-label="Menu">
           <div className="plus">+</div>
         </Button>
-        <Popover placement='top'>
+        <Popover placement="top">
           <Menu onAction={handleAction}>
             <MenuItem id="layer">Layer</MenuItem>
             <MenuItem id="message">Message</MenuItem>
@@ -51,6 +96,15 @@ export const AddMenu = () => {
           </Menu>
         </Popover>
       </MenuTrigger>
+      {requireMarkerPlacement && (
+        <DraggableMarker
+          draggable={draggable}
+          eventHandlers={markerEventHandler}
+          position={position}
+          markerRef={markerRef}
+          toggleDraggable={toggleDraggable}
+        />
+      )}
       {modalContent && (
         <AddModal isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
           {modalContent}
@@ -58,4 +112,4 @@ export const AddMenu = () => {
       )}
     </>
   );
-}
+};

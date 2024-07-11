@@ -1,5 +1,4 @@
-import "../styles/react-aria.css"
-
+import "../styles/react-aria.css";
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
 import { useButton } from "@react-aria/button";
@@ -9,7 +8,7 @@ import { parseLatLong } from "../utils";
 
 const abi = ethLatLongAbi;
 
-export const AddLayerForm = () => {
+export const AddLayerForm = ( latlong : { lat : number, long : number }) => {
   const { writeContract } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -51,14 +50,16 @@ export const AddLayerForm = () => {
     label: "Latitude",
     placeholder: "54",
     name: "lat",
-    isRequired: true
+    isRequired: true,
+    value: latlong.lat.toString() || "" // Set the initial value from props or empty string if not provided
   }, latRef);
 
   const { inputProps: longInputProps } = useTextField({
     label: "Longitude",
     placeholder: "-89",
     name: "long",
-    isRequired: true
+    isRequired: true,
+    value: latlong.long.toString() || "" // Set the initial value from props or empty string if not provided
   }, longRef);
 
   const { buttonProps } = useButton({

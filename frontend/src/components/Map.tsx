@@ -8,7 +8,7 @@ import "../styles/Map.css"
 import userIcon from "../assets/userlocation.svg"
 
 import { useState, useEffect } from "react";
-import { useMap, Marker, Popup, MapContainer, TileLayer } from "react-leaflet";
+import { useMap, Marker, MapContainer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 
 interface MapProps {

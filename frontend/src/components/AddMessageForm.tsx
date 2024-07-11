@@ -9,7 +9,7 @@ import { parseLatLong } from "../utils";
 
 const abi = ethLatLongAbi;
 
-export const AddMessageForm = () => {
+export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
   const { writeContract } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -44,21 +44,23 @@ export const AddMessageForm = () => {
     label: "Message",
     placeholder: "hello world",
     name: "message",
-    isRequired: true
+    isRequired: true,
   }, descriptionRef);
 
   const { inputProps: latInputProps } = useTextField({
     label: "Latitude",
     placeholder: "54",
     name: "lat",
-    isRequired: true
+    isRequired: true,
+    value: latlong.lat.toString()
   }, latRef);
 
   const { inputProps: longInputProps } = useTextField({
     label: "Longitude",
     placeholder: "-89",
     name: "long",
-    isRequired: true
+    isRequired: true,
+    value: latlong.long.toString()
   }, longRef);
 
   const { buttonProps } = useButton({
