@@ -9,7 +9,7 @@ import { parseLatLong } from "../utils";
 
 const abi = ethLatLongAbi;
 
-export function AddMessageRA() {
+export const AddMessageForm = () => {
   const { writeContract } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
