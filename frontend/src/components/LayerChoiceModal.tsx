@@ -16,22 +16,21 @@ export const LayerChoiceModal = () => {
 
   if (error) return <div>Error: {error.shortMessage || error.message}</div>;
 
-  const mlayers = layers;
-  console.log(mlayers);
+  if (!layers || layers.length === 0) return <div>No layers available</div>;
 
   return (
     <LayersControl>
-      {mlayers.map((l) => layerToLayerControlOverlay(l))}
+      {layers.map((layer) => layerToLayerControlOverlay(layer))}
     </LayersControl>
   );
 };
 
-const layerToLayerControlOverlay = (l: {
+const layerToLayerControlOverlay = (layer: {
   id: bigint;
   name: string;
   description: string;
   embedN: bigint;
-  embeds: readonly {
+  embeds: {
     id: bigint;
     kind: number;
     message: string;
@@ -44,14 +43,20 @@ const layerToLayerControlOverlay = (l: {
   author: `0x${string}`;
 }) => {
   return (
-    <LayersControl.Overlay name={l.name} key={l.id.toString()}>
+    <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
-        {l.embeds.map((em) => (
-          <Marker key={`marker-${l.id.toString()}-${em.id.toString()}-${em.author}-${em.kind}-${em.message}`} position={[Number(em.lat), Number(em.long)]}>
-            <Popup key={`popup-${l.id.toString()}-${em.id.toString()}-${em.author}-${em.kind}-${em.message}`}>
-              {em.message}
-              by
-              {em.author}
+        {layer.embeds.map((embed) => (
+          <Marker
+            key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
+            position={[
+              Number(embed.lat) / 1e18,
+              Number(embed.long) / 1e18,
+            ] as LatLngExpression}
+          >
+            <Popup>
+              {embed.message}
+              <br />
+              by {embed.author}
             </Popup>
           </Marker>
         ))}
