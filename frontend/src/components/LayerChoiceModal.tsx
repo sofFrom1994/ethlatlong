@@ -6,12 +6,11 @@ import { LatLngExpression } from "leaflet";
 const abi = ethLatLongAbi;
 
 export const LayerChoiceModal = () => {
-  const { data : layers, error, isPending } = useReadContract({
+  const { data: layers, error, isPending } = useReadContract({
     abi,
     address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     functionName: "getAllLayers",
   });
-
 
   if (isPending) return <div>Loading...</div>;
 
@@ -45,11 +44,11 @@ const layerToLayerControlOverlay = (l: {
   author: `0x${string}`;
 }) => {
   return (
-    <LayersControl.Overlay name={l.name} key={l.id}>
+    <LayersControl.Overlay name={l.name} key={l.id.toString()}>
       <LayerGroup>
         {l.embeds.map((em) => (
-          <Marker key={em.id} position={[Number(em.lat), Number(em.long)]}>
-            <Popup key={em.id}>
+          <Marker key={`marker-${l.id.toString()}-${em.id.toString()}-${em.author}-${em.kind}-${em.message}`} position={[Number(em.lat), Number(em.long)]}>
+            <Popup key={`popup-${l.id.toString()}-${em.id.toString()}-${em.author}-${em.kind}-${em.message}`}>
               {em.message}
               by
               {em.author}
@@ -60,28 +59,3 @@ const layerToLayerControlOverlay = (l: {
     </LayersControl.Overlay>
   );
 };
-
-
-/*
-export const LayerChoiceModal = () => {
-  const center : LatLngExpression = [51.505, -0.09] ;
-  return (
-    <LayersControl>
-      <LayersControl.Overlay name="Marker with popup" key={"1"}>
-        <Marker key={23} position={center}>
-          <Popup position={center}>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </LayersControl.Overlay>
-      <LayersControl.Overlay name="Feature group" key={"2"}>
-        <Marker key={32} position={center}>
-          <Popup position={center}>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </LayersControl.Overlay>
-    </LayersControl>
-  );
-}
-  */
