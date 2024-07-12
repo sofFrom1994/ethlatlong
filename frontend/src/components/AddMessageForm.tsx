@@ -4,13 +4,13 @@ import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
-import { useWriteContract } from "wagmi";
+import { BaseError, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseLatLong } from "../utils";
 
 const abi = ethLatLongAbi;
 
 export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
-  const { writeContract } = useWriteContract();
+  const { writeContract, data: hash, isPending } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
   const latRef = useRef(null);
@@ -32,6 +32,8 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
       args: [layerName, lat, long, message],
     });
   }
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed, error } = useWaitForTransactionReceipt({ hash })
 
   const { inputProps: layerNameInputProps } = useTextField({
     label: "Layer Name",
@@ -64,6 +66,7 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
   }, longRef);
 
   const { buttonProps } = useButton({
+    isDisabled: isPending,
     type: "submit",
   }, buttonRef);
 
@@ -86,6 +89,11 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
         <input {...longInputProps} ref={longRef} id="long" />
       </div>
       <button {...buttonProps} ref={buttonRef}>Post</button>
+       {isConfirming && <div> Waiting for confirmation... </div>}
+      {isConfirmed && <div> Transaction confirmed. </div>}
+      {error && (
+        <div> Error: {(error as BaseError).shortMessage || error.message}</div>
+      )}
     </form>
   );
 }
