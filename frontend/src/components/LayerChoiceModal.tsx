@@ -3,9 +3,37 @@ import { useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
+import L from "leaflet";
+
+import bubble from "../assets/bubble.svg";
+
+import media from "../assets/photo.svg";
+import farCastIcon from "../assets/purple-white.svg";
 
 const abi = ethLatLongAbi;
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+//todo: change to location and add location to button too
+const messageIcon = L.icon({
+  iconUrl: bubble,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
+
+const mediaIcon = L.icon({
+  iconUrl: media,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
+
+const farCast = L.icon({
+  iconUrl: farCastIcon,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+})
 
 export const LayerChoiceModal = () => {
   const [layers, setLayers] = useState([]);
@@ -17,6 +45,8 @@ export const LayerChoiceModal = () => {
     address: CONTRACT_ADDRESS,
     functionName: "getAllLayers",
   });
+
+  console.log(layers);
 
   useEffect(() => {
     if (readError) {
@@ -42,6 +72,62 @@ export const LayerChoiceModal = () => {
   );
 };
 
+const embedToMarker = (layer: { id: bigint;
+  name: string;
+  description: string;
+  embedN: bigint;
+  embeds: {
+    id: bigint;
+    kind: number;
+    message: string;
+    lat: bigint;
+    long: bigint;
+    author: `0x${string}`;
+  }[];
+  lat: bigint;
+  long: bigint;
+  author: `0x${string}`;}, embed : {
+    id: bigint;
+    kind: number;
+    message: string;
+    lat: bigint;
+    long: bigint;
+    author: `0x${string}`;
+}) => {
+  let embedIcon: L.Icon<L.IconOptions>;
+  //
+  if (embed.kind === 0) {
+    embedIcon = messageIcon;
+  } else if (embed.kind === 1) {
+    console.log("path icon?");
+    embedIcon = messageIcon;
+  } else if (embed.kind === 2) {
+    embedIcon = mediaIcon;
+  } else {
+    console.log("unknown icon");
+    embedIcon = messageIcon;
+  }
+
+  return (
+    <Marker
+      key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
+      position={
+        [
+          Number(embed.lat) / 1e18,
+          Number(embed.long) / 1e18,
+        ] as LatLngExpression
+      }
+      icon={embedIcon}
+    >
+      <Popup>
+        {embed.message}
+        <br />
+        by {embed.author}
+      </Popup>
+    </Marker>
+  );
+}
+
 const layerToLayerControlOverlay = (layer: {
   id: bigint;
   name: string;
@@ -63,19 +149,7 @@ const layerToLayerControlOverlay = (layer: {
     <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
         {layer.embeds.map((embed) => (
-          <Marker
-            key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
-            position={[
-              Number(embed.lat) / 1e18,
-              Number(embed.long) / 1e18,
-            ] as LatLngExpression}
-          >
-            <Popup>
-              {embed.message}
-              <br />
-              by {embed.author}
-            </Popup>
-          </Marker>
+          embedToMarker(layer, embed)
         ))}
       </LayerGroup>
     </LayersControl.Overlay>
