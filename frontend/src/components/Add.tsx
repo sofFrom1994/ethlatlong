@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import "../styles/Add.css";
 import { AddLayerForm } from './AddLayerForm';
@@ -68,10 +68,11 @@ export const AddMenu = () => {
 
   // menu handler
   const handleAction = (key: React.Key) => {
+    const currentCenter = map.getCenter();
     if (key === "layer") {
-      setModalContent(<AddLayerForm lat={position.lat} long={position.lng}/>);
+      setModalContent(<AddLayerForm lat={currentCenter.lat} long={currentCenter.lng}/>);
     } else if (key === "message") {
-      setModalContent(<AddMessageForm lat={position.lat} long={position.lng}/>);
+      setModalContent(<AddMessageForm lat={currentCenter.lat} long={currentCenter.lng}/>);
     } else if (key === "media") {
       alert("Can't add media via UI yet. only via smart contract atm.");
       return;
@@ -79,19 +80,9 @@ export const AddMenu = () => {
       console.log("Invalid choice: ", key);
       return;
     }
+    setPosition(currentCenter);
     setRequireMarkerPlacement(true);
   };
-
-  // Update modal content when position changes
-  useEffect(() => {
-    if (modalContent) {
-      setModalContent(
-        modalContent.type === AddLayerForm
-          ? <AddLayerForm lat={position.lat} long={position.lng}/>
-          : <AddMessageForm lat={position.lat} long={position.lng}/>
-      );
-    }
-  }, [position]);
 
   return (
     <>
