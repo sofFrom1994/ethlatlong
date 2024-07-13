@@ -1,15 +1,21 @@
-import { LatLngExpression, LatLngTuple } from "leaflet";
+import L, { LatLngExpression, LatLngTuple } from "leaflet";
 import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
 import { LayerChoiceModal } from "./LayerChoiceModal";
 import { AddMenu } from "./Add";
+import { MapContainer, TileLayer } from "react-leaflet";
 
-import "../styles/Map.css"
-import userIcon from "../assets/userlocation.svg"
+import "../styles/Map.css";
+import { UserLocation } from "./UserLocation";
+import filterI from "../assets/filter.svg";
 
-import { useState, useEffect } from "react";
-import { useMap, Marker, MapContainer, TileLayer } from "react-leaflet";
-import L from "leaflet";
+const filterIcon = L.icon({
+  iconUrl: filterI,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+})
+// todo add filter icon to filter control button
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
@@ -35,39 +41,6 @@ function MapPlaceholder() {
     </p>
   );
 }
-
-const icon = L.icon({
-  iconUrl: userIcon,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
-
-export const UserLocation = () => {
-  const [position, setPosition] = useState<L.LatLng | null>(null);
-  const [bbox, setBbox] = useState<string[]>([]);
-  const [locate, setLocate] = useState(false);
-  const map = useMap();
-
-  useEffect(() => {
-    if (locate) {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        setBbox(e.bounds.toBBoxString().split(","));
-      });
-    }
-  }, [locate, map]);
-
-  return (
-    <>
-      <button onClick={() => setLocate(true)}>My Location</button>
-      {position === null ? null : (
-        <Marker position={position} icon={icon}></Marker>
-      )}
-    </>
-  );
-};
 
 const Map = (Map: MapProps) => {
   const { zoom = defaults.zoom } = Map;
