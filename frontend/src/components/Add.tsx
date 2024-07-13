@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import "../styles/Add.css";
 import { AddLayerForm } from './AddLayerForm';
@@ -81,6 +81,17 @@ export const AddMenu = () => {
     }
     setRequireMarkerPlacement(true);
   };
+
+  // Update modal content when position changes
+  useEffect(() => {
+    if (modalContent) {
+      setModalContent(
+        modalContent.type === AddLayerForm
+          ? <AddLayerForm lat={position.lat} long={position.lng}/>
+          : <AddMessageForm lat={position.lat} long={position.lng}/>
+      );
+    }
+  }, [position]);
 
   return (
     <>
