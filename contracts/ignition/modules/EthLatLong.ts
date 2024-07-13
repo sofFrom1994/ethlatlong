@@ -5,9 +5,19 @@ const EthLatLongModule = buildModule("EthLatLongModule", (m) => {
   m.call(ell, "addLayer", [
     "layer 1", " just a layer", 83, 83
   ]);
+  m.call(ell, "addLayer", [
+    "layer 2", " just a layer", 85, 89
+  ], {id: "someotheridd"});
   m.call(ell, "addMessage", [
-    "layer 1", 85, 83, "this is a message"
-  ]);
+    "layer 1", 45, 83, "this "
+  ], { id: "anotherid"});
+  m.call(ell, "addMessage", [
+    "layer 1", 25, 83, "thisahfhddiahi"
+  ], { id: "anotherid2"});
+  m.call(ell, "addMessage", [
+    "layer 2", 25, 43, "tahdihfdiahhahidhfdfihiage"
+  ], { id: "anotherid223"});
+
 
   return { ell };
 });
