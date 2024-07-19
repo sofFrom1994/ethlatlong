@@ -5,6 +5,16 @@ import { AddLayerForm } from './AddLayerForm';
 import { AddMessageForm } from './AddMessageForm';
 import L, { LatLng } from 'leaflet';
 import { Marker, Popup, useMap } from "react-leaflet";
+import mapPlus from "../assets/map-plus.svg";
+
+//todo depending on kind of embed, use different add markers. 
+
+const addToMap = L.icon({
+  iconUrl: mapPlus,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -25,7 +35,9 @@ export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef,
       draggable={draggable}
       eventHandlers={eventHandlers}
       position={position}
-      ref={markerRef}>
+      ref={markerRef}
+      icon={addToMap}>
+      
       <Popup minWidth={90}>
         <span onClick={toggleDraggable}>
           {draggable
@@ -43,7 +55,6 @@ export const AddMenu = () => {
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
   const map = useMap();
 
-  // add marker
   const [draggable, setDraggable] = useState(true);
   const [position, setPosition] = useState<LatLng>(map.getCenter());
   const markerRef = useRef<L.Marker<any>>(null);
@@ -66,7 +77,6 @@ export const AddMenu = () => {
     setDraggable((d) => !d);
   }, []);
 
-  // menu handler
   const handleAction = (key: React.Key) => {
     const currentCenter = map.getCenter();
     if (key === "layer") {
