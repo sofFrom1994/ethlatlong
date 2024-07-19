@@ -22,13 +22,14 @@ contract EthLatLong {
     uint id;
     string name;
     string description;
-    // maybe owner / have a permissioned layer
     uint embedN;
     Embed[] embeds;
 
     SD59x18 lat;
     SD59x18 long;
     address author;
+
+    uint24 color; //0 to 0xFFFFFF
   }
 
   uint layerCount;
@@ -95,7 +96,7 @@ contract EthLatLong {
         return allEmbeds;
     }
   
-  function addLayer(string calldata name, string calldata description, SD59x18 lat, SD59x18 long) public validCoordinates(lat, long)  {
+  function addLayer(string calldata name, string calldata description, SD59x18 lat, SD59x18 long, uint24 color) public validCoordinates(lat, long)  {
       require(bytes(layers[name].name).length == 0, "Layer already exists");
   
       // Initialize the new layer
@@ -105,6 +106,7 @@ contract EthLatLong {
       newLayer.lat = lat;
       newLayer.long = long;
       newLayer.author = msg.sender;
+      newLayer.color = color;
       newLayer.id = layerCount;
 
       layerNames.push(name);

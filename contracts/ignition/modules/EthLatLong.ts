@@ -3,10 +3,10 @@ import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 const EthLatLongModule = buildModule("EthLatLongModule", (m) => {
   const ell = m.contract("EthLatLong");
   m.call(ell, "addLayer", [
-    "layer 1", " just a layer", 83, 83
+    "layer 1", " just a layer", 83, 83, 3128735 
   ]);
   m.call(ell, "addLayer", [
-    "layer 2", " just a layer", 85, 89
+    "layer 2", " just a layer", 85, 89, 3091359
   ], {id: "someotheridd"});
   m.call(ell, "addMessage", [
     "layer 1", 45, 83, "this "
