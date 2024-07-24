@@ -5,6 +5,7 @@ import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import { useWaitForTransactionReceipt, useWriteContract, type BaseError } from "wagmi";
 import { parseLatLong } from "../utils";
+import { Heading } from "react-aria-components";
 
 const abi = ethLatLongAbi;
 
@@ -28,7 +29,7 @@ export const AddLayerForm = ( latlong : { lat : number, long : number }) => {
       address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi,
       functionName: "addLayer",
-      args: [layerName, description, lat, long],
+      args: [layerName, description, lat, long, 0 ], // todo: replace 0 with color 
     });
   }
 
@@ -64,35 +65,50 @@ export const AddLayerForm = ( latlong : { lat : number, long : number }) => {
     value: latlong.long.toString() || "" // Set the initial value from props or empty string if not provided
   }, longRef);
 
-  const { buttonProps } = useButton({
-    isDisabled: isPending,
-    type: "submit",
-  }, buttonRef);
+  const { buttonProps } = useButton(
+    {
+      isDisabled: isPending,
+      type: "submit",
+    },
+    buttonRef
+  );
 
   return (
-    <form onSubmit={submit}>
-      <div>
-        <label htmlFor="layerName">Layer Name</label>
-        <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <input {...descriptionInputProps} ref={descriptionRef} id="description" />
-      </div>
-      <div>
-        <label htmlFor="lat">Latitude</label>
-        <input {...latInputProps} ref={latRef} id="lat" />
-      </div>
-      <div>
-        <label htmlFor="long">Longitude</label>
-        <input {...longInputProps} ref={longRef} id="long" />
-      </div>
-      <button {...buttonProps} ref={buttonRef}>{ isPending ? 'Confirming...' : 'Post' }</button>
-      {isConfirming && <div> Waiting for confirmation... </div>}
-      {isConfirmed && <div> Transaction confirmed. </div>}
-      {error && (
-        <div> Error: {(error as BaseError).shortMessage || error.message}</div>
-      )}
-    </form>
+    <>
+      <Heading>Add Layer</Heading>
+      <form onSubmit={submit}>
+        <div>
+          <label htmlFor="layerName">Layer Name</label>
+          <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
+        </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <input
+            {...descriptionInputProps}
+            ref={descriptionRef}
+            id="description"
+          />
+        </div>
+        <div>
+          <label htmlFor="lat">Latitude</label>
+          <input {...latInputProps} ref={latRef} id="lat" />
+        </div>
+        <div>
+          <label htmlFor="long">Longitude</label>
+          <input {...longInputProps} ref={longRef} id="long" />
+        </div>
+        <button {...buttonProps} ref={buttonRef}>
+          {isPending ? "Confirming..." : "Post"}
+        </button>
+        {isConfirming && <div> Waiting for confirmation... </div>}
+        {isConfirmed && <div> Transaction confirmed. </div>}
+        {error && (
+          <div>
+            {" "}
+            Error: {(error as BaseError).shortMessage || error.message}
+          </div>
+        )}
+      </form>
+    </>
   );
 }

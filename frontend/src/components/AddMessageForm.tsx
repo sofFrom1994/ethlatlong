@@ -6,6 +6,7 @@ import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import { BaseError, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseLatLong } from "../utils";
+import { Heading } from "react-aria-components";
 
 const abi = ethLatLongAbi;
 
@@ -46,6 +47,7 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
     label: "Message",
     placeholder: "hello world",
     name: "message",
+    inputElementType: 'textarea',
     isRequired: true,
   }, descriptionRef);
 
@@ -71,29 +73,43 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
   }, buttonRef);
 
   return (
-    <form onSubmit={submit}>
-      <div>
-        <label htmlFor="layerName">Layer Name</label>
-        <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
-      </div>
-      <div>
-        <label htmlFor="Message">Message</label>
-        <input {...descriptionInputProps} ref={descriptionRef} id="description" />
-      </div>
-      <div>
-        <label htmlFor="lat">Latitude</label>
-        <input {...latInputProps} ref={latRef} id="lat" />
-      </div>
-      <div>
-        <label htmlFor="long">Longitude</label>
-        <input {...longInputProps} ref={longRef} id="long" />
-      </div>
-      <button {...buttonProps} ref={buttonRef}>Post</button>
-       {isConfirming && <div> Waiting for confirmation... </div>}
-      {isConfirmed && <div> Transaction confirmed. </div>}
-      {error && (
-        <div> Error: {(error as BaseError).shortMessage || error.message}</div>
-      )}
-    </form>
+    <>
+      <Heading>Add Message</Heading>
+      <form onSubmit={submit}>
+        <div>
+          <label htmlFor="layerName">Choose a layer for the message</label>
+          <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
+        </div>
+        <div>
+          <label htmlFor="Message">Message</label>
+          <textarea
+            {...descriptionInputProps}
+            ref={descriptionRef}
+            id="description"
+            rows={3}
+            cols={20}
+          />
+        </div>
+        <div>
+          <label htmlFor="lat">Latitude</label>
+          <input {...latInputProps} ref={latRef} id="lat" />
+        </div>
+        <div>
+          <label htmlFor="long">Longitude</label>
+          <input {...longInputProps} ref={longRef} id="long" />
+        </div>
+        <button {...buttonProps} ref={buttonRef}>
+          Post
+        </button>
+        {isConfirming && <div> Waiting for confirmation... </div>}
+        {isConfirmed && <div> Transaction confirmed. </div>}
+        {error && (
+          <div>
+            {" "}
+            Error: {(error as BaseError).shortMessage || error.message}
+          </div>
+        )}
+      </form>
+    </>
   );
 }

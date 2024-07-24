@@ -21,7 +21,6 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
       <Modal isDismissable>
         <Dialog>
-          <Heading>Add</Heading>
           {children}
         </Dialog>
       </Modal>
