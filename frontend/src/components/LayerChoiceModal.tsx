@@ -6,7 +6,6 @@ import { LatLngExpression } from "leaflet";
 import L from "leaflet";
 
 import bubble from "../assets/bubble.svg";
-
 import media from "../assets/photo.svg";
 import farCastIcon from "../assets/purple-white.svg";
 
@@ -20,6 +19,8 @@ type embedType = {
     lat: bigint;
     long: bigint;
     author: `0x${string}`;
+    url: string;
+    description: string;
 }
 
 type layerType = {
@@ -27,7 +28,7 @@ type layerType = {
   name: string;
   description: string;
   embedN: bigint;
-  embeds: embedType[];
+  embeds: readonly embedType[];
   lat: bigint;
   long: bigint;
   author: `0x${string}`;
@@ -60,14 +61,19 @@ const farCast = L.icon({
 })
 
 export const LayerChoiceModal = () => {
-  const [layers, setLayers] = useState([]);
-  const [error, setError] = useState(null);
+  const [layers, setLayers] = useState<layerType[]>([]);
+  const [error, setError] = useState<Error | null>(null);
 
   // useReadContract within the component render flow
-  const { data, error: readError, refetch } = useReadContract({
+  const { data, error: readError } = useReadContract({
     abi,
     address: CONTRACT_ADDRESS,
     functionName: "getAllLayers",
+    blockTag: 'safe',
+    query: {
+      refetchInterval: 2000,
+      staleTime:3000,
+    }
   });
 
   console.log(layers);
@@ -76,14 +82,10 @@ export const LayerChoiceModal = () => {
     if (readError) {
       setError(readError);
     } else {
-      setLayers(data || []);
+      const uniqueLayers = data ? [...new Set(data)] : [];
+      setLayers(uniqueLayers);
     }
   }, [data, readError]);
-
-  useEffect(() => {
-    const interval = setInterval(refetch, 3000); // Poll every 10 seconds
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [refetch]);
 
   if (error) return <div>Error: {error.shortMessage || error.message}</div>;
 
@@ -138,7 +140,6 @@ const embedToMarker = (layer: layerType, embed : embedType) => {
     </div>
   );
 }
-
 
 const layerToLayerControlOverlay = (layer: layerType) => {
   return (
