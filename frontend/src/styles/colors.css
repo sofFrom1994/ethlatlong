@@ -29,8 +29,10 @@
   --rock-medium: #6E6E6E;
   --rock-light: #9E9E9E;
 
+  --blue-green-darkest: rgba(28, 88, 93, 0.8);
   --blue-green-dark: rgba(50, 144, 153, 0.8);
-  --blue-green-medium: rgba(32, 185, 172, 0.8);
+  /*--blue-green-medium: rgba(32, 185, 172, 0.8);*/
+  --blue-green-medium: rgba(14, 135, 125, 0.8);
 
   --dark-bg-color-5: rgb(25, 29, 36);
 
