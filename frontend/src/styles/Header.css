@@ -12,7 +12,11 @@
 }
 
 .header-content h1 {
-  font-size: 1.5rem;
+  font-weight: 500;
+  font-stretch: semi-expanded;
+  font-family: "Luminari";
+  color: var(--cloud-medium);
+  font-size: 2rem;
   line-height: 2.5rem;
   border-radius: 0.3rem;
   grid-column: 1;
