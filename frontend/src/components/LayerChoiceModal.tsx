@@ -13,26 +13,50 @@ import farCastIcon from "../assets/purple-white.svg";
 const abi = ethLatLongAbi;
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
+type embedType = {
+    id: bigint;
+    kind: number;
+    message: string;
+    lat: bigint;
+    long: bigint;
+    author: `0x${string}`;
+}
+
+type layerType = {
+  id: bigint;
+  name: string;
+  description: string;
+  embedN: bigint;
+  embeds: embedType[];
+  lat: bigint;
+  long: bigint;
+  author: `0x${string}`;
+  color: number;
+}
+
 //todo: change to location and add location to button too
 const messageIcon = L.icon({
   iconUrl: bubble,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+  popupAnchor: [1, -34]
+  //className: "markerColor"
 });
 
 const mediaIcon = L.icon({
   iconUrl: media,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+  popupAnchor: [1, -34]
+  //className: "markerColor"
 });
 
 const farCast = L.icon({
   iconUrl: farCastIcon,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+  popupAnchor: [1, -34]
+  //className: "markerColor"
 })
 
 export const LayerChoiceModal = () => {
@@ -72,28 +96,11 @@ export const LayerChoiceModal = () => {
   );
 };
 
-const embedToMarker = (layer: { id: bigint;
-  name: string;
-  description: string;
-  embedN: bigint;
-  embeds: {
-    id: bigint;
-    kind: number;
-    message: string;
-    lat: bigint;
-    long: bigint;
-    author: `0x${string}`;
-  }[];
-  lat: bigint;
-  long: bigint;
-  author: `0x${string}`;}, embed : {
-    id: bigint;
-    kind: number;
-    message: string;
-    lat: bigint;
-    long: bigint;
-    author: `0x${string}`;
-}) => {
+const nToColor = (nColor : number) => {
+  return nColor.toString(16);
+}
+
+const embedToMarker = (layer: layerType, embed : embedType) => {
   let embedIcon: L.Icon<L.IconOptions>;
   //
   if (embed.kind === 0) {
@@ -108,43 +115,32 @@ const embedToMarker = (layer: { id: bigint;
     embedIcon = messageIcon;
   }
 
+  const markerColor = nToColor(layer.color);
+
   return (
-    <Marker
-      key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
-      position={
-        [
-          Number(embed.lat) / 1e18,
-          Number(embed.long) / 1e18,
-        ] as LatLngExpression
-      }
-      icon={embedIcon}
-    >
-      <Popup>
-        {embed.message}
-        <br />
-        by {embed.author}
-      </Popup>
-    </Marker>
+    <div style={{color: markerColor}}>
+      <Marker
+        key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
+        position={
+          [
+            Number(embed.lat) / 1e18,
+            Number(embed.long) / 1e18,
+          ] as LatLngExpression
+        }
+        icon={embedIcon}
+      >
+        <Popup>
+          {embed.message}
+          <br />
+          by {embed.author}
+        </Popup>
+      </Marker>
+    </div>
   );
 }
 
-const layerToLayerControlOverlay = (layer: {
-  id: bigint;
-  name: string;
-  description: string;
-  embedN: bigint;
-  embeds: {
-    id: bigint;
-    kind: number;
-    message: string;
-    lat: bigint;
-    long: bigint;
-    author: `0x${string}`;
-  }[];
-  lat: bigint;
-  long: bigint;
-  author: `0x${string}`;
-}) => {
+
+const layerToLayerControlOverlay = (layer: layerType) => {
   return (
     <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
