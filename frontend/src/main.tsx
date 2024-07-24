@@ -13,6 +13,7 @@ import "leaflet-defaulticon-compatibility";
 
 import "./styles/index.css"
 import './styles/App.css'
+import "./styles/react-aria.css"
 
 import '@rainbow-me/rainbowkit/styles.css';
 import {
