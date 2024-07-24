@@ -82,11 +82,12 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
         </div>
         <div>
           <label htmlFor="Message">Message</label>
+          <br />
           <textarea
             {...descriptionInputProps}
             ref={descriptionRef}
             id="description"
-            rows={3}
+            rows={5}
             cols={20}
           />
         </div>
