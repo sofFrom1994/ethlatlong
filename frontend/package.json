@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "compile": "tsc",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "biome check .",
     "preview": "vite preview"
   },
