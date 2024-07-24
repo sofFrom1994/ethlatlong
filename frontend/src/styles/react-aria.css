@@ -301,7 +301,7 @@
 .react-aria-Popover {
   --background-color: var(--blue-green-medium);
   position: absolute;
-  opacity: 96%;
+  opacity: 0.99;
   z-index: 240000002;
 
   border: 0.1rem solid var(--border-color);
@@ -382,5 +382,37 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+.react-aria-Menu {
+  max-height: inherit;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 2px;
+  min-width: 150px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.react-aria-MenuItem {
+  margin: 2px;
+  padding: 0.286rem 0.571rem;
+  border-width: 0.1rem;
+  border-style: groove;
+  border-color: var(--blue-green-darkest);
+  border-radius: 0.5rem;
+  outline: none;
+  cursor: default;
+  color: var(--text-color);
+  font-size: 1.072rem;
+  position: relative;
+  display: grid;
+  align-items: center;
+  forced-color-adjust: none;
+
+  &[data-focused] {
+    background: var(--highlight-background);
+    color: var(--highlight-foreground);
   }
 }
