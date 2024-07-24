@@ -28,6 +28,7 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
   );
 }
 
+// todo: use the appropriate icon for each add
 export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
   return (
     <Marker

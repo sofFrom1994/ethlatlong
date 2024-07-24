@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Marker, useMap } from "react-leaflet";
-import locationIcon from "../assets/location.svg"
+import locationIcon from "../assets/location-outline.svg"
 import L from "leaflet";
 
 //todo: change to location and add location to button too
