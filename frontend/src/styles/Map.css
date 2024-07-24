@@ -45,3 +45,6 @@
 }
 
 .leaflet-bottom.leaflet-right { position: absolute; bottom: 4rem } 
+.leaflet-control-attribution {
+  position: absolute; top: 0.7rem;
+}
