@@ -9,14 +9,6 @@ import "../styles/Map.css";
 import { UserLocation } from "./UserLocation";
 import filterI from "../assets/filter.svg";
 
-const filterIcon = L.icon({
-  iconUrl: filterI,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-})
-// todo add filter icon to filter control button
-
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
@@ -42,6 +34,14 @@ function MapPlaceholder() {
   );
 }
 
+const Filter = () => {
+  return (
+    <p className="filter">
+        <img src={filterI} alt="" />Filter
+    </p>
+  );
+};
+
 const Map = (Map: MapProps) => {
   const { zoom = defaults.zoom } = Map;
   return (
@@ -62,7 +62,7 @@ const Map = (Map: MapProps) => {
       <div className="map-controls">
         <UserLocation />
         <AddMenu />
-        <p className="greyed-out"> Filter </p>
+        <Filter />
       </div>
     </MapContainer>
   );

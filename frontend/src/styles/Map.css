@@ -6,13 +6,13 @@
   z-index: 240000000;
   gap: 2rem;
   align-items: center;
-  font-size: 1.1em;
+  font-size: 1.2em;
   position: absolute;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.2fr 0.2fr 0.2fr;
+  grid-template-columns: 0.3fr 0.2fr 0.3fr;
   height: 3rem;
 }
 
@@ -30,10 +30,17 @@
   border-width: 0.12rem;
   border-color: var(--sky-light);
   justify-content: center;
+  max-width: 25rem;
 }
 
-.greyed-out {
-  opacity: 0.4
+.filter {
+  display: flex;
+  gap: 0.23rem;
+  opacity: 0.4;
+}
+
+.legend-symbol>img {
+  height: 1.12em;
 }
 
 .leaflet-bottom.leaflet-right { position: absolute; bottom: 4rem } 
