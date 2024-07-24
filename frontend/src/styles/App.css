@@ -22,7 +22,7 @@ main {
   height: 100%;
   display: grid;
   grid-template-rows: min-content 80svh;
-  grid-gap: 0.7rem;
+  grid-gap: 0.44rem;
 }
 
 @media (min-height: 800px) {
@@ -36,5 +36,6 @@ main {
     padding-inline: 1rem;
     padding-block: 0.9rem;
     grid-template-rows: auto 87dvh;
+    gap: 0.44rem;
   }
 }
