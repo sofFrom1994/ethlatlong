@@ -299,12 +299,13 @@
 /* footer popovers */
 
 .react-aria-Popover {
-  --background-color: rgba(0,0,0, 0.8);
+  --background-color: var(--blue-green-medium);
   position: absolute;
+  opacity: 96%;
   z-index: 240000002;
 
   border: 0.1rem solid var(--border-color);
-  box-shadow: 0 8px 20px rgba(0 0 0 / 0.1);
+  box-shadow: 0 8px 20px rgba(66, 144, 81, 0.1);
   border-radius: 0.4rem;
   background: var(--background-color);
   color: var(--text-color);
