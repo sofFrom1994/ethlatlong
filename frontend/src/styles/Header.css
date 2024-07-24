@@ -22,7 +22,7 @@
   padding-inline: 0.5rem;
   background-image: var(--full-gradient);
   border-style: groove;
-  border-width: 0.12rem;
+  border-width: 0.05rem;
   border-color: var(--sky-light);
 }
 

@@ -32,9 +32,9 @@
   --dark-bg-color-5: rgb(25, 29, 36);
 
   --full-gradient: linear-gradient(66deg,
-      var(--thunder-light) 0%,
-      var(--sky-medium) 15%,
-      var(--water-light) 40%,
-      var(--green-light) 60%,
-      var(--thunder-light) 100%);
+      var(--green-medium) 0%,
+      var(--green-light) 15%,
+      var(--water-medium) 40%,
+      var(--water-light) 60%,
+      var(--green-light) 100%);
 }
