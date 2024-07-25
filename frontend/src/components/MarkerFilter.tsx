@@ -19,19 +19,9 @@ const defaultMarkerFilter: markerFilter = {
 };
 
 const selectionToMarkerFilter = (
-  selection: string | string[] | Set<string>
+  selection: Set<string>
 ): markerFilter => {
   const filter: markerFilter = { ...defaultMarkerFilter };
-
-  if (typeof selection === "string") {
-    if (selection.includes(",")) {
-      selection = selection.split(",");
-    } else {
-      selection = [selection];
-    }
-  } else if (selection instanceof Set) {
-    selection = Array.from(selection);
-  }
 
   selection.forEach((item) => {
     switch (item) {
@@ -55,26 +45,16 @@ const selectionToMarkerFilter = (
   return filter;
 };
 
-// todo: use setFilters from map.
-// then, using filter on map pass it to layer choice to
-// only display markers of the right kind
-const Filter = (_filterSetter: any) => {
-  return (
-    <p className="filter">
-      <img src={filterI} alt="" />
-      Filter
-    </p>
-  );
-};
-
-export const FilterMenu = (filterSetter: any) => {
+export const FilterMenu = ({ filterSetter }: { filterSetter: (filter: markerFilter) => void }) => {
   let [selected, setSelected] = React.useState<Selection>(
-    new Set([])
+    new Set(["message"])
   );
 
   const handleSelectionChange = (newSelection: Selection) => {
-    setSelected(newSelection);
-    const filter = selectionToMarkerFilter(newSelection);
+    // Convert Selection to Set<string>
+    const stringSet = new Set<string>(Array.from(newSelection as Set<string>));
+    setSelected(stringSet);
+    const filter = selectionToMarkerFilter(stringSet);
     filterSetter(filter);
   };
 
