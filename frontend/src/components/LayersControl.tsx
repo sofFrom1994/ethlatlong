@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
-import { layerType } from './types';
+import { embedType, layerType, markerFilter } from './types';
 import { embedToMarker } from './EmbedMarker';
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const LayerChoiceModal = () => {
+export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
@@ -42,19 +42,32 @@ export const LayerChoiceModal = () => {
 
   return (
     <LayersControl>
-      {layers.map((layer) => layerToLayerControlOverlay(layer))}
+      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter))}
     </LayersControl>
   );
 };
 
-const layerToLayerControlOverlay = (layer: layerType) => {
+const embedFilter = (embed: embedType, filter: markerFilter) => {
+  if (embed.kind === 0) {
+    return filter.message;
+  } else if (embed.kind === 1) {
+    return filter.media;
+  } else {
+    return false;
+  }
+};
+
+const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter) => {
   console.log(layer);
+  console.log(filter);
   return (
     <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
-        {layer.embeds.map((embed) => (
-          embedToMarker(layer, embed)
-        ))}
+        {layer.embeds
+          .filter((embed) => {
+            return embedFilter(embed, filter);
+          })
+          .map((embed) => embedToMarker(layer, embed))}
       </LayerGroup>
     </LayersControl.Overlay>
   );

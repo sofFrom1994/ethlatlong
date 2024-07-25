@@ -63,7 +63,7 @@ const Map = (Map: MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayerChoiceModal />
+      <LayerChoiceModal filter={filter}/>
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
