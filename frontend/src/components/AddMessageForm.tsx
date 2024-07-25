@@ -9,6 +9,7 @@ import { parseLatLong } from "../utils";
 import { Heading } from "react-aria-components";
 
 const abi = ethLatLongAbi;
+const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
   const { writeContract, data: hash, isPending } = useWriteContract();
@@ -27,7 +28,7 @@ export const AddMessageForm = (latlong : { lat : number, long : number } ) => {
     const message = formData.get("message") as string;
 
     writeContract({
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: contract_address,
       abi,
       functionName: "addMessage",
       args: [layerName, lat, long, message],

@@ -8,6 +8,7 @@ import { parseLatLong } from "../utils";
 import { Heading } from "react-aria-components";
 
 const abi = ethLatLongAbi;
+const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const AddLayerForm = ( latlong : { lat : number, long : number }) => {
   const { data: hash, writeContract, isPending } = useWriteContract();
@@ -26,7 +27,7 @@ export const AddLayerForm = ( latlong : { lat : number, long : number }) => {
     const description = formData.get("description") as string;
 
     writeContract({
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: contract_address,
       abi,
       functionName: "addLayer",
       args: [layerName, description, lat, long, 0 ], // todo: replace 0 with color 
