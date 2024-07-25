@@ -1,4 +1,4 @@
-import L, { LatLngExpression, LatLngTuple } from "leaflet";
+import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
 import { AddMenu } from "./Add";
 import { MapContainer, TileLayer } from "react-leaflet";
@@ -7,6 +7,9 @@ import "../styles/Map.css";
 import { UserLocation } from "./UserLocation";
 import filterI from "../assets/filter.svg";
 import { LayerChoiceModal } from "./LayersControl";
+import { useState } from "react";
+import { markerFilter } from "./types";
+import { FilterMenu } from "./MarkerFilter";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
@@ -25,7 +28,17 @@ function MapPlaceholder() {
   );
 }
 
-const Filter = () => {
+const defaultFilter : markerFilter = {
+  message : true,
+  media : true,
+  path : false,
+  cast : false
+}
+
+// todo: use setFilters from map. 
+// then, using filter on map pass it to layer choice to
+// only display markers of the right kind
+const Filter = (_filterSetter: any) => {
   return (
     <p className="filter">
         <img src={filterI} alt="" />Filter
@@ -34,6 +47,8 @@ const Filter = () => {
 };
 
 const Map = (Map: MapProps) => {
+
+  const [filter, setFilter] = useState<markerFilter>(defaultFilter);
   const { zoom = defaults.zoom } = Map;
   return (
     <MapContainer
@@ -53,7 +68,7 @@ const Map = (Map: MapProps) => {
       <div className="map-controls">
         <UserLocation />
         <AddMenu />
-        <Filter />
+        <FilterMenu filterSetter={setFilter}/>
       </div>
     </MapContainer>
   );

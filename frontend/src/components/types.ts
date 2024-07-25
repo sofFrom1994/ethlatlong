@@ -29,3 +29,10 @@ export type layerType = {
   author: `0x${string}`;
   color: number;
 }
+
+export type markerFilter = {
+  message : boolean,
+  media : boolean,
+  path : boolean
+  cast : boolean
+}
