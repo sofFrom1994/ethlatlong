@@ -1,29 +1,20 @@
 import L, { LatLngExpression, LatLngTuple } from "leaflet";
-import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
-import { LayerChoiceModal } from "./LayerControl";
 import { AddMenu } from "./Add";
 import { MapContainer, TileLayer } from "react-leaflet";
 
 import "../styles/Map.css";
 import { UserLocation } from "./UserLocation";
 import filterI from "../assets/filter.svg";
+import { LayerChoiceModal } from "./LayersControl";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
-  layers?: [Layer];
 }
-
-const baseLayer: Layer = {
-  name: "baseLayer",
-  baseLocation: [0, 0],
-};
-
 const defaults: MapProps = {
   zoom: 12,
   posix: [0, 0],
-  layers: [baseLayer],
 };
 
 function MapPlaceholder() {
