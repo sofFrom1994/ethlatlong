@@ -5,12 +5,12 @@ import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
 import L from "leaflet";
 
-import bubble from "../assets/bubble.svg";
+import bubble from "../assets/bubble-outline.svg";
 import media from "../assets/photo.svg";
 import farCastIcon from "../assets/purple-white.svg";
 
 const abi = ethLatLongAbi;
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 type embedType = {
     id: bigint;
@@ -67,7 +67,7 @@ export const LayerChoiceModal = () => {
   // useReadContract within the component render flow
   const { data, error: readError } = useReadContract({
     abi,
-    address: CONTRACT_ADDRESS,
+    address: contract_address,
     functionName: "getAllLayers",
     blockTag: 'safe',
     query: {
