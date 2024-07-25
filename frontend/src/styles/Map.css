@@ -37,7 +37,7 @@
 .filter {
   display: flex;
   gap: 0.23rem;
-  opacity: 0.4;
+  /*opacity: 0.4;*/
 }
 
 .legend-symbol>img {

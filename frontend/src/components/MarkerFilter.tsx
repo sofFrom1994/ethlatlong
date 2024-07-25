@@ -1,22 +1,31 @@
-import React from 'react';
-import "../styles/Add.css";
+import React from "react";
+
+import {
+  Button,
+  Menu,
+  MenuItem,
+  MenuTrigger,
+  Popover,
+  type Selection,
+} from "react-aria-components";
+import { markerFilter } from "./types";
 import filterI from "../assets/filter.svg";
-import { Button, Menu, MenuItem, MenuTrigger, Popover, type Selection } from 'react-aria-components';
-import { markerFilter } from './types';
 
 const defaultMarkerFilter: markerFilter = {
   message: false,
   media: false,
   path: false,
-  cast: false
+  cast: false,
 };
 
-const selectionToMarkerFilter = (selection: string | string[] | Set<string>): markerFilter => {
+const selectionToMarkerFilter = (
+  selection: string | string[] | Set<string>
+): markerFilter => {
   const filter: markerFilter = { ...defaultMarkerFilter };
 
-  if (typeof selection === 'string') {
-    if (selection.includes(',')) {
-      selection = selection.split(',');
+  if (typeof selection === "string") {
+    if (selection.includes(",")) {
+      selection = selection.split(",");
     } else {
       selection = [selection];
     }
@@ -24,18 +33,18 @@ const selectionToMarkerFilter = (selection: string | string[] | Set<string>): ma
     selection = Array.from(selection);
   }
 
-  selection.forEach(item => {
+  selection.forEach((item) => {
     switch (item) {
-      case 'message':
+      case "message":
         filter.message = true;
         break;
-      case 'media':
+      case "media":
         filter.media = true;
         break;
-      case 'path':
+      case "path":
         filter.path = true;
         break;
-      case 'cast':
+      case "cast":
         filter.cast = true;
         break;
       default:
@@ -44,21 +53,24 @@ const selectionToMarkerFilter = (selection: string | string[] | Set<string>): ma
   });
 
   return filter;
-}
+};
 
-// todo: use setFilters from map. 
+// todo: use setFilters from map.
 // then, using filter on map pass it to layer choice to
 // only display markers of the right kind
 const Filter = (_filterSetter: any) => {
   return (
     <p className="filter">
-      <img src={filterI} alt="" />Filter
+      <img src={filterI} alt="" />
+      Filter
     </p>
   );
 };
 
 export const FilterMenu = (filterSetter: any) => {
-  let [selected, setSelected] = React.useState<Selection>(new Set(['sidebar', 'console']));
+  let [selected, setSelected] = React.useState<Selection>(
+    new Set([])
+  );
 
   const handleSelectionChange = (newSelection: Selection) => {
     setSelected(newSelection);
@@ -68,28 +80,28 @@ export const FilterMenu = (filterSetter: any) => {
 
   return (
     <MenuTrigger>
-
-    <Button aria-label="Filter Menu"> 
-    <p className="filter">
-      <img src={filterI} alt="" />Filter
-    </p>
-    </Button>
-    <Popover>
-      <Menu
-        selectionMode="multiple"
-        selectedKeys={selected}
-        onSelectionChange={handleSelectionChange}
-      >
-        <MenuItem id="message"> Message </MenuItem>
-        <MenuItem id="media"> Media </MenuItem>
-        <MenuItem isDisabled id="cast"> Cast</MenuItem>
-        <MenuItem isDisabled id="path"> Path </MenuItem>
-      </Menu>
-      <p>
-        Current selection (controlled):{' '}
-        {selected === 'all' ? 'all' : Array.from(selected).join(', ')}
-      </p>
-    </Popover>
+      <Button aria-label="Filter Menu">
+        <p className="filter">
+          <img src={filterI} alt="" />
+          Filter
+        </p>
+      </Button>
+      <Popover>
+        <Menu
+          selectionMode="multiple"
+          selectedKeys={selected}
+          onSelectionChange={handleSelectionChange}
+        >
+          <MenuItem id="message"> Message </MenuItem>
+          <MenuItem id="media"> Media </MenuItem>
+          <MenuItem isDisabled id="cast">
+            Cast
+          </MenuItem>
+          <MenuItem isDisabled id="path">
+            Path
+          </MenuItem>
+        </Menu>
+      </Popover>
     </MenuTrigger>
   );
-}
+};

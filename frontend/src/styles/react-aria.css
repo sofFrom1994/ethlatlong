@@ -416,3 +416,12 @@
     color: var(--highlight-foreground);
   }
 }
+
+.react-aria-MenuItem[role="menuitemcheckbox"][aria-checked="true"] {
+  background-color: var(--blue-green-light);
+  color: white;
+}
+
+.react-aria-MenuItem[role="menuitemcheckbox"][aria-disabled="true"] {
+  opacity: 0.4;
+}
