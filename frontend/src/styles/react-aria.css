@@ -241,7 +241,7 @@
   border: 1px solid var(--gray-400);
   outline: none;
   max-width: 300px;
-  background-color: skyblue;
+  background-color: var(--blue-green-medium);
   z-index: 2147483601;
 
   &[data-entering] {

@@ -1,7 +1,7 @@
 import L, { LatLngExpression, LatLngTuple } from "leaflet";
 import { Layer } from "./types";
 import { MinimapControl } from "./MinimapControl";
-import { LayerChoiceModal } from "./LayerChoiceModal";
+import { LayerChoiceModal } from "./LayerControl";
 import { AddMenu } from "./Add";
 import { MapContainer, TileLayer } from "react-leaflet";
 
