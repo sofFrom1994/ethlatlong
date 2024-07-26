@@ -11,10 +11,7 @@ import farCastIcon from "../assets/purple-white.svg";
 import { Color, embedType, layerType } from './types';
 
 const coloredIcon = (color: Color, svg: string) => {
-  console.log(svg);
   const htmlS = `<span style="color: ${color};">${svg}</span>`;
-  console.log("html : \n\n");
-  console.log(htmlS);
   return L.divIcon({
     iconUrl: svg,
     className: "emptyDummy",
@@ -38,29 +35,28 @@ const farCast = L.icon({
 
 
 const nToColor = (nColor : number) => {
-  return nColor.toString(16);
+  return nColor.toString(16) as Color;
 }
 
 export const embedToMarker = (layer: layerType, embed : embedType) => {
+  const markerColor = nToColor(layer.color);
   let embedIcon: L.Icon<L.IconOptions> | L.DivIcon ;
   //
   if (embed.kind === 0) {
-    //embedIcon = messageIcon;
-    embedIcon = messageDiv;
+    embedIcon = coloredIcon(markerColor, messageSVG);
   } else if (embed.kind === 1) {
-    console.log("path icon?");
-    embedIcon = messageDiv;
+    // todo: path icon
+    embedIcon = coloredIcon(markerColor, messageSVG);
   } else if (embed.kind === 2) {
     embedIcon = mediaIcon;
+    embedIcon = coloredIcon(markerColor, mediaSVG);
   } else {
-    console.log("unknown icon");
-    embedIcon = messageDiv;
+    // unknown marker
+    embedIcon = coloredIcon(markerColor, messageSVG);
   }
 
-  const markerColor = nToColor(layer.color);
-
   return (
-    <div style={{color: markerColor}}>
+    <div>
       <Marker
         key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
         position={
