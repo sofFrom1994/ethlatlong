@@ -34,6 +34,10 @@
   max-width: 25rem;
 }
 
+.react-aria-Heading {
+  padding-block: 0.6rem;
+}
+
 .filter {
   display: flex;
   gap: 0.23rem;

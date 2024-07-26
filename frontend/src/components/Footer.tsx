@@ -2,8 +2,8 @@ import { DialogTrigger, Button, Popover, OverlayArrow, Dialog, Heading } from "r
 import "../styles/Footer.css"
 import { ReactElement, ReactNode } from "react"
 
-import messageIcon from "../assets/bubble.svg"
-import mediaIcon from "../assets/photo.svg"
+import messageIcon from "../assets/message-outline.svg"
+import mediaIcon from "../assets/photo-outline.svg"
 import castIcon from "../assets/purple-white.svg"
 
 const infoPopover = (buttonLabel : string, title : string, content : ReactNode) => {
