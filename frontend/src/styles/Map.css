@@ -13,7 +13,7 @@
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.4fr 0.2fr 0.4fr;
+  grid-template-columns: 0.32fr 0.2fr 0.32fr;
   height: 3rem;
 }
 
@@ -26,7 +26,7 @@
   justify-self: center;
   justify-items: center;
   align-items: center;
-  border-radius: 0.3rem;
+  border-radius: 0.8rem;
   border-style: groove;
   border-width: 0.12rem;
   border-color: var(--sky-light);
