@@ -3,7 +3,7 @@ import { createConfig } from 'wagmi'
 
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { coinbaseWallet, injectedWallet, metaMaskWallet } from "@rainbow-me/rainbowkit/wallets"
-import { hardhat } from 'wagmi/chains';
+import { baseSepolia, hardhat } from 'wagmi/chains';
 
 const connectors = connectorsForWallets([
   {
@@ -22,9 +22,10 @@ const connectors = connectorsForWallets([
 export const config = createConfig(
   {
     connectors,
-    chains: [hardhat],
+    chains: [baseSepolia, hardhat],
     transports: {
-      [31_337]: http("http://127.0.0.1:8545/")
+      [31_337]: http("http://127.0.0.1:8545/"),
+      [baseSepolia.id] : http()
     }
   }
 );
