@@ -157,10 +157,63 @@ contract EthLatLong {
         layers[layerName].embeds.push(embed);
     }
 
-    // Function to remove metadata from a token
-    function removeMetadata(address erc721Address, uint256 tokenId) external {
-      // todo
+    /*
+
+function removeMedia(
+    string calldata layerName,
+    uint id
+) public {
+    Layer storage layer = layers[layerName];
+    // check if layer exists
+    require(bytes(layer.name).length != 0, "Layer does not exist");
+
+    // Find the index of the embed to remove
+    uint index = type(uint).max;
+    for (uint i = 0; i < layer.embeds.length; i++) {
+        if (layer.embeds[i].id == id) {
+            require(layer.embeds[i].kind == Kinds.Media, "Embed is not media");
+            require(layer.embeds[i].author == msg.sender, "Caller is not the author of the media");
+            index = i;
+            break;
+        }
     }
 
-    // function addPath ( description, Location[], layerName )
+    require(index != type(uint).max, "Media embed not found");
+
+    // Remove the embed by swapping it with the last element and popping
+    if (index < layer.embeds.length - 1) {
+        layer.embeds[index] = layer.embeds[layer.embeds.length - 1];
+    }
+    layer.embeds.pop();
+}
+
+function removeMessage(
+    string calldata layerName,
+    uint id
+) public {
+    Layer storage layer = layers[layerName];
+    // check if layer exists
+    require(bytes(layer.name).length != 0, "Layer does not exist");
+
+    // Find the index of the embed to remove
+    uint index = type(uint).max;
+    for (uint i = 0; i < layer.embeds.length; i++) {
+        if (layer.embeds[i].id == id) {
+            require(layer.embeds[i].kind == Kinds.Message, "Embed is not a message");
+            require(layer.embeds[i].author == msg.sender, "Caller is not the author of the message");
+            index = i;
+            break;
+        }
+    }
+
+    require(index != type(uint).max, "Message embed not found");
+
+    // Remove the embed by swapping it with the last element and popping
+    if (index < layer.embeds.length - 1) {
+        layer.embeds[index] = layer.embeds[layer.embeds.length - 1];
+    }
+    layer.embeds.pop();
+}
+*/
+
 }
