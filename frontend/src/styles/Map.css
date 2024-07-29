@@ -13,13 +13,12 @@
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.32fr 0.2fr 0.32fr;
+  grid-template-columns: 0.23fr 0.2fr 0.27fr;
   height: 3rem;
 }
 
 .map-controls>* {
   display: grid;
-  color: var(--cloud-medium);
   background-color: var(--green-light);
   height: 85%;
   width: 100%;

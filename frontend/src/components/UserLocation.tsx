@@ -29,7 +29,7 @@ export const UserLocation = () => {
 
   return (
     <>
-      <button style={{display: 'flex', gap: '0.3rem'}} onClick={() => setLocate(true)}><img src={locationIcon} />My Location</button>
+      <button style={{display: 'flex', gap: '0.3rem'}} onClick={() => setLocate(true)}><img src={locationIcon} /></button>
       {position === null ? null : (
         <Marker position={position} icon={icon}></Marker>
       )}
