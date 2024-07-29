@@ -1,5 +1,10 @@
 import type { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
+
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+
 //import "@nomicfoundation/hardhat-chai-matchers"
 
 const config: HardhatUserConfig = {
@@ -13,8 +18,15 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       chainId: 31337
-    }
-  }
+    },
+
+    "base-sepolia": {
+      url: 'https://sepolia.base.org',
+      accounts: [process.env.BASE_SEPOLIA_PRIVATE_KEY as string],
+      gasPrice: 1000000000,
+    },
+  },
+  defaultNetwork: "hardhat"
 };
 
 export default config;
