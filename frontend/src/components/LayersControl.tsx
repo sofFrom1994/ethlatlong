@@ -23,8 +23,6 @@ export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
     }
   });
 
-  console.log(layers);
-
   useEffect(() => {
     if (readError) {
       setError(readError);
@@ -37,8 +35,6 @@ export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
   if (error) return <div>Error: {error.shortMessage || error.message}</div>;
 
   if (!layers || layers.length === 0) return <div>No layers available</div>;
-
-  console.log(layers);
 
   return (
     <LayersControl>
@@ -58,8 +54,6 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
 };
 
 const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter) => {
-  console.log(layer);
-  console.log(filter);
   return (
     <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
       <LayerGroup>

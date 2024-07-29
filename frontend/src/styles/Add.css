@@ -4,6 +4,13 @@
   justify-self: center;
   background-color: var(--green-light);
   border-style: groove;
-  border-width: 0.22rem;
+  border-width: 0.12rem;
   border-color: var(--sky-light)
+}
+
+@media (min-width: 824px) {
+
+  .plus {
+    border-width: 0.22rem;
+  }
 }
