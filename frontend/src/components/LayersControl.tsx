@@ -32,9 +32,12 @@ export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
     }
   }, [data, readError]);
 
-  if (error) return <div>Error: {error.shortMessage || error.message}</div>;
+  if (error) {
+    console.log(error);
+    return <></>;
+  } 
 
-  if (!layers || layers.length === 0) return <div>No layers available</div>;
+  if (!layers || layers.length === 0) return <></>;
 
   return (
     <LayersControl>
