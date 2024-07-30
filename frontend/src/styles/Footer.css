@@ -6,7 +6,8 @@ footer {
   grid-template-columns: 0.3fr 0.333fr 0.333fr;
   height: 2.4rem;
   border-style: groove;
-  border-radius: 0.1rem;
+  border-width: 0.12rem;
+  border-radius: 0.3rem;
   border-color: var(--sky-light);
   grid-gap: 1rem;
   background-color: var(--water-medium);

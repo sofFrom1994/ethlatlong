@@ -20,18 +20,22 @@
 .map-controls>* {
   display: grid;
   background-color: var(--green-light);
-  height: 85%;
+  height: 92%;
   width: 100%;
   justify-content: center;
   justify-self: center;
   justify-items: center;
   align-items: center;
-  border-radius: 0.8rem;
+  border-radius: 0.91rem;
   border-style: groove;
   border-width: 0.12rem;
   border-color: var(--sky-light);
   justify-content: center;
   max-width: 25rem;
+}
+
+.map-wrapper {
+  border-radius: 0.71rem;
 }
 
 .react-aria-Heading {
