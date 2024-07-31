@@ -1,8 +1,19 @@
-import { fallback, http } from 'viem'
-import { createConfig } from 'wagmi'
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { http } from 'viem'
 
 import { baseSepolia, hardhat } from 'wagmi/chains';
-import { coinbaseWallet, injected, metaMask } from 'wagmi/connectors';
+/*
+export const config = createConfig(
+  {
+    connectors: [metaMask(metamaskOptions), injected(), coinbaseWallet()],
+    chains: [baseSepolia, hardhat],
+    transports: {
+      [baseSepolia.id] : http(),
+      [31_337]: http("http://127.0.0.1:8545/")
+    }
+  }
+);
+
 
 const metamaskOptions = {
   dappMetadata: {
@@ -32,3 +43,16 @@ declare module 'wagmi' {
     config: typeof config
   }
 }
+
+
+*/
+
+export const config = getDefaultConfig({
+  appName: "eth-lat-long",
+  projectId: "eth-lat-long",
+  chains: [baseSepolia, hardhat],
+  transports: {
+    [baseSepolia.id]: http(),
+    [31_337]: http("http://127.0.0.1:8545/")
+  }
+})
