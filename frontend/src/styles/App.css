@@ -34,7 +34,8 @@ main {
 @media (min-width: 824px) {
   main {
     padding-inline: 1rem;
-    padding-block: 0.9rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.7rem;
     grid-template-rows: auto 87dvh;
     gap: 0.44rem;
   }

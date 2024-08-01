@@ -11,7 +11,7 @@ import farCastIcon from "../assets/purple-white.svg";
 import { Color, embedType, layerType } from './types';
 
 const coloredIcon = (color: Color, svg: string) => {
-  const htmlS = `<span style="color: ${color};">${svg}</span>`;
+  const htmlS = `<span style="color: #${color};">${svg}</span>`;
   return L.divIcon({
     iconUrl: svg,
     className: "emptyDummy",
