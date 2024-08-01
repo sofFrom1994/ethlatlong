@@ -17,22 +17,28 @@ import "./styles/react-aria.css"
 
 import '@rainbow-me/rainbowkit/styles.css';
 import {
+  darkTheme,
+  lightTheme,
+  midnightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 
+const queryClient = new QueryClient();
 
-globalThis.Buffer = Buffer
-
-const queryClient = new QueryClient()
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider >
+        <RainbowKitProvider
+          modalSize="compact"
+          theme={{
+            lightMode: lightTheme(),
+            darkMode: darkTheme(),
+          }}
+        >
           <App />
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

@@ -39,3 +39,8 @@ main {
     gap: 0.44rem;
   }
 }
+
+wcm-modal {
+  position: absolute;
+  z-index: 2147483647;
+}
