@@ -62,7 +62,7 @@ export const FilterMenu = ({ filterSetter }: { filterSetter: (filter: markerFilt
     <MenuTrigger>
       <Button aria-label="Filter Menu">
         <p className="filter">
-          <img src={filterI} alt="" />
+          <img width="inherit" height="inherit" src={filterI} alt="filter content" />
           Filter
         </p>
       </Button>
