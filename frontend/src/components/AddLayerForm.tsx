@@ -103,7 +103,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
   return (
     <>
       <Heading>Add Layer</Heading>
-      <form onSubmit={submit}>
+      <form onSubmit={submit} style={{ overflow: "scroll"}}>
         <div>
           <label htmlFor="layerName">Layer Name</label>
           <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
@@ -127,8 +127,6 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
 
         <>
           <label id="hsb-label-id-1">
-            x: {color.getChannelName(xChannel, "en-US")}, y:{" "}
-            {color.getChannelName(yChannel, "en-US")}
           </label>
           <div
             style={{
@@ -184,8 +182,6 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
               </div>
             </div>
           </div>
-          <p>Current color value: {color.toString("hsba")}</p>
-          <p>End color value: {endColor.toString("hsba")}</p>
         </>
         <button {...buttonProps} ref={buttonRef}>
           {isPending ? "Confirming..." : "Post"}
