@@ -7,20 +7,20 @@
   gap: 0.36rem;
   align-items: center;
   font-size: 1.2em;
-  padding-inline: 0.4rem;
+  padding-inline: 1.4rem;
   position: absolute;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.23fr 0.2fr 0.27fr;
+  grid-template-columns: 0.24fr 0.2fr 0.24fr;
   height: 3rem;
 }
 
 .map-controls>* {
   display: grid;
   background-color: var(--green-light);
-  height: 92%;
+  height: 91%;
   width: 100%;
   justify-content: center;
   justify-self: center;
@@ -46,6 +46,7 @@
   display: flex;
   gap: 0.23rem;
   /*opacity: 0.4;*/
+
 }
 
 .legend-symbol>img {
