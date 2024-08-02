@@ -7,14 +7,14 @@
   gap: 0.36rem;
   align-items: center;
   font-size: 1.2em;
-  padding-inline: 1.4rem;
+  padding-inline: 0.5rem;
   position: absolute;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.24fr 0.2fr 0.24fr;
-  height: 3rem;
+  grid-template-columns: 0.23fr 0.2fr 0.27fr;
+  height: 2.6rem;
 }
 
 .map-controls>* {
