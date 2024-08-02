@@ -2,9 +2,11 @@
   border-radius: 1rem;
   padding-inline: 1rem;
   justify-self: center;
+  align-items: center;
+  align-content: center;
   background-color: var(--green-light);
   border-style: groove;
-  border-width: 0.12rem;
+  border-width: 0.11rem;
   border-color: var(--sky-light)
 }
 
