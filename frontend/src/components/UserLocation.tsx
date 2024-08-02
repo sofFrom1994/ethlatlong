@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { Marker, useMap } from "react-leaflet";
-import locationIcon from "../assets/location-outline.svg"
+import locationSVG from "../assets/location.svg?raw"
+import fixedLocationSVG from "../assets/location-outline-fixed.svg"
 import L from "leaflet";
+import { coloredIcon } from "../utils";
 
 //todo: change to location and add location to button too
-const icon = L.icon({
-  iconUrl: locationIcon,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
+const locationIcon = coloredIcon("1CA7EC", locationSVG)
 
 export const UserLocation = () => {
   const [position, setPosition] = useState<L.LatLng | null>(null);
@@ -30,9 +27,9 @@ export const UserLocation = () => {
 
   return (
     <>
-      <button style={{display: 'flex', gap: '0.3rem'}} onClick={() => setLocate(true)}><img src={locationIcon} /></button>
+      <button style={{display: 'flex', gap: '0.3rem'}} onClick={() => setLocate(true)}><img width="inherit;" height="inherit" alt="my location" src={fixedLocationSVG} /></button>
       {position === null ? null : (
-        <Marker position={position} icon={icon}></Marker>
+        <Marker position={position} icon={locationIcon}></Marker>
       )}
     </>
   );
