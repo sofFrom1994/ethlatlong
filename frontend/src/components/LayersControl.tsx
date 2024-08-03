@@ -58,7 +58,7 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
 
 const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter) => {
   return (
-    <LayersControl.Overlay name={layer.name} key={layer.id.toString()}>
+    <LayersControl.Overlay checked name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
         {layer.embeds
           .filter((embed) => {
