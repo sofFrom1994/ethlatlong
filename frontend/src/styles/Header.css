@@ -2,6 +2,7 @@
 
 .account-manager {
   justify-self: right;
+  z-index: 2147483647;
 }
 
 .header-content {
