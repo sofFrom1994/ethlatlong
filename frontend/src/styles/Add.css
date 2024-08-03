@@ -3,7 +3,9 @@
   padding-inline: 1rem;
   justify-self: center;
   align-items: center;
+  align-self: center;
   align-content: center;
+  justify-content: center;
   background-color: var(--green-light);
   border-style: groove;
   border-width: 0.11rem;
