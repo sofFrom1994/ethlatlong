@@ -113,11 +113,12 @@ export const UserTimeline = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const account = useAccount();
-  let content: ReactNode | undefined = undefined;
+  let content: ReactNode;
 
-  if (account.isConnected) {
-    content = <Timeline author={String(account.address)} />;
+  if (!account.isConnected) {
+    return null
   }
+  content = <Timeline author={String(account.address)} />;
 
   return (
     <>

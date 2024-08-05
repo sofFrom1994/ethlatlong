@@ -8,7 +8,7 @@
 .header-content {
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 1fr 0.18fr;
+  grid-template-columns: 1fr 1fr max-content;
 }
 
 .header-content h1 {
