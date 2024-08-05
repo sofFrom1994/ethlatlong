@@ -98,6 +98,7 @@ contract EthLatLong {
   
   function addLayer(string calldata name, string calldata description, SD59x18 lat, SD59x18 long, uint24 color) public validCoordinates(lat, long)  {
       require(bytes(layers[name].name).length == 0, "Layer already exists");
+      require(bytes(name).length > 0, "layer name cannot be empty");
   
       // Initialize the new layer
       Layer storage newLayer = layers[name];
@@ -157,7 +158,37 @@ contract EthLatLong {
         layers[layerName].embeds.push(embed);
     }
 
-    /*
+function removeMessage(
+    string calldata layerName,
+    uint id
+) public {
+    Layer storage layer = layers[layerName];
+    // check if layer exists
+    require(bytes(layer.name).length != 0, "Layer does not exist");
+
+    // Find the index of the embed to remove
+    uint index = type(uint).max;
+    for (uint i = 0; i < layer.embeds.length; i++) {
+        if (layer.embeds[i].id == id) {
+            require(layer.embeds[i].kind == Kinds.Message, "Embed is not a message");
+            require(layer.embeds[i].author == msg.sender, "Caller is not the author of the message");
+            index = i;
+            break;
+        }
+    }
+
+    require(index != type(uint).max, "Message embed not found");
+
+    // Remove the embed by swapping it with the last element and popping
+    if (index < layer.embeds.length - 1) {
+        layer.embeds[index] = layer.embeds[layer.embeds.length - 1];
+    }
+    layer.embeds.pop();
+}
+
+}
+
+   /*
 
 function removeMedia(
     string calldata layerName,
@@ -186,34 +217,4 @@ function removeMedia(
     }
     layer.embeds.pop();
 }
-
-function removeMessage(
-    string calldata layerName,
-    uint id
-) public {
-    Layer storage layer = layers[layerName];
-    // check if layer exists
-    require(bytes(layer.name).length != 0, "Layer does not exist");
-
-    // Find the index of the embed to remove
-    uint index = type(uint).max;
-    for (uint i = 0; i < layer.embeds.length; i++) {
-        if (layer.embeds[i].id == id) {
-            require(layer.embeds[i].kind == Kinds.Message, "Embed is not a message");
-            require(layer.embeds[i].author == msg.sender, "Caller is not the author of the message");
-            index = i;
-            break;
-        }
-    }
-
-    require(index != type(uint).max, "Message embed not found");
-
-    // Remove the embed by swapping it with the last element and popping
-    if (index < layer.embeds.length - 1) {
-        layer.embeds[index] = layer.embeds[layer.embeds.length - 1];
-    }
-    layer.embeds.pop();
-}
 */
-
-}
