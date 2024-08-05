@@ -5,6 +5,11 @@
   z-index: 2147483547;
 }
 
+.account-manager svg {
+  display: none;
+}
+
+
 .header-content {
   display: grid;
   align-items: center;
@@ -15,6 +20,7 @@
   font-weight: 400;
   font-stretch: semi-expanded;
   font-family: "Luminari";
+  white-space: nowrap;
   color: var(--cloud-medium);
   font-size: 2rem;
   line-height: 3rem;
