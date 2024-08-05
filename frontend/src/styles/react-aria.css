@@ -224,7 +224,6 @@
   justify-content: center;
   border-color: skyblue;
   z-index: 2147483600;
-  opacity: 0.94;
 
   &[data-entering] {
     animation: modal-fade 200ms;
@@ -237,12 +236,12 @@
 
 .react-aria-Modal {
   box-shadow: 0 8px 20px rgba(0 0 0 / 0.1);
-  border-radius: 6px;
+  border-radius: 0.85rem;
   background: var(--overlay-background);
   color: var(--text-color);
   border: 1px solid var(--gray-400);
   outline: none;
-  max-width: 300px;
+  max-width: 92vw;
   background-color: var(--blue-green-medium);
   z-index: 2147483601;
   overflow: scroll;
@@ -304,7 +303,6 @@
 .react-aria-Popover {
   --background-color: var(--blue-green-medium);
   position: absolute;
-  opacity: 0.99;
   z-index: 240000002;
 
   border: 0.1rem solid var(--border-color);
