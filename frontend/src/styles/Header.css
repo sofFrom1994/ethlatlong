@@ -2,14 +2,13 @@
 
 .account-manager {
   justify-self: right;
-  z-index: 2147483647;
+  z-index: 2147483547;
 }
 
 .header-content {
   display: grid;
   align-items: center;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 0.18fr;
 }
 
 .header-content h1 {

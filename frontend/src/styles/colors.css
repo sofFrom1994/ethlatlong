@@ -1,4 +1,7 @@
 :root {
+  /* base colors */
+  --base-blue: #0052FF;
+
   /* Sky Colors */
   --sky-dark: #1A3A5F;
   --sky-medium: #305880;
