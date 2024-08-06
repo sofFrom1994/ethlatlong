@@ -50,6 +50,7 @@ export function ColorSlider(props) {
           height: TRACK_THICKNESS,
           width: '100%',
           borderRadius: 4,
+          marginTop: '0.25rem',
           background: isDisabled
             ? 'rgb(142, 142, 142)'
             : trackProps.style.background
@@ -60,12 +61,12 @@ export function ColorSlider(props) {
           style={{
             ...thumbProps.style,
             top: TRACK_THICKNESS / 2,
+            opacity: 0.6,
             background: isDisabled
               ? 'rgb(142, 142, 142)'
               : state.getDisplayColor().toString('css'),
             border: `2px solid ${isDisabled ? 'rgb(142, 142, 142)' : 'white'}`,
             boxShadow: '0 0 0 1px black, inset 0 0 0 1px black',
-            overflow: "scroll",
             width: isFocusVisible ? TRACK_THICKNESS + 4 : THUMB_SIZE,
             height: isFocusVisible ? TRACK_THICKNESS + 4 : THUMB_SIZE,
             borderRadius: '50%',
