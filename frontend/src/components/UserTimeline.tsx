@@ -120,7 +120,7 @@ export const UserTimeline = (props: {account : UseAccountReturnType<Config> }) =
 
   return (
     <>
-      <Button style={{ borderRadius: "0.9rem", borderColor: "#4A78A0",  width: "fit-content" }} onPress={() => setIsModalOpen(true)}>
+      <Button style={{ borderRadius: "0.9rem", borderColor: "#06B4A5CC"   }} onPress={() => setIsModalOpen(true)}>
         <span>
           <img
             width="inherit"
