@@ -38,25 +38,19 @@
 
 .react-aria-Dialog {
   outline: none;
-  padding: 1.5rem;
+  align-self: top;
+  padding: 1rem;
   max-height: 70svh;
   box-sizing: border-box;
   overflow: scroll;
 
   .react-aria-Heading[slot=title] {
     line-height: 1em;
-    margin-top: 0;
   }
 }
 
 .react-aria-Dialog form > * {
-  padding-block: 0.5rem;
-}
-
-.react-aria-Form {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  padding-block: 0.2rem;
 }
 
 .react-aria-Dialog button {
@@ -64,30 +58,9 @@
   background-color: var(--water-light);
   border-width: 0.1rem;
   border-radius: 0.7rem;
+  margin-top: 0.5rem;
   width: 100%;
   line-height: 2rem;
-}
-
-.react-aria-Form [role=alert] {
-  border: 2px solid var(--invalid-color);
-  background: var(--overlay-background);
-  border-radius: 6px;
-  padding: 12px;
-  max-width: 250px;
-  outline: none;
-
-  &:focus-visible {
-    outline: 2px solid var(--focus-ring-color);
-    outline-offset: 2px;
-  }
-
-  h3 {
-    margin-top: 0;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
 }
 
 
@@ -188,7 +161,7 @@
     padding: 0.286rem;
     margin: 0;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 1rem;
     background: var(--field-background);
     font-size: 1.143rem;
     color: var(--field-text-color);
@@ -256,14 +229,9 @@
   max-width: 92vw;
   background-color: var(--blue-green-medium);
   z-index: 2147483601;
-  overflow: scroll;
 
   &[data-entering] {
     animation: modal-zoom 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .react-aria-TextField {
-    margin-bottom: 8px;
   }
 }
 

@@ -101,7 +101,7 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
 
   return (
     <>
-      <Heading>Add Message</Heading>
+      <h3>Add Message</h3>
       <form onSubmit={submit}>
         <div>
           <label htmlFor="layerName">Choose a layer: </label>
@@ -120,16 +120,13 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
           />
         </div>
         <div>
-          <label htmlFor="lat">Latitude: </label>
-          <br />
+          <label htmlFor="lat">Latitude: &nbsp; &nbsp;</label>
           <input {...latInputProps} ref={latRef} id="lat" />
         </div>
         <div>
           <label htmlFor="long">Longitude: </label>
-          <br />
           <input {...longInputProps} ref={longRef} id="long" />
         </div>
-        <br />
         <button {...buttonProps} ref={buttonRef}>
           Post
         </button>

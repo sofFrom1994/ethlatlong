@@ -102,7 +102,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
 
   return (
     <>
-      <Heading>Add Layer</Heading>
+      <h3 style={{paddingBottom: "0"}}>Add Layer</h3>
       <form onSubmit={submit} style={{ overflow: "scroll" }}>
         <div>
           <label htmlFor="layerName">Layer Name: </label>
