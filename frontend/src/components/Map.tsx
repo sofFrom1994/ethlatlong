@@ -8,16 +8,13 @@ import { UserLocation } from "./UserLocation";
 import { LayerChoiceModal } from "./LayersControl";
 import { markerFilter } from "./types";
 import { FilterMenu } from "./MarkerFilter";
+import { Config, UseAccountReturnType } from "wagmi";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
+  account : UseAccountReturnType<Config>;
 }
-
-const defaults: MapProps = {
-  zoom: 4,
-  posix: [0, 0],
-};
 
 function MapPlaceholder() {
   return (
@@ -34,7 +31,7 @@ const defaultFilter: markerFilter = {
   cast: false,
 };
 
-const Map = ({ posix = defaults.posix, zoom = defaults.zoom }: MapProps) => {
+const Map = ({ posix = [0,0], zoom = 4, account}: MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
 
   return (
@@ -50,7 +47,7 @@ const Map = ({ posix = defaults.posix, zoom = defaults.zoom }: MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayerChoiceModal filter={filter} />
+      <LayerChoiceModal filter={filter} account={account} />
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />

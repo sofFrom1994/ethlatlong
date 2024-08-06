@@ -1,8 +1,9 @@
 import "../styles/Header.css"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { UserTimeline } from "./UserTimeline";
+import { Config, UseAccountReturnType } from "wagmi";
 
-export const Header = () => {
+export const Header = (props: {account : UseAccountReturnType<Config> }) => {
   return (
     <header>
       <div className="header-content">
@@ -20,7 +21,7 @@ export const Header = () => {
             }}
           />
         </div>
-          <UserTimeline />
+          <UserTimeline account={props.account}/>
       </div>
     </header>
   );

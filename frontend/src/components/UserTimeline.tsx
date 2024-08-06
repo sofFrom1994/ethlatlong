@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Button, Dialog, DialogTrigger, ListBox, ListBoxItem, Modal } from "react-aria-components";
-import { useAccount, useReadContract } from "wagmi";
+import { Config, useAccount, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { embedType, layerType } from "./types";
 import { LoadingSpinner } from "./Loading";
@@ -109,16 +109,14 @@ const layerToPost = (layer: layerType, author: string) => {
 }
   
 
-export const UserTimeline = () => {
+export const UserTimeline = (props: {account : UseAccountReturnType<Config> }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const account = useAccount();
   let content: ReactNode;
-
-  if (!account.isConnected) {
+  if (!props.account.isConnected) {
     return null
   }
-  content = <Timeline author={String(account.address)} />;
+  content = <Timeline author={String(props.account.address)} />;
 
   return (
     <>

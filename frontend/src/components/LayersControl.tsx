@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useReadContract } from "wagmi";
+import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { embedType, layerType, markerFilter } from './types';
@@ -7,7 +7,7 @@ import { embedToMarker } from './EmbedMarker';
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
+export const LayerChoiceModal = (props : { filter : markerFilter, account : UseAccountReturnType<Config>} ) => {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
@@ -41,7 +41,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter} ) => {
 
   return (
     <LayersControl>
-      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter))}
+      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account))}
     </LayersControl>
   );
 };
@@ -56,7 +56,7 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
   }
 };
 
-const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter) => {
+const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>) => {
   return (
     <LayersControl.Overlay checked name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
@@ -64,7 +64,7 @@ const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter) => {
           .filter((embed) => {
             return embedFilter(embed, filter);
           })
-          .map((embed) => embedToMarker(layer, embed))}
+          .map((embed) => embedToMarker(layer, embed, account))}
       </LayerGroup>
     </LayersControl.Overlay>
   );
