@@ -39,9 +39,9 @@
 .react-aria-Dialog {
   outline: none;
   padding: 2.2rem;
-  max-height: inherit;
+  max-height: 80%;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: scroll;
 
   .react-aria-Heading[slot=title] {
     line-height: 1em;
@@ -63,6 +63,7 @@
   /*background-color: var(--green-medium);*/
   background-color: var(--water-light);
   border-width: 0.1rem;
+  border-radius: 0.7rem;
   width: 100%;
   line-height: 2rem;
 }
