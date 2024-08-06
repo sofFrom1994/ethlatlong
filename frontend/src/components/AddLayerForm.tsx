@@ -102,8 +102,8 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
 
   return (
     <>
-      <h3 style={{paddingBottom: "0"}}>Add Layer</h3>
-      <form onSubmit={submit} style={{ overflow: "scroll" }}>
+      <h3>Add Layer</h3>
+      <form onSubmit={submit}>
         <div>
           <label htmlFor="layerName">Layer Name: </label>
           <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
@@ -127,13 +127,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
         <>
           <label id="hsb-label-id-1">Color: </label>
           <div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-              }}
-            >
+            <div>
               <ColorArea
                 aria-labelledby="hsb-label-id-1"
                 value={color}

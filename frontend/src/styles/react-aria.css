@@ -42,7 +42,7 @@
   padding: 1rem;
   max-height: 70svh;
   box-sizing: border-box;
-  overflow: scroll;
+  overflow: auto;
 
   .react-aria-Heading[slot=title] {
     line-height: 1em;
