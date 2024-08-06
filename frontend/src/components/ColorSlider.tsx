@@ -38,9 +38,7 @@ export function ColorSlider(props) {
     >
       {/* Create a flex container for the label and output element. */}
       <div style={{ display: 'flex', alignSelf: 'start', gap: "1rem" }}>
-        <label {...labelProps}>{label}</label>
         <output {...outputProps} style={{ flex: '1 0 auto', textAlign: 'end' }}>
-          {state.value.formatChannelValue(props.channel, locale)}
         </output>
       </div>
       {/* The track element holds the visible track line and the thumb. */}
@@ -50,7 +48,7 @@ export function ColorSlider(props) {
         style={{
           ...trackProps.style,
           height: TRACK_THICKNESS,
-          width: '80%',
+          width: '100%',
           borderRadius: 4,
           background: isDisabled
             ? 'rgb(142, 142, 142)'

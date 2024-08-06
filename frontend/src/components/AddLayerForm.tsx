@@ -9,7 +9,7 @@ import {
   type BaseError,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { ColorSwatch, Heading, parseColor } from "react-aria-components";
+import { Heading, parseColor } from "react-aria-components";
 import { ColorArea } from "./ColorArea";
 import { ColorSlider } from "./ColorSlider";
 
@@ -40,7 +40,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
       address: contract_address,
       abi,
       functionName: "addLayer",
-      args: [layerName, description, lat, long, color.toHexInt()]
+      args: [layerName, description, lat, long, color.toHexInt()],
     });
   }
 
@@ -103,13 +103,13 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
   return (
     <>
       <Heading>Add Layer</Heading>
-      <form onSubmit={submit} style={{ overflow: "scroll"}}>
+      <form onSubmit={submit} style={{ overflow: "scroll" }}>
         <div>
-          <label htmlFor="layerName">Layer Name</label>
+          <label htmlFor="layerName">Layer Name: </label>
           <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
         </div>
         <div>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Description: &nbsp;</label>
           <input
             {...descriptionInputProps}
             ref={descriptionRef}
@@ -117,24 +117,16 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
           />
         </div>
         <div>
-          <label htmlFor="lat">Latitude</label>
+          <label htmlFor="lat">Latitude: &nbsp;&nbsp;&nbsp;</label>
           <input {...latInputProps} ref={latRef} id="lat" />
         </div>
         <div>
-          <label htmlFor="long">Longitude</label>
+          <label htmlFor="long">Longitude: </label>
           <input {...longInputProps} ref={longRef} id="long" />
         </div>
-
         <>
-          <label id="hsb-label-id-1">
-          </label>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "1rem",
-            }}
-          >
+          <label id="hsb-label-id-1">Color: </label>
+          <div>
             <div
               style={{
                 display: "flex",
@@ -156,30 +148,6 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
                 onChange={setColor}
                 onChangeEnd={setEndColor}
               />
-
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "6px",
-                }}
-              >
-
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "6px",
-                }}
-              >
-              </div>
             </div>
           </div>
         </>

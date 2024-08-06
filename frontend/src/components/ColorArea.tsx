@@ -3,7 +3,7 @@ import {useColorAreaState} from '@react-stately/color';
 import {useFocusRing} from '@react-aria/focus';
 import { useRef } from 'react';
 
-const SIZE = 192;
+const SIZE = 292;
 const FOCUSED_THUMB_SIZE = 28;
 const THUMB_SIZE = 20;
 const BORDER_RADIUS = 4;
