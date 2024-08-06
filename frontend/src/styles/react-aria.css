@@ -39,7 +39,7 @@
 .react-aria-Dialog {
   outline: none;
   padding: 2.2rem;
-  height: 80svh;
+  max-height: 80svh;
   box-sizing: border-box;
   overflow: scroll;
 
