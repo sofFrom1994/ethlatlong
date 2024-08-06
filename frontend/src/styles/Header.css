@@ -3,6 +3,8 @@
 .account-manager {
   justify-self: right;
   z-index: 2147483547;
+  border-right:solid var(--blue-green-light) 0.12rem;
+  padding-right: 0.4rem;
 }
 
 @media (prefers-color-scheme: light) {
