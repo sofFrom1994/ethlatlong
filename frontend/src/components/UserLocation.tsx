@@ -27,7 +27,7 @@ export const UserLocation = () => {
 
   return (
     <>
-      <button style={{display: 'flex', gap: '0.3rem'}} onClick={() => setLocate(true)}><img width="inherit;" height="inherit" alt="my location" src={fixedLocationSVG} /></button>
+      <button onClick={() => setLocate(true)}><img width="inherit;" height="inherit" alt="my location" src={fixedLocationSVG} /></button>
       {position === null ? null : (
         <Marker position={position} icon={locationIcon}></Marker>
       )}

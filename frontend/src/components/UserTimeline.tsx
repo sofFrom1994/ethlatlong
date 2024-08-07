@@ -132,7 +132,7 @@ export const UserTimeline = (props: {account : UseAccountReturnType<Config> }) =
       </Button>
       {content && (
         <DialogTrigger isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
-          <Modal style={{ height: "80%", width: "80svh" }} isDismissable>
+          <Modal style={{width: "84svw"}}isDismissable>
             <Dialog>{content}</Dialog>
           </Modal>
         </DialogTrigger>
