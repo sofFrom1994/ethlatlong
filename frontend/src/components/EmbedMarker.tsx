@@ -4,33 +4,49 @@ import L from "leaflet";
 
 import messageSVG from "../assets/message-outline.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
-import { Color, embedType, layerType } from './types';
-import { coloredIcon } from '../utils';
+import { Color, embedType, layerType } from "./types";
+import { coloredIcon } from "../utils";
 import { Config, UseAccountReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
+
+import {
+  BaseError,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const nToColor = (nColor : number) => {
+const nToColor = (nColor: number) => {
   return nColor.toString(16) as Color;
-}
+};
 
-export const embedToMarker = (layer: layerType, embed : embedType,  account: UseAccountReturnType<Config> ) => {
+export const embedToMarker = (
+  layer: layerType,
+  embed: embedType,
+  account: UseAccountReturnType<Config>
+) => {
   const markerColor = nToColor(layer.color);
+  const { writeContract, data: hash, isPending } = useWriteContract();
+
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    error,
+  } = useWaitForTransactionReceipt({ hash });
+
   const deleteMarker = () => {
     console.log("removing message...");
-    /*
     writeContract({
       address: contract_address,
       abi,
       functionName: "removeMessage",
       args: [layer.name, embed.id],
     });
-    */
-  }
+  };
 
-  let embedIcon: L.Icon<L.IconOptions> | L.DivIcon ;
+  let embedIcon: L.Icon<L.IconOptions> | L.DivIcon;
   //
   if (embed.kind === 0) {
     embedIcon = coloredIcon(markerColor, messageSVG);
@@ -50,13 +66,7 @@ export const embedToMarker = (layer: layerType, embed : embedType,  account: Use
     if (String(account.address) === embed.author) {
       console.log("same author");
       deleteButton = () => {
-        return (
-          <button
-            onClick={() => deleteMarker()}
-          >
-            Delete
-          </button>
-        );
+        return <button disabled={isPending} onClick={() => deleteMarker()}>Delete</button>;
       };
     }
   }
@@ -81,8 +91,21 @@ export const embedToMarker = (layer: layerType, embed : embedType,  account: Use
             {embed.author}
           </div>
           {deleteButton && deleteButton()}
+          {isConfirming && <div> Waiting for confirmation... </div>}
+          {isConfirmed && (
+            <div>
+              {" "}
+              Transaction confirmed. Message should stop appearing soon.
+            </div>
+          )}
+          {error && (
+            <div>
+              {" "}
+              Error: {(error as BaseError).shortMessage || error.message}
+            </div>
+          )}
         </Popup>
       </Marker>
     </div>
   );
-}
+};

@@ -211,10 +211,10 @@ export const ethLatLongAbi = [
   {
     type: 'function',
     inputs: [
-      { name: 'erc721Address', internalType: 'address', type: 'address' },
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'layerName', internalType: 'string', type: 'string' },
+      { name: 'id', internalType: 'uint256', type: 'uint256' },
     ],
-    name: 'removeMetadata',
+    name: 'removeMessage',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -306,12 +306,12 @@ export const useWriteEthLatLongAddMessage =
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMetadata"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMessage"`
  */
-export const useWriteEthLatLongRemoveMetadata =
+export const useWriteEthLatLongRemoveMessage =
   /*#__PURE__*/ createUseWriteContract({
     abi: ethLatLongAbi,
-    functionName: 'removeMetadata',
+    functionName: 'removeMessage',
   })
 
 /**
@@ -349,12 +349,12 @@ export const useSimulateEthLatLongAddMessage =
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMetadata"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMessage"`
  */
-export const useSimulateEthLatLongRemoveMetadata =
+export const useSimulateEthLatLongRemoveMessage =
   /*#__PURE__*/ createUseSimulateContract({
     abi: ethLatLongAbi,
-    functionName: 'removeMetadata',
+    functionName: 'removeMessage',
   })
 
 /**

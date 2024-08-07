@@ -49,6 +49,7 @@ contract EthLatLong {
     }
   
   function getLayer( string memory name) public view returns (Layer memory) {
+    require(bytes(name).length > 0, "layer name cannot be empty");
     Layer memory layer = layers[name];
     // check if layer exists
     require(bytes(layer.name).length != 0);
@@ -56,6 +57,7 @@ contract EthLatLong {
   }
 
   function getEmbeds(string calldata layerName) public view returns (Embed[] memory embeds) {
+    require(bytes(layerName).length > 0, "layer name cannot be empty");
     Layer memory layer = layers[layerName];
       // check if layer exists
     require(bytes(layer.name).length != 0);
@@ -123,6 +125,7 @@ contract EthLatLong {
       SD59x18 long,
       string calldata message
   ) public validCoordinates(lat, long) {
+      require(bytes(layerName).length > 0, "layer name cannot be empty");
       Layer memory layer = layers[layerName];
       // check if layer exists
       require(bytes(layer.name).length != 0);
@@ -162,6 +165,7 @@ function removeMessage(
     string calldata layerName,
     uint id
 ) public {
+    require(bytes(layerName).length > 0, "layer name cannot be empty");
     Layer storage layer = layers[layerName];
     // check if layer exists
     require(bytes(layer.name).length != 0, "Layer does not exist");

@@ -80,6 +80,10 @@
   border-color: var(--sky-light);
 }
 
+.leaflet-popup-content button:disabled {
+  opacity: 0.6;
+}
+
 .leaflet-control-layers-expanded {
   opacity: 0.87;
 }
