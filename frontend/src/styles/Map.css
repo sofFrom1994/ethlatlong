@@ -36,17 +36,13 @@
 
 .map-wrapper {
   border-radius: 0.71rem;
-}
-
-.react-aria-Heading {
-  padding-block: 0.6rem;
+  height: 100%;
+  width: 100%;
 }
 
 .filter {
   display: flex;
   gap: 0.23rem;
-  /*opacity: 0.4;*/
-
 }
 
 .legend-symbol>img {
@@ -56,4 +52,38 @@
 .leaflet-bottom.leaflet-right { position: absolute; bottom: 4rem } 
 .leaflet-control-attribution {
   position: absolute; top: 0.7rem;
+}
+
+.leaflet-content-wrapper {
+}
+
+.leaflet-popup-content {
+  text-wrap: balance;
+  overflow: scroll;
+  padding-inline: 0.5rem;
+  padding-bottom: 0.6rem;
+  margin-inline: 0.4rem !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.leaflet-popup-content button {
+  padding: 0.4rem;
+  background-color: var(--red-medium-light);
+  border-width: 0.12rem;
+  margin: auto;
+  width: 8rem;
+  color:rgba(255, 255, 255)!important;
+  border-radius: 0.2rem;
+  border-style: groove;
+  border-color: var(--sky-light);
+}
+
+.leaflet-control-layers-expanded {
+  opacity: 0.87;
+}
+
+.leaflet-control-layers-expanded {
+  opacity: 0.87;
 }

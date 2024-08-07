@@ -12,6 +12,12 @@
   --cloud-medium: #B0B0B0;
   --cloud-light: #E0E0E0;
 
+  --red-light: #ff5353;
+  --red-medium-light: #d01313;
+  --red-medium: #a61414;
+  --red-medium-dark: #810000;
+  --red-dark: #570000;
+
   /* Thunder Colors */
   --thunder-dark: #805500;
   --thunder-medium: #BF8000;

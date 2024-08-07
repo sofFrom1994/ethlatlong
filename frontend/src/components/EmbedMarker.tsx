@@ -52,7 +52,6 @@ export const embedToMarker = (layer: layerType, embed : embedType,  account: Use
       deleteButton = () => {
         return (
           <button
-            style={{ backgroundColor: "red" }}
             onClick={() => deleteMarker()}
           >
             Delete
@@ -74,10 +73,14 @@ export const embedToMarker = (layer: layerType, embed : embedType,  account: Use
         icon={embedIcon}
       >
         <Popup>
-          {embed.message}
-          <br />
-          by {embed.author}
-        {deleteButton && deleteButton()}
+          <div>
+            {embed.message}
+            <br />
+            by
+            <br />
+            {embed.author}
+          </div>
+          {deleteButton && deleteButton()}
         </Popup>
       </Marker>
     </div>
