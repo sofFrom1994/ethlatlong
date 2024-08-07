@@ -40,8 +40,8 @@ const Map = ({ posix = [0,0], zoom = 4, account}: MapProps) => {
       scrollWheelZoom={false}
       placeholder={<MapPlaceholder />}
       center={posix}
-      style={{ height: "100%", width: "100%" }}
       className="map-wrapper"
+      worldCopyJump={true}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
