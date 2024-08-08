@@ -31,11 +31,13 @@
     outline-offset: -1px;
   }
 
-  &[data-disabled]{
+  &[data-disabled] {
     border-color: var(--border-color-disabled);
     color: var(--text-color-disabled);
   }
 }
+
+/* dialog */
 
 .react-aria-Dialog {
   outline: none;
@@ -50,7 +52,7 @@
   }
 }
 
-.react-aria-Dialog form > * {
+.react-aria-Dialog form>* {
   padding-block: 0.2rem;
 }
 
@@ -64,6 +66,7 @@
   line-height: 2rem;
 }
 
+/* form and form fields */
 
 .react-aria-NumberField {
   margin-bottom: 8px;
@@ -76,6 +79,7 @@
 
     &[data-focus-within] {
       outline: 1px solid var(--focus-ring-color);
+
       .react-aria-Input,
       .react-aria-Button {
         border-color: var(--focus-ring-color);
@@ -114,12 +118,14 @@
   }
 
   &[data-invalid] {
+
     .react-aria-Input,
     .react-aria-Button {
       border-color: var(--invalid-color);
     }
 
     &:focus-within {
+
       .react-aria-Input,
       .react-aria-Button {
         border-color: var(--focus-ring-color);
@@ -197,6 +203,8 @@
     }
   }
 }
+
+/* modal and modal overlay */
 
 .react-aria-ModalOverlay {
   position: fixed;
@@ -278,11 +286,12 @@
   }
 }
 
+/* popover */
 
 .react-aria-Popover {
   --background-color: var(--blue-green-medium);
   position: absolute;
-  z-index: 240000002;
+  z-index: 2147483647;
 
   border: 0.1rem solid var(--border-color);
   box-shadow: 0 8px 20px rgba(66, 144, 81, 0.1);
@@ -365,6 +374,8 @@
   }
 }
 
+/* menu */
+
 .react-aria-Menu {
   max-height: inherit;
   box-sizing: border-box;
@@ -405,4 +416,87 @@
 
 .react-aria-MenuItem[role="menuitemcheckbox"][aria-disabled="true"] {
   opacity: 0.9;
+}
+
+/* select */
+
+.react-aria-ListBox {
+  z-index: 2147483647;
+}
+
+.react-aria-ListBoxItem {
+  z-index: 2147483647;
+}
+
+.react-aria-Select {
+  z-index: 2147483647;
+  color: var(--text-color);
+
+  .react-aria-Button {
+    box-shadow: 0 1px 2px rgba(0 0 0 / 0.1);
+    border-radius: 6px;
+    font-size: 1.072rem;
+    padding: 0.286rem 0.286rem 0.286rem 0.571rem;
+    display: flex;
+    align-items: center;
+    max-width: 250px;
+
+    &[data-focus-visible] {
+      outline: 2px solid var(--focus-ring-color);
+      outline-offset: -1px;
+    }
+  }
+
+  .react-aria-SelectValue {
+    &[data-placeholder] {
+      font-style: italic;
+      color: var(--text-color-placeholder);
+    }
+  }
+
+  span[aria-hidden] {
+    width: 1.5rem;
+    line-height: 1.375rem;
+    margin-left: 1rem;
+    padding: 1px;
+    background: var(--highlight-background);
+    color: var(--highlight-foreground);
+    forced-color-adjust: none;
+    border-radius: 4px;
+    font-size: 0.857rem;
+  }
+}
+
+.react-aria-Popover[data-trigger="Select"] {
+  min-width: var(--trigger-width);
+  position: absolute;
+  z-index: 2147483647;
+
+  .react-aria-ListBoxItem {
+    padding: 0.286rem 0.571rem 0.286rem 1.571rem;
+    &[data-focus-visible] {
+      outline: none;
+    }
+
+    &[data-selected] {
+      font-weight: 600;
+      background: unset;
+      color: var(--text-color);
+
+      &::before {
+        content: '✓';
+        content: '✓' / '';
+        alt: ' ';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
+    }
+
+    &[data-focused],
+    &[data-pressed] {
+      background: var(--highlight-background);
+      color: var(--highlight-foreground);
+    }
+  }
 }

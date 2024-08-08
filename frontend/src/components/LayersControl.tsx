@@ -1,47 +1,22 @@
-import { useEffect, useState } from 'react';
 import { Config, UseAccountReturnType, useReadContract, useWriteContract, UseWriteContractReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { embedType, layerType, markerFilter } from './types';
 import { embedToMarker } from './EmbedMarker';
-const abi = ethLatLongAbi;
-const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const LayerChoiceModal = (props : { filter : markerFilter, account : UseAccountReturnType<Config>} ) => {
-  const [layers, setLayers] = useState<layerType[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
+export const LayerChoiceModal = (props : { filter : markerFilter, account : UseAccountReturnType<Config>, layers : layerType[], error : Error | null} ) => {
   const writeContractAction  = useWriteContract();
-  const { data, error: readError } = useReadContract({
-    abi,
-    address: contract_address,
-    functionName: "getAllLayers",
-    blockTag: 'latest',
-    query: {
-      refetchInterval: 2000,
-      staleTime:3000,
-    }
-  });
 
-  useEffect(() => {
-    if (readError) {
-      setError(readError);
-    } else {
-      const uniqueLayers = data ? [...new Set(data)] : [];
-      setLayers(uniqueLayers);
-    }
-  }, [data, readError]);
-
-  if (error) {
-    console.log(error);
+  if (props.error) {
+    console.log(props.error);
     return <></>;
   } 
 
-  if (!layers || layers.length === 0) return <></>;
+  if (!props.layers || props.layers.length === 0) return <></>;
 
   return (
     <LayersControl>
-      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account, writeContractAction))}
+      {props.layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account, writeContractAction))}
     </LayersControl>
   );
 };
@@ -58,7 +33,7 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
 
 const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>, writeContract : UseWriteContractReturnType<Config, unknown>) => {
   return (
-    <LayersControl.Overlay checked name={layer.name} key={layer.id.toString()}>
+    <LayersControl.Overlay checked name={layer.name} key={layer.id.toString(18)}>
       <LayerGroup>
         {layer.embeds
           .filter((embed) => {

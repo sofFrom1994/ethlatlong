@@ -1,7 +1,7 @@
 import "../styles/react-aria.css";
 
 import { ethLatLongAbi } from "../generated";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import {
@@ -10,7 +10,10 @@ import {
   useWriteContract,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { Heading } from "react-aria-components";
+import { Button, FieldError, Header, Heading, Key, Label, ListBox, ListBoxItem, Popover, Section, Select, SelectValue } from "react-aria-components";
+import { layerType } from "./types";
+import { SelectWrapper } from "./SelectWrapper";
+import { ReadContractErrorType } from "wagmi/actions";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -18,13 +21,23 @@ const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 // todo: next to post, have a div that is empty with low opacity 
 // so the person sees their marker one last time
 
-export const AddMessageForm = (latlong: { lat: number; long: number }) => {
+export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null }) => {
   const { writeContract, data: hash, isPending } = useWriteContract();
-  const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
   const latRef = useRef(null);
   const longRef = useRef(null);
   const buttonRef = useRef(null);
+
+  let [selectedLayer, setLayer] = useState<Key>();
+
+  if (props.error) {
+    console.log(props.error);
+    return <></>;
+  } 
+
+  if (!props.layers || props.layers.length === 0) {
+    console.log("no layers to select")
+  } 
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,16 +61,6 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
     error,
   } = useWaitForTransactionReceipt({ hash });
 
-  const { inputProps: layerNameInputProps } = useTextField(
-    {
-      label: "Layer Name",
-      placeholder: "layer 1",
-      name: "layerName",
-      isRequired: true,
-    },
-    layerNameRef
-  );
-
   const { inputProps: descriptionInputProps } = useTextField(
     {
       label: "Message",
@@ -75,7 +78,7 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
       placeholder: "54",
       name: "lat",
       isRequired: true,
-      value: latlong.lat.toString(),
+      value: props.lat.toString(),
     },
     latRef
   );
@@ -86,7 +89,7 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
       placeholder: "-89",
       name: "long",
       isRequired: true,
-      value: latlong.long.toString(),
+      value: props.long.toString(),
     },
     longRef
   );
@@ -99,14 +102,39 @@ export const AddMessageForm = (latlong: { lat: number; long: number }) => {
     buttonRef
   );
 
+  const layerListBoxes = props.layers.map((layer) => {
+    return (
+          <ListBoxItem id={layer.name}>{layer.name}</ListBoxItem>
+    )
+  })
+
   return (
     <>
       <h3>Add Message</h3>
       <form onSubmit={submit}>
         <div>
-          <label htmlFor="layerName">Choose a layer: </label>
-          <br /> 
-          <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
+          <Select>
+            <Label>Choose a Layer</Label>
+            <Button>
+              <SelectValue tabIndex={0}>
+                {({ defaultChildren, isPlaceholder }) => {
+                  return isPlaceholder ? (
+                    <>
+                      <b>Layer</b> selection
+                    </>
+                  ) : (
+                    defaultChildren
+                  );
+                }}
+              </SelectValue>
+              <span aria-hidden="true">▼</span>
+            </Button>
+            <Popover style={{zIndex: 2147483647}}>
+              <ListBox>
+                {layerListBoxes}
+              </ListBox>
+            </Popover>
+          </Select>
         </div>
         <div>
           <label htmlFor="Message">Message:</label>

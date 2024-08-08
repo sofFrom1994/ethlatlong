@@ -6,6 +6,8 @@ import { AddMessageForm } from './AddMessageForm';
 import L, { LatLng } from 'leaflet';
 import { Marker, Popup, useMap } from "react-leaflet";
 import mapPlus from "../assets/map-plus.svg";
+import { layerType } from './types';
+import { ReadContractErrorType } from 'wagmi/actions';
 
 //todo depending on kind of embed, use different add markers. 
 
@@ -49,7 +51,7 @@ export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef,
   );
 }
 
-export const AddMenu = () => {
+export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null}) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
@@ -82,7 +84,7 @@ export const AddMenu = () => {
     if (key === "layer") {
       setModalContent(<AddLayerForm lat={currentCenter.lat} long={currentCenter.lng}/>);
     } else if (key === "message") {
-      setModalContent(<AddMessageForm lat={currentCenter.lat} long={currentCenter.lng}/>);
+      setModalContent(<AddMessageForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error}/>);
     } else if (key === "media") {
       alert("Can't add media via UI yet. only via smart contract atm.");
       return;
