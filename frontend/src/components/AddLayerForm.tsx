@@ -16,7 +16,7 @@ import { ColorSlider } from "./ColorSlider";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const AddLayerForm = (latlong: { lat: number; long: number }) => {
+export const AddLayerForm = (props: { lat: number; long: number }) => {
   const { data: hash, writeContract, isPending } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -50,12 +50,13 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
     error,
   } = useWaitForTransactionReceipt({ hash });
 
-  const { inputProps: layerNameInputProps } = useTextField(
+  const { inputProps: layerNameInputProps,  isInvalid, errorMessageProps, validationErrors} = useTextField(
     {
       label: "Layer Name",
       placeholder: "layer 1",
       name: "layerName",
       isRequired: true,
+      validationBehavior: "native"
     },
     layerNameRef
   );
@@ -76,7 +77,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
       placeholder: "54",
       name: "lat",
       isRequired: true,
-      value: latlong.lat.toString() || "", // Set the initial value from props or empty string if not provided
+      value: props.lat.toString() || "", // Set the initial value from props or empty string if not provided
     },
     latRef
   );
@@ -87,7 +88,7 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
       placeholder: "-89",
       name: "long",
       isRequired: true,
-      value: latlong.long.toString() || "", // Set the initial value from props or empty string if not provided
+      value: props.long.toString() || "", // Set the initial value from props or empty string if not provided
     },
     longRef
   );
@@ -107,6 +108,11 @@ export const AddLayerForm = (latlong: { lat: number; long: number }) => {
         <div>
           <label htmlFor="layerName">Layer Name: </label>
           <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
+      {isInvalid && (
+        <div {...errorMessageProps} style={{ color: 'red', fontSize: "1rem", fontWeight: "bolder" }}>
+          {validationErrors.join(' ')}
+        </div>
+      )}
         </div>
         <div>
           <label htmlFor="description">Description: &nbsp;</label>
