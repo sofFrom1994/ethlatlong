@@ -6,14 +6,8 @@ import messageSVG from "../assets/message-outline.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
 import { Color, embedType, layerType } from "./types";
 import { coloredIcon } from "../utils";
-import { Config, UseAccountReturnType } from "wagmi";
+import { Config, UseAccountReturnType, UseWriteContractReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
-
-import {
-  BaseError,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -25,20 +19,14 @@ const nToColor = (nColor: number) => {
 export const embedToMarker = (
   layer: layerType,
   embed: embedType,
-  account: UseAccountReturnType<Config>
+  account: UseAccountReturnType<Config>,
+  writeContractAction : UseWriteContractReturnType<Config, unknown>
 ) => {
   const markerColor = nToColor(layer.color);
-  const { writeContract, data: hash, isPending } = useWriteContract();
-
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-    error,
-  } = useWaitForTransactionReceipt({ hash });
 
   const deleteMarker = () => {
     console.log("removing message...");
-    writeContract({
+    writeContractAction.writeContract({
       address: contract_address,
       abi,
       functionName: "removeMessage",
@@ -62,11 +50,9 @@ export const embedToMarker = (
 
   let deleteButton = null;
   if (account.isConnected) {
-    console.log("account connected");
     if (String(account.address) === embed.author) {
-      console.log("same author");
       deleteButton = () => {
-        return <button disabled={isPending} onClick={() => deleteMarker()}>Delete</button>;
+        return <button onClick={() => deleteMarker()}>Delete</button>;
       };
     }
   }
@@ -91,6 +77,9 @@ export const embedToMarker = (
             {embed.author}
           </div>
           {deleteButton && deleteButton()}
+          {
+
+          /*
           {isConfirming && <div> Waiting for confirmation... </div>}
           {isConfirmed && (
             <div>
@@ -104,6 +93,8 @@ export const embedToMarker = (
               Error: {(error as BaseError).shortMessage || error.message}
             </div>
           )}
+            */
+          }
         </Popup>
       </Marker>
     </div>

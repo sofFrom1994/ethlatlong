@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Config, UseAccountReturnType, useReadContract } from "wagmi";
+import { Config, UseAccountReturnType, useReadContract, useWriteContract, UseWriteContractReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { embedType, layerType, markerFilter } from './types';
@@ -11,7 +11,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter, account : UseA
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
-  // useReadContract within the component render flow
+  const writeContractAction  = useWriteContract();
   const { data, error: readError } = useReadContract({
     abi,
     address: contract_address,
@@ -41,7 +41,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter, account : UseA
 
   return (
     <LayersControl>
-      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account))}
+      {layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account, writeContractAction))}
     </LayersControl>
   );
 };
@@ -56,7 +56,7 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
   }
 };
 
-const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>) => {
+const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>, writeContract : UseWriteContractReturnType<Config, unknown>) => {
   return (
     <LayersControl.Overlay checked name={layer.name} key={layer.id.toString()}>
       <LayerGroup>
@@ -64,7 +64,7 @@ const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, acco
           .filter((embed) => {
             return embedFilter(embed, filter);
           })
-          .map((embed) => embedToMarker(layer, embed, account))}
+          .map((embed) => embedToMarker(layer, embed, account, writeContract))}
       </LayerGroup>
     </LayersControl.Overlay>
   );
