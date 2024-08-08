@@ -24,7 +24,7 @@ const Timeline = (props: { author: string }) => {
     abi,
     address: contract_address,
     functionName: "getAllLayers",
-    blockTag: "safe",
+    blockTag: "latest",
     query: {
       refetchInterval: 2000,
       staleTime: Infinity,

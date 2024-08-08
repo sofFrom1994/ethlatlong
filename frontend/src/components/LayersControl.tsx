@@ -16,7 +16,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter, account : UseA
     abi,
     address: contract_address,
     functionName: "getAllLayers",
-    blockTag: 'safe',
+    blockTag: 'latest',
     query: {
       refetchInterval: 2000,
       staleTime:3000,
