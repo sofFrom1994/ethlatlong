@@ -97,9 +97,7 @@ export const AddMenu = () => {
   return (
     <>
       <MenuTrigger>
-        <Button aria-label="Menu">
-          <div className="plus">+</div>
-        </Button>
+        <Button aria-label="Menu" className="add">+</Button>
         <Popover placement="top">
           <Menu onAction={handleAction}>
             <MenuItem id="layer">Layer</MenuItem>
