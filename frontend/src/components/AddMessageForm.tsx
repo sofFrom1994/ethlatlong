@@ -112,8 +112,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
     <>
       <h3>Add Message</h3>
       <form onSubmit={submit}>
-        <div>
-          <Select>
+          <Select name="layerName">
             <Label>Choose a Layer</Label>
             <Button>
               <SelectValue tabIndex={0}>
@@ -135,7 +134,6 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
               </ListBox>
             </Popover>
           </Select>
-        </div>
         <div>
           <label htmlFor="Message">Message:</label>
           <br />
