@@ -59,25 +59,23 @@
 
 .leaflet-popup-content {
   text-wrap: balance;
-  overflow: scroll;
+  overflow: auto;
   padding-inline: 0.5rem;
   padding-bottom: 0.6rem;
   margin-inline: 0.4rem !important;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.25rem;
 }
 
 .leaflet-popup-content button {
-  padding: 0.4rem;
   background-color: var(--red-medium-light);
-  border-width: 0.12rem;
+  border-width: 0.1rem;
+  border-radius: 0.7rem;
+  font-size: 112%;
   margin: auto;
-  width: 8rem;
+  width: 5rem;
   color:rgba(255, 255, 255)!important;
-  border-radius: 0.2rem;
-  border-style: groove;
-  border-color: var(--sky-light);
 }
 
 .leaflet-popup-content button:disabled {
