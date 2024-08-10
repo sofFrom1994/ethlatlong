@@ -1,5 +1,10 @@
 @import "colors.css";
 
+header {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .separator {
   width: 0;
   height: 70%;
@@ -9,7 +14,7 @@
 .account-manager {
   justify-self: right;
   z-index: 2147483547;
-  margin-right: 0.12rem;
+  margin-right: -0.25rem; 
 }
 
 @media (prefers-color-scheme: light) {
@@ -35,13 +40,12 @@
 
 .header-content h1 {
   font-weight: 400;
+  height: 95%;
   font-stretch: semi-expanded;
   font-family: "Luminari";
   white-space: nowrap;
   color: var(--cloud-medium);
   font-size: 2rem;
-  line-height: 2.5rem;
-  margin-bottom: 0.2rem;
   border-radius: 1.5rem;
   grid-column: 1;
   justify-self: left;
@@ -64,7 +68,6 @@
   }
 
   .account-manager {
-    margin-right: 0.5rem;
   }
 
   .separator {
