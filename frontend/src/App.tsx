@@ -6,13 +6,11 @@ import { useAccount } from "wagmi";
 function App() {
   const account = useAccount();
   return (
-    <div className="app">
       <main>
         <Header account={account}/>
         <Map account={account}/>
         <Footer />
       </main>
-    </div>
   );
 }
 
