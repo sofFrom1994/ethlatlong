@@ -13,7 +13,7 @@
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.23fr 0.2fr 0.27fr;
+  grid-template-columns: 0.24fr 0.2fr 0.24fr;
   height: 2.6rem;
 }
 
@@ -42,14 +42,14 @@
 
 .filter {
   display: flex;
-  gap: 0.23rem;
+  gap: 0.12rem;
 }
 
 .legend-symbol>img {
   height: 1.12em;
 }
 
-.leaflet-bottom.leaflet-right { position: absolute; bottom: 4rem } 
+.leaflet-bottom.leaflet-right { position: absolute; bottom: 3.8rem } 
 .leaflet-control-attribution {
   position: absolute; top: 0.7rem;
 }
