@@ -66,7 +66,7 @@ const AddMarker = ({ draggable, eventHandlers, position, markerRef, toggleDragga
     >
       <Popup minWidth={90}>
         <span>
-          Add a message <button onClick={() => { console.log("here"); markerRef.current.fire("dragend") }}>here</button> or
+          Add content <button onClick={() => { console.log("here"); markerRef.current.fire("dragend") }}>here</button> or
           drag this marker to your desired location.
         </span>
       </Popup>

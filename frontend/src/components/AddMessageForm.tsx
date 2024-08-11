@@ -14,6 +14,7 @@ import { Button, FieldError, Header, Heading, Key, Label, ListBox, ListBoxItem, 
 import { layerType } from "./types";
 import { SelectWrapper } from "./SelectWrapper";
 import { ReadContractErrorType } from "wagmi/actions";
+import { CloseButton } from "./CloseButton";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -110,7 +111,10 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
 
   return (
     <>
-      <h3>Add Message</h3>
+      <span style={{height: "1rem",marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "1fr auto"}}>
+        <h3 style={{ margin: 0, padding: 0, display: "inline-block"}}>Add Message</h3>
+        <CloseButton />
+      </span>
       <form onSubmit={submit}>
           <Select name="layerName">
             <Label>Choose a Layer</Label>
