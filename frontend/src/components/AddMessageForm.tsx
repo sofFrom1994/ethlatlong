@@ -119,7 +119,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
                 {({ defaultChildren, isPlaceholder }) => {
                   return isPlaceholder ? (
                     <>
-                      <b>Layer</b>
+                      <b></b>
                     </>
                   ) : (
                     defaultChildren
