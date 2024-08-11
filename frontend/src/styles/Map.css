@@ -17,6 +17,25 @@
   height: 2.6rem;
 }
 
+.map-controls>button:active {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.1);
+  background: var(--button-background-pressed);
+  border-color: var(--cloud-dark);
+  opacity: 0.55;
+}
+
+.map-controls>button:focus-visible {
+  outline: 2px solid var(--focus-ring-color) !important;
+  outline-offset: -1px;
+}
+
+.map-controls>button:active {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.1);
+  background: var(--button-background-pressed);
+  border-color: var(--cloud-dark);
+  opacity: 0.55;
+}
+
 @media (max-width: 450px) {
   .map-controls {
     grid-template-columns: 0.20fr 0.22fr 0.24fr;
@@ -55,13 +74,17 @@
   height: 1.12em;
 }
 
-.leaflet-bottom.leaflet-right { position: absolute; bottom: 3.8rem } 
-.leaflet-control-attribution {
-  position: absolute; top: 0.7rem;
+.leaflet-bottom.leaflet-right {
+  position: absolute;
+  bottom: 3.8rem
 }
 
-.leaflet-content-wrapper {
+.leaflet-control-attribution {
+  position: absolute;
+  top: 0.7rem;
 }
+
+.leaflet-content-wrapper {}
 
 .leaflet-popup-content {
   text-wrap: balance;
@@ -81,7 +104,7 @@
   font-size: 112%;
   margin: auto;
   width: 5rem;
-  color:rgba(255, 255, 255)!important;
+  color: rgba(255, 255, 255) !important;
 }
 
 .leaflet-popup-content button:disabled {
