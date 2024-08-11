@@ -3,7 +3,6 @@ import {useColorAreaState} from '@react-stately/color';
 import {useFocusRing} from '@react-aria/focus';
 import { useRef } from 'react';
 
-const SIZE = "18svh";
 const FOCUSED_THUMB_SIZE = 28;
 const THUMB_SIZE = 20;
 const BORDER_RADIUS = 4;
@@ -32,8 +31,8 @@ export function ColorArea(props) {
       {...colorAreaProps}
       style={{
         ...colorAreaProps.style,
-        width: "100%",
-        height: SIZE,
+        width: "95%",
+        height: "10rem",
         borderRadius: BORDER_RADIUS,
         background: isDisabled
           ? 'rgb(142, 142, 142)'

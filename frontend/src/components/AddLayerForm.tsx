@@ -9,15 +9,18 @@ import {
   type BaseError,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { Button, Heading, OverlayTriggerStateContext, parseColor } from "react-aria-components";
+import {
+  Button,
+  Heading,
+  OverlayTriggerStateContext,
+  parseColor,
+} from "react-aria-components";
 import { ColorArea } from "./ColorArea";
 import { ColorSlider } from "./ColorSlider";
 import { CloseButton } from "./CloseButton";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
-
-
 
 export const AddLayerForm = (props: { lat: number; long: number }) => {
   const { data: hash, writeContract, isPending } = useWriteContract();
@@ -53,13 +56,18 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
     error,
   } = useWaitForTransactionReceipt({ hash });
 
-  const { inputProps: layerNameInputProps,  isInvalid, errorMessageProps, validationErrors} = useTextField(
+  const {
+    inputProps: layerNameInputProps,
+    isInvalid,
+    errorMessageProps,
+    validationErrors,
+  } = useTextField(
     {
       label: "Layer Name",
       placeholder: "layer 1",
       name: "layerName",
       isRequired: true,
-      validationBehavior: "native"
+      validationBehavior: "native",
     },
     layerNameRef
   );
@@ -106,22 +114,33 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
 
   return (
     <>
-      <span style={{height: "1rem",marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "1fr auto"}}>
-        <h3 style={{ margin: 0, padding: 0, display: "inline-block"}}>Add Layer</h3>
+      <span
+        style={{
+          height: "1rem",
+          marginBottom: "1.5rem",
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+        }}
+      >
+        <h3 style={{ margin: 0, padding: 0, display: "inline-block" }}>
+          Add Layer
+        </h3>
         <CloseButton />
       </span>
       <form onSubmit={submit}>
         <div>
-          <label htmlFor="layerName">Layer Name: </label>
-          <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
-          {isInvalid && (
-            <div
-              {...errorMessageProps}
-              style={{ color: "red", fontSize: "1rem", fontWeight: "bolder" }}
-            >
-              {validationErrors.join(" ")}
-            </div>
-          )}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <label htmlFor="layerName">Name: </label>
+            <input {...layerNameInputProps} ref={layerNameRef} id="layerName" />
+            {isInvalid && (
+              <div
+                {...errorMessageProps}
+                style={{ color: "red", fontSize: "1rem", fontWeight: "bolder" }}
+              >
+                {validationErrors.join(" ")}
+              </div>
+            )}
+          </div>
         </div>
         <div>
           <label htmlFor="description">Description: &nbsp;</label>
