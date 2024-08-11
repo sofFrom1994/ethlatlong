@@ -14,7 +14,7 @@ header {
 .account-manager {
   justify-self: right;
   z-index: 2147483547;
-  margin-right: -0.25rem; 
+  margin-right: 0.12rem; 
 }
 
 @media (prefers-color-scheme: light) {
@@ -36,6 +36,7 @@ header {
 
 .header-content>button {
   height: 80%;
+    margin-right: 0.25rem;
 }
 
 .header-content h1 {
