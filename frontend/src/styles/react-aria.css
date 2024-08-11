@@ -58,7 +58,7 @@
 .react-aria-Dialog button {
   /*background-color: var(--green-medium);*/
   background-color: var(--water-light);
-  border-width: 0.1rem;
+  border-width: 0;
   border-radius: 0.7rem;
   margin-top: 0.5rem;
   width: 100%;
