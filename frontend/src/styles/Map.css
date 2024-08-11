@@ -122,3 +122,11 @@
 .leaflet-control-layers-expanded {
   opacity: 0.87;
 }
+
+/* Safari bug fix for leaflet issue #8068. */
+@supports (-webkit-touch-callout: none) {
+  .leaflet-control-container .leaflet-top,
+  .leaflet-control-container .leaflet-bottom {
+    will-change: transform;
+  }
+}
