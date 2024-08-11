@@ -235,7 +235,8 @@
   border: 1px solid var(--gray-400);
   outline: none;
   max-width: 92vw;
-  background-color: var(--blue-green-medium);
+  background-color: var(--blue-green-medium-opaque);
+  opacity: 0.90;
   z-index: 2147483601;
 
   &[data-entering] {
@@ -288,7 +289,8 @@
 /* popover */
 
 .react-aria-Popover {
-  --background-color: var(--blue-green-medium);
+  --background-color: var(--blue-green-medium-opaque);
+  opacity: 0.9;
   position: absolute;
   z-index: 2147483647;
 
@@ -414,7 +416,8 @@
 }
 
 .react-aria-MenuItem[role="menuitemcheckbox"][aria-disabled="true"] {
-  opacity: 0.9;
+  background-color: var(--blue-green-medium);
+  opacity: 0.50;
 }
 
 /* select */

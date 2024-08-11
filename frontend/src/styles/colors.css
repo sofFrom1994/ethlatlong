@@ -43,7 +43,9 @@
   --blue-green-dark: rgba(50, 144, 153, 0.8);
   /*--blue-green-medium: rgba(32, 185, 172, 0.8);*/
   --blue-green-medium: rgba(14, 135, 125, 0.8);
+  --blue-green-medium-opaque: rgba(14, 135, 125);
   --blue-green-light: rgba(6, 180, 165, 0.8);
+  --blue-green-light-opaque: rgba(6, 180, 165);
 
   --dark-bg-color-5: rgb(25, 29, 36);
 
