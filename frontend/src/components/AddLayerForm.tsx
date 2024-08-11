@@ -1,6 +1,6 @@
 import "../styles/react-aria.css";
 import { ethLatLongAbi } from "../generated";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import {
@@ -9,12 +9,17 @@ import {
   type BaseError,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { Heading, parseColor } from "react-aria-components";
+import { Button, Heading, OverlayTriggerStateContext, parseColor } from "react-aria-components";
 import { ColorArea } from "./ColorArea";
 import { ColorSlider } from "./ColorSlider";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
+
+function CloseButton() {
+  let state = useContext(OverlayTriggerStateContext)!;
+  return <Button onPress={() => state.close()}>Close</Button>;
+}
 
 export const AddLayerForm = (props: { lat: number; long: number }) => {
   const { data: hash, writeContract, isPending } = useWriteContract();
@@ -104,6 +109,7 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
   return (
     <>
       <h3>Add Layer</h3>
+      <CloseButton />
       <form onSubmit={submit}>
         <div>
           <label htmlFor="layerName">Layer Name: </label>
