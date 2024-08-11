@@ -13,7 +13,7 @@ export function CloseButton() {
         width: "fit-content",
         height: "fit-content",
         borderRadius: "1rem",
-        color: "white"
+        color: "white !important"
       }}
       onPress={() => state.close()}
     >x</Button>
