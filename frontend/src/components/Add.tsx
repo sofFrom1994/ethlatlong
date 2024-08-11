@@ -10,15 +10,13 @@ import { layerType } from './types';
 import { ReadContractErrorType } from 'wagmi/actions';
 import { useAccount } from 'wagmi';
 import { CloseButton } from './CloseButton';
+import { coloredIcon } from '../utils';
+
+import messageSVG from "../assets/message-outline.svg?raw";
+import mapPlusSVG from "../assets/map-plus.svg?raw";
+import mediaSVG from "../assets/photo.svg?raw";
 
 //todo depending on kind of embed, use different add markers. 
-
-const addToMap = L.icon({
-  iconUrl: mapPlus,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -33,14 +31,14 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
 }
 
 // todo: use the appropriate icon for each add
-const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
+const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable, icon }) => {
   return (
     <Marker
       draggable={draggable}
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
-      icon={addToMap}>
+      icon={icon}>
       
       <Popup minWidth={90}>
         <span onClick={toggleDraggable}>
@@ -53,18 +51,18 @@ const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggle
   );
 }
 
-const AddMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
+const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
   useEffect(() => {
     markerRef.current.openPopup();
   }, []);
 
   return (
     <Marker
-      draggable={draggable}
+      draggable={true}
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
-      icon={addToMap}
+      icon={icon}
     >
       <Popup minWidth={90}>
         <span>
@@ -80,10 +78,11 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
-  const map = useMap();
+  const [icon, setIcon] = useState(coloredIcon("#0", mapPlusSVG));
 
-  const [draggable, setDraggable] = useState(true);
+  const map = useMap();
   const [position, setPosition] = useState<LatLng>(map.getCenter());
+
   const markerRef = useRef<L.Marker<any>>(null);
   const account = useAccount();
 
@@ -100,10 +99,6 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       }
     },
   }), [requireMarkerPlacement]);
-
-  const toggleDraggable = useCallback(() => {
-    setDraggable((d) => !d);
-  }, []);
 
   const handleAction = (key: React.Key) => {
     const currentCenter = map.getCenter();
@@ -124,11 +119,13 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       return;
     }
     if (key === "layer") {
+      setIcon(coloredIcon("#0", mapPlusSVG, [20, 20], [10, -2]));
       setModalContent(
         <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "message") {
+      setIcon(coloredIcon("#0", messageSVG, [20, 20], [10, -2]));
       setModalContent(
         <AddMessageForm
           lat={currentCenter.lat}
@@ -139,6 +136,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       );
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
+      setIcon(coloredIcon("#0", mediaSVG));
       setModalContent(
         <p> Media can only be embededed via smart contract at this moment. </p>
       );
@@ -167,11 +165,10 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       </MenuTrigger>
       {requireMarkerPlacement && (
         <AddMarker
-          draggable={draggable}
           eventHandlers={markerEventHandler}
           position={position}
           markerRef={markerRef}
-          toggleDraggable={toggleDraggable}
+          icon={icon}
         />
       )}
       {modalContent && (
