@@ -25,7 +25,6 @@ export const embedToMarker = (
   const markerColor = nToColor(layer.color);
 
   const deleteMarker = () => {
-    console.log("removing message...");
     writeContractAction.writeContract({
       address: contract_address,
       abi,
@@ -52,7 +51,7 @@ export const embedToMarker = (
   if (account.isConnected) {
     if (String(account.address) === embed.author) {
       deleteButton = () => {
-        return <button onClick={() => deleteMarker()}>Delete</button>;
+        return <button data-type="delete" onClick={() => deleteMarker()}>Delete</button>;
       };
     }
   }

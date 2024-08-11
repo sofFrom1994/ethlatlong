@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import "../styles/Add.css";
 import { AddLayerForm } from './AddLayerForm';
@@ -31,7 +31,7 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
 }
 
 // todo: use the appropriate icon for each add
-export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
+const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
   return (
     <Marker
       draggable={draggable}
@@ -45,6 +45,29 @@ export const DraggableMarker = ({ draggable, eventHandlers, position, markerRef,
           {draggable
             ? 'Marker is draggable'
             : 'Click here to make marker draggable'}
+        </span>
+      </Popup>
+    </Marker>
+  );
+}
+
+const AddMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable }) => {
+  useEffect(() => {
+    markerRef.current.openPopup();
+  }, []);
+
+  return (
+    <Marker
+      draggable={draggable}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}
+      icon={addToMap}
+    >
+      <Popup minWidth={90}>
+        <span>
+          Add a message <button onClick={() => { console.log("here"); markerRef.current.fire("dragend") }}>here</button> or
+          drag this marker to your desired location.
         </span>
       </Popup>
     </Marker>
@@ -124,7 +147,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
         </Popover>
       </MenuTrigger>
       {requireMarkerPlacement && (
-        <DraggableMarker
+        <AddMarker
           draggable={draggable}
           eventHandlers={markerEventHandler}
           position={position}
