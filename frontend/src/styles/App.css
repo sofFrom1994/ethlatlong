@@ -25,6 +25,7 @@ header {
 }
 
 main {
+  height: 100% !important;
   /* top right bottom left */
   padding: 0.4rem 0.3rem 0.3rem 0.3rem;
   display: grid;
@@ -35,7 +36,7 @@ main {
 @media (min-height: 800px) {
   main {
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
-    grid-template-rows: 5.5svh 87dvh max-content;
+    grid-template-rows: 5.5svh 87svh max-content;
     grid-gap: 0.45rem;
   }
 }
@@ -43,44 +44,56 @@ main {
 @media (min-height: 915px) {
   main {
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
-    grid-template-rows: 5.5svh 88dvh max-content;
+    grid-template-rows: 5.5svh 88svh max-content;
     grid-gap: 0.4rem;
+  }
+}
+
+@media (min-height: 1700px) {
+  main {
+
   }
 }
 
 @media (min-width: 824px ) {
   main {
-    grid-template-rows: 5.5svh 88dvh max-content;
+    grid-template-rows: 5.5svh 88svh max-content;
     padding-inline: 0.75rem;
     padding-top: 0.4rem;
     gap: 0.5rem;
   }
 }
 
-
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
   main {
-    grid-template-rows: 4svh 90dvh 3svh;
+    grid-template-rows: 4svh 90svh 3svh;
   }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   main {
-    grid-template-rows: 4svh 90dvh 3svh;
+    grid-template-rows: 4svh 90svh 3svh;
   }
 }
 
 @media (min-width: 1024px) and (min-height: 600px)  {
   main {
-    grid-template-rows: 7.5svh 80dvh 5svh;
+    grid-template-rows: 7.5svh 80svh 5svh;
     padding-top: 0.4rem;
+    gap: 0.54rem;
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 944px)  {
+  main {
+    grid-template-rows: 6.5svh 90svh 5svh;
     gap: 0.54rem;
   }
 }
 
 @media (min-width: 1024px) and (min-height: 800px)  {
   main {
-    grid-template-rows: 6svh 85dvh 5svh;
+    grid-template-rows: 6svh 85svh 5svh;
     padding-top: 0.4rem;
     gap: 0.54rem;
   }
@@ -88,7 +101,7 @@ main {
 
 @media (min-width: 1024px) and (min-height: 1024px)  {
   main {
-    grid-template-rows: 4.5svh 89dvh max-content;
+    grid-template-rows: 4.5svh 89svh max-content;
     padding-top: 0.4rem;
     gap: 0.54rem;
   }
@@ -96,7 +109,7 @@ main {
 
 @media (min-width: 1024px) and (min-height: 1244px)  {
   main {
-    grid-template-rows: 3.5svh 92dvh max-content;
+    grid-template-rows: 3.5svh 92svh max-content;
     padding-top: 0.4rem;
     gap: 0.54rem;
   }
