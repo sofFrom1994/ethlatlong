@@ -82,24 +82,39 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   const handleAction = (key: React.Key) => {
     const currentCenter = map.getCenter();
     if (key === "layer") {
-      setModalContent(<AddLayerForm lat={currentCenter.lat} long={currentCenter.lng}/>);
+      setModalContent(
+        <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
+      );
+      setRequireMarkerPlacement(true);
     } else if (key === "message") {
-      setModalContent(<AddMessageForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error}/>);
+      setModalContent(
+        <AddMessageForm
+          lat={currentCenter.lat}
+          long={currentCenter.lng}
+          layers={props.layers}
+          error={props.error}
+        />
+      );
+      setRequireMarkerPlacement(true);
     } else if (key === "media") {
-      alert("Can't add media via UI yet. only via smart contract atm.");
-      return;
+      setModalContent(
+        <p> Media can only be embededed via smart contract at this moment. </p>
+      );
+      setIsModalOpen(true);
+      setRequireMarkerPlacement(false);
     } else {
       console.log("Invalid choice: ", key);
       return;
     }
     setPosition(currentCenter);
-    setRequireMarkerPlacement(true);
   };
 
   return (
     <>
       <MenuTrigger>
-        <Button aria-label="Menu" className="add">+</Button>
+        <Button aria-label="Menu" className="add">
+          +
+        </Button>
         <Popover placement="top">
           <Menu onAction={handleAction}>
             <MenuItem id="layer">Layer</MenuItem>
