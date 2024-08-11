@@ -113,7 +113,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
     <>
       <span style={{height: "1rem",marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "1fr auto"}}>
         <h3 style={{ margin: 0, padding: 0, display: "inline-block"}}>Add Message</h3>
-        <CloseButton />
+        <CloseButton label="x"/>
       </span>
       <form onSubmit={submit}>
           <Select name="layerName">

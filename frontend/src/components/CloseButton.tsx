@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button, OverlayTriggerStateContext } from "react-aria-components";
 
-export function CloseButton() {
+export function CloseButton(props : {label : string}) {
   let state = useContext(OverlayTriggerStateContext)!;
   return (
     <Button
@@ -16,6 +16,6 @@ export function CloseButton() {
         color: "white"
       }}
       onPress={() => state.close()}
-    >x</Button>
+    >{props.label}</Button>
   );
 }

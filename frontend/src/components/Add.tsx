@@ -8,6 +8,8 @@ import { Marker, Popup, useMap } from "react-leaflet";
 import mapPlus from "../assets/map-plus.svg";
 import { layerType } from './types';
 import { ReadContractErrorType } from 'wagmi/actions';
+import { useAccount } from 'wagmi';
+import { CloseButton } from './CloseButton';
 
 //todo depending on kind of embed, use different add markers. 
 
@@ -83,6 +85,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   const [draggable, setDraggable] = useState(true);
   const [position, setPosition] = useState<LatLng>(map.getCenter());
   const markerRef = useRef<L.Marker<any>>(null);
+  const account = useAccount();
 
   const markerEventHandler = useMemo(() => ({
     dragend() {
@@ -104,6 +107,22 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
 
   const handleAction = (key: React.Key) => {
     const currentCenter = map.getCenter();
+
+    if (!account.isConnected) {
+      setModalContent(
+        <span style={{display: "grid", justifyContent: "center", gridAutoFlow: "row", gap: "0.6rem"}}>
+          <p>
+            Sign in first to post content.
+          </p>
+          <span style={{marginLeft: "4.5rem"}}>
+          <CloseButton label="close" />
+          </span>
+        </span>
+      );
+      setIsModalOpen(true);
+      setRequireMarkerPlacement(false);
+      return;
+    }
     if (key === "layer") {
       setModalContent(
         <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
