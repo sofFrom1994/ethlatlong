@@ -134,7 +134,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   return (
     <>
       <MenuTrigger>
-        <Button aria-label="Menu" className="add">
+        <Button style={{height: "94%", borderRadius: "1.5rem"}} aria-label="Menu" className="add">
           +
         </Button>
         <Popover placement="top">
