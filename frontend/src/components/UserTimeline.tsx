@@ -67,7 +67,35 @@ const Timeline = (props: { author: string }) => {
 
   if (!layers || layers.length === 0) return <></>;
 
-  const posts = layers.map((layer) => layerToPost(layer, props.author));
+  let layerContent: {layer : layerType, posts : { postType: string; post: layerType | embedType }[] }[] = [];
+
+  let empty = true;
+  layers.forEach((layer) => {
+
+    let currLayer = layer;
+    let posts : { postType: string; post: layerType | embedType }[] = [];
+
+    if (layer.author === props.author) {
+      posts.push({ postType: "layer", post: layer });
+      empty = false;
+    }
+
+    layer.embeds.forEach((embed) => {
+      const currEmbed = embed;
+      if (embed.author === props.author) {
+        posts.push({ postType: "embed", post: currEmbed });
+        empty = false;
+      }
+    });
+
+    layerContent.push({layer: currLayer, posts});
+  });
+
+  if (empty) {
+    return <span>Your timeline is empty.</span>;
+  }
+
+  const postviews = contentToPostView(layerContent);
 
   return (
     <div className="timeline">
@@ -76,7 +104,7 @@ const Timeline = (props: { author: string }) => {
         <CloseButton label="x" style={closeButtonStyle}/>
       </div>
       <div className="posts">
-        {posts}
+        {postviews}
       </div>
     </div>
   );
@@ -108,31 +136,34 @@ const embedPost = (embed: embedType, layer: layerType) => {
 
 // each post has a button to show it on the map. maybe the modal should be on the map to the left
 
-const layerToPost = (layer: layerType, author: string) => {
-  let posts: { postType: string; post: layerType | embedType }[] = [];
-  if (layer.author === author) {
-    posts.push({ postType: "layer", post: layer });
-  }
-
-  layer.embeds.forEach((embed) => {
-    const currEmbed = embed;
-    if (embed.author === author) {
-      posts.push({ postType: "embed", post: currEmbed });
-    }
+const contentToPostView = (
+  content: {
+    layer: layerType;
+    posts: { postType: string; post: layerType | embedType }[];
+  }[]
+) => {
+  const postViews = content.map((postView) => {
+    return postView.posts.map((post) => {
+      let postEL: JSX.Element;
+      if (post.postType === "layer") {
+        postEL = layerPost(post.post as layerType);
+      } else if (post.postType === "embed") {
+        postEL = embedPost(post.post as embedType, postView.layer);
+      } else {
+        postEL = <></>;
+      }
+      return (
+        <div
+          className="post"
+          onClick={() => console.log("open modal to go to post on map ")}
+        >
+          {postEL}
+        </div>
+      );
+    });
   });
 
-  const postView = posts.map((post) => {
-    let postEL : JSX.Element;
-    if (post.postType === "layer") {
-      postEL = layerPost(post.post as layerType);
-    } else if (post.postType === "embed") {
-      postEL = embedPost(post.post as embedType, layer);
-    } else {
-      postEL = <></>;
-    }
-    return <div className="post" onClick={() => console.log("open modal to go to post on map ")}>{postEL}</div>
-  });
-  return postView;
+  return postViews;
 };
 
 export const UserTimeline = (props: {
