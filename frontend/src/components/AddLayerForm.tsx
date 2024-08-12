@@ -20,7 +20,7 @@ const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const AddLayerForm = (props: { lat: number; long: number }) => {
-  const { data: hash, writeContract, isPending } = useWriteContract();
+  const { data: hash, writeContract, isPending, error } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
@@ -46,7 +46,6 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
   const {
     isLoading: isConfirming,
     isSuccess: isConfirmed,
-    error,
   } = useWaitForTransactionReceipt({ hash });
 
   const {

@@ -1,7 +1,7 @@
 import "../styles/react-aria.css";
 
 import { ethLatLongAbi } from "../generated";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import {
@@ -18,11 +18,8 @@ import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-// todo: next to post, have a div that is empty with low opacity 
-// so the person sees their marker one last time
-
 export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null }) => {
-  const { writeContract, data: hash, isPending } = useWriteContract();
+  const { writeContract, data: hash, isPending, error } = useWriteContract();
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -52,7 +49,6 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
   const {
     isLoading: isConfirming,
     isSuccess: isConfirmed,
-    error,
   } = useWaitForTransactionReceipt({ hash });
 
   const { inputProps: descriptionInputProps } = useTextField(
@@ -129,10 +125,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
         {isConfirming && <div> Waiting for confirmation... </div>}
         {isConfirmed && <div> Transaction confirmed. </div>}
         {error && (
-          <div>
-            {" "}
-            Error: {(error as BaseError).shortMessage || error.message}
-          </div>
+          <div>Error: {(error as BaseError).shortMessage || error.message}</div>
         )}
       </form>
     </>
