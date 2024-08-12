@@ -86,8 +86,7 @@ const Timeline = (props: { author: string }) => {
   });
 
   if (empty) {
-    const closeButtonStyle = {
-    };
+    const closeButtonStyle = {color: "white"}
 
     return (
       <Modal isDismissable>

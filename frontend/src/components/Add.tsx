@@ -137,7 +137,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
       setIcon(coloredIcon("#0", mediaSVG));
-      let closeButtonStyle = {}
+      let closeButtonStyle = {color: "white"}
       setModalContent(
         <span>
           <p> Media can only be embededed via smart contract at this moment. </p>
