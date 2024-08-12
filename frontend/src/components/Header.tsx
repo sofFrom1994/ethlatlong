@@ -3,7 +3,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { UserTimeline } from "./UserTimeline";
 import { Config, UseAccountReturnType } from "wagmi";
 
-export const Header = (props: { account: UseAccountReturnType<Config> }) => {
+export const Header = (props: { account: UseAccountReturnType<Config>, map : L.Map | null }) => {
   let separator = null;
 
   if (props.account.isConnected) {
@@ -30,7 +30,7 @@ export const Header = (props: { account: UseAccountReturnType<Config> }) => {
           />
         </div>
           {separator && separator()}
-        <UserTimeline account={props.account} />
+        <UserTimeline account={props.account} map={props.map}/>
       </div>
     </header>
   );

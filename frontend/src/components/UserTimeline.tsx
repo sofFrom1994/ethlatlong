@@ -1,10 +1,11 @@
 import "../styles/UserTimeline.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Dialog,
   DialogTrigger,
   Modal,
+  OverlayTriggerStateContext,
 } from "react-aria-components";
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
@@ -12,12 +13,11 @@ import { embedType, layerType } from "./types";
 import { LoadingSpinner } from "./Loading";
 import userIcon from "../assets/user-pin.svg";
 import { CloseButton } from "./CloseButton";
+import { OverlayTriggerState } from "react-stately";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-
-
-const Timeline = (props: { author: string }) => {
+const Timeline = (props: { author: string, map : L.Map | null}) => {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
@@ -103,7 +103,7 @@ const Timeline = (props: { author: string }) => {
     );
   }
 
-  const postviews = contentToPostView(layerContent);
+  const postviews = contentToPostView(layerContent, props.map);
 
 const closeButtonStyle = {
   marginTop: "-0.7rem",
@@ -135,7 +135,7 @@ const closeButtonStyle = {
   );
 };
 
-const layerPost = (layer: layerType) => {
+const layerPost = (layer: layerType, map : L.Map | null) => {
   return (
     <span>
       {layer.name}
@@ -146,9 +146,12 @@ const layerPost = (layer: layerType) => {
   );
 };
 
-const embedPost = (embed: embedType, layer: layerType) => {
+const embedPost = (embed: embedType, layer: layerType, map : L.Map | null, state: OverlayTriggerState) => {
+  const lat = Number(embed.lat) / 1e18;
+  const long = Number(embed.long) / 1e18;
   return (
-    <span>
+    //<span onClick={() => { setTimeout(() => state.close(), 1600); map?.flyTo([lat, long]); }}>
+    <span onClick={() => {state.close(); map?.flyTo([lat, long]); }}>
       {layer.name}
       <br />
       {embed.message}
@@ -159,28 +162,27 @@ const embedPost = (embed: embedType, layer: layerType) => {
   );
 };
 
-// each post has a button to show it on the map. maybe the modal should be on the map to the left
-
 const contentToPostView = (
   content: {
     layer: layerType;
     posts: { postType: string; post: layerType | embedType }[];
-  }[]
+  }[],
+  map : L.Map | null
 ) => {
+  let state = useContext(OverlayTriggerStateContext)!;
   const postViews = content.map((postView) => {
     return postView.posts.map((post) => {
       let postEL: JSX.Element;
       if (post.postType === "layer") {
-        postEL = layerPost(post.post as layerType);
+        postEL = layerPost(post.post as layerType, map, state);
       } else if (post.postType === "embed") {
-        postEL = embedPost(post.post as embedType, postView.layer);
+        postEL = embedPost(post.post as embedType, postView.layer, map, state);
       } else {
         postEL = <></>;
       }
       return (
         <div
           className="post"
-          onClick={() => console.log("open modal to go to post on map ")}
         >
           {postEL}
         </div>
@@ -193,13 +195,14 @@ const contentToPostView = (
 
 export const UserTimeline = (props: {
   account: UseAccountReturnType<Config>;
+  map : L.Map | null
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!props.account.isConnected) {
     return null;
   }
-  const content = <Timeline author={String(props.account.address)} />;
+  const content = <Timeline author={String(props.account.address)} map={props.map} />;
 
   return (
     <>

@@ -15,6 +15,7 @@ interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
   account : UseAccountReturnType<Config>;
+  mapRef : React.Dispatch<React.SetStateAction<L.Map | null>>; 
 }
 
 function MapPlaceholder() {
@@ -35,7 +36,7 @@ const defaultFilter: markerFilter = {
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const Map = ({ posix = [0,0], zoom = 4, account}: MapProps) => {
+const Map = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -68,6 +69,7 @@ const Map = ({ posix = [0,0], zoom = 4, account}: MapProps) => {
       center={posix}
       className="map-wrapper"
       worldCopyJump={true}
+      ref={mapRef}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
