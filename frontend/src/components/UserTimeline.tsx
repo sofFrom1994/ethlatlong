@@ -151,7 +151,7 @@ const embedPost = (embed: embedType, layer: layerType, map : L.Map | null, state
   const long = Number(embed.long) / 1e18;
   return (
     //<span onClick={() => { setTimeout(() => state.close(), 1600); map?.flyTo([lat, long]); }}>
-    <span onClick={() => {state.close(); map?.flyTo([lat, long]); }}>
+    <span onClick={() => {state.close(); map?.flyTo([lat, long], 18); }}>
       {layer.name}
       <br />
       {embed.message}
