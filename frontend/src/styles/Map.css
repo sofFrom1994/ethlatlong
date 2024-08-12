@@ -3,7 +3,7 @@
 .map-controls {
   background-color: var(--green-medium);
   display: grid;
-  grid-template-columns: 0.20fr 0.09fr 0.20fr;
+  grid-template-columns: 0.12fr 0.055fr 0.12fr;
   z-index: 240000000;
   gap: 0.36rem;
   align-items: center;
@@ -17,7 +17,7 @@
   height: 2.6rem;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 720px) {
   .map-controls {
     grid-template-columns: 0.20fr 0.16fr 0.24fr;
     height: 2.5rem;
@@ -43,12 +43,10 @@
   opacity: 0.55;
 }
 
-
-
 .map-controls>* {
   display: grid;
   background-color: var(--green-light);
-  height: 91%;
+  height: 90%;
   width: 100%;
   justify-content: center;
   justify-self: center;
