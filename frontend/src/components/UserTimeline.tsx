@@ -15,15 +15,7 @@ import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const closeButtonStyle = {
-  marginTop: "-0.7rem",
-  marginRight: "-0.4rem",
-  marginLeft: "auto",
-  width: "fit-content",
-  height: "fit-content",
-  borderRadius: "1rem",
-  color: "white",
-};
+
 
 const Timeline = (props: { author: string }) => {
   const [layers, setLayers] = useState<layerType[]>([]);
@@ -67,13 +59,15 @@ const Timeline = (props: { author: string }) => {
 
   if (!layers || layers.length === 0) return <></>;
 
-  let layerContent: {layer : layerType, posts : { postType: string; post: layerType | embedType }[] }[] = [];
+  let layerContent: {
+    layer: layerType;
+    posts: { postType: string; post: layerType | embedType }[];
+  }[] = [];
 
   let empty = true;
   layers.forEach((layer) => {
-
     let currLayer = layer;
-    let posts : { postType: string; post: layerType | embedType }[] = [];
+    let posts: { postType: string; post: layerType | embedType }[] = [];
 
     if (layer.author === props.author) {
       posts.push({ postType: "layer", post: layer });
@@ -88,25 +82,57 @@ const Timeline = (props: { author: string }) => {
       }
     });
 
-    layerContent.push({layer: currLayer, posts});
+    layerContent.push({ layer: currLayer, posts });
   });
 
   if (empty) {
-    return <span>Your timeline is empty.</span>;
+    const closeButtonStyle = {
+    };
+
+    return (
+      <Modal isDismissable>
+        <Dialog>
+          <span>
+            <div className="timeline-header">
+              <h3>{props.author.substring(0, 7)}...</h3>
+            </div>
+            Your timeline is empty.
+            <CloseButton label="Close" style={closeButtonStyle} />
+          </span>
+        </Dialog>
+      </Modal>
+    );
   }
 
   const postviews = contentToPostView(layerContent);
 
+const closeButtonStyle = {
+  marginTop: "-0.7rem",
+  marginRight: "-0.4rem",
+  marginLeft: "auto",
+  width: "fit-content",
+  height: "fit-content",
+  borderRadius: "1rem",
+  color: "white",
+};
+
   return (
-    <div className="timeline">
-      <div className="timeline-header">
-        <h3>{props.author.substring(0,7)}...</h3>
-        <CloseButton label="x" style={closeButtonStyle}/>
-      </div>
-      <div className="posts">
-        {postviews}
-      </div>
-    </div>
+    <Modal
+      style={{ marginTop: "2.5rem", height: "92%", width: "90%" }}
+      isDismissable
+    >
+      <Dialog style={{ height: "90svh", width: "100%" }}>
+        {
+          <div className="timeline">
+            <div className="timeline-header">
+              <h3>{props.author.substring(0, 7)}...</h3>
+              <CloseButton label="x" style={closeButtonStyle} />
+            </div>
+            <div className="posts">{postviews}</div>
+          </div>
+        }
+      </Dialog>
+    </Modal>
   );
 };
 
@@ -193,9 +219,7 @@ export const UserTimeline = (props: {
       </Button>
       {content && (
         <DialogTrigger isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
-          <Modal style={{marginTop: "2.5rem", height: "92%", width: "90%"}}isDismissable>
-            <Dialog style={{height: "90svh", width: "100%"}}>{content}</Dialog>
-          </Modal>
+          {content}
         </DialogTrigger>
       )}
     </>

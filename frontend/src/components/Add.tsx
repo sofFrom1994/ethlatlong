@@ -137,8 +137,12 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
       setIcon(coloredIcon("#0", mediaSVG));
+      let closeButtonStyle = {}
       setModalContent(
-        <p> Media can only be embededed via smart contract at this moment. </p>
+        <span>
+          <p> Media can only be embededed via smart contract at this moment. </p>
+          <CloseButton label="Close" style={closeButtonStyle}/>
+        </span>
       );
       setIsModalOpen(true);
       setRequireMarkerPlacement(false);

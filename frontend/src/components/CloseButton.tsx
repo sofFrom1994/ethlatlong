@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button, OverlayTriggerStateContext } from "react-aria-components";
 
-const defaultStyle = {
+const defaultStyle : React.CSSProperties = {
   marginTop: "-0.6rem",
   marginRight: "-0.6rem",
   marginLeft: "auto",
