@@ -10,9 +10,8 @@ import {
   useWriteContract,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { Button, FieldError, Header, Heading, Key, Label, ListBox, ListBoxItem, Popover, Section, Select, SelectValue } from "react-aria-components";
+import { Button, Label, ListBox, ListBoxItem, Popover, Select, SelectValue } from "react-aria-components";
 import { layerType } from "./types";
-import { SelectWrapper } from "./SelectWrapper";
 import { ReadContractErrorType } from "wagmi/actions";
 import { CloseButton } from "./CloseButton";
 
@@ -25,11 +24,7 @@ const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null }) => {
   const { writeContract, data: hash, isPending } = useWriteContract();
   const descriptionRef = useRef(null);
-  const latRef = useRef(null);
-  const longRef = useRef(null);
   const buttonRef = useRef(null);
-
-  let [selectedLayer, setLayer] = useState<Key>();
 
   if (props.error) {
     console.log(props.error);
@@ -43,8 +38,6 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const lat = parseLatLong(formData.get("lat") as string);
-    const long = parseLatLong(formData.get("long") as string);
     const layerName = formData.get("layerName") as string;
     const message = formData.get("message") as string;
 
@@ -52,7 +45,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
       address: contract_address,
       abi,
       functionName: "addMessage",
-      args: [layerName, lat, long, message],
+      args: [layerName, parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), message],
     });
   }
 
@@ -71,28 +64,6 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
       isRequired: true,
     },
     descriptionRef
-  );
-
-  const { inputProps: latInputProps } = useTextField(
-    {
-      label: "Latitude",
-      placeholder: "54",
-      name: "lat",
-      isRequired: true,
-      value: props.lat.toString(),
-    },
-    latRef
-  );
-
-  const { inputProps: longInputProps } = useTextField(
-    {
-      label: "Longitude",
-      placeholder: "-89",
-      name: "long",
-      isRequired: true,
-      value: props.long.toString(),
-    },
-    longRef
   );
 
   const { buttonProps } = useButton(
@@ -150,12 +121,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
           />
         </div>
         <div>
-          <label htmlFor="lat">Latitude: &nbsp; &nbsp;</label>
-          <input {...latInputProps} ref={latRef} id="lat" />
-        </div>
-        <div>
-          <label htmlFor="long">Longitude: </label>
-          <input {...longInputProps} ref={longRef} id="long" />
+          <p> Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )</p>
         </div>
         <button {...buttonProps} ref={buttonRef}>
           Post

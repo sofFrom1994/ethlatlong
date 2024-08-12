@@ -1,6 +1,6 @@
 import "../styles/react-aria.css";
 import { ethLatLongAbi } from "../generated";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useButton } from "@react-aria/button";
 import { useTextField } from "@react-aria/textfield";
 import {
@@ -10,9 +10,6 @@ import {
 } from "wagmi";
 import { parseLatLong } from "../utils";
 import {
-  Button,
-  Heading,
-  OverlayTriggerStateContext,
   parseColor,
 } from "react-aria-components";
 import { ColorArea } from "./ColorArea";
@@ -26,8 +23,6 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
   const { data: hash, writeContract, isPending } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
-  const latRef = useRef(null);
-  const longRef = useRef(null);
   const buttonRef = useRef(null);
 
   let [color, setColor] = useState(parseColor("hsba(219, 58%, 93%, 1)"));
@@ -37,8 +32,6 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const lat = parseLatLong(formData.get("lat") as string);
-    const long = parseLatLong(formData.get("long") as string);
     const layerName = formData.get("layerName") as string;
     const description = formData.get("description") as string;
 
@@ -46,7 +39,7 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
       address: contract_address,
       abi,
       functionName: "addLayer",
-      args: [layerName, description, lat, long, color.toHexInt()],
+      args: [layerName, description, parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), color.toHexInt()],
     });
   }
 
@@ -80,28 +73,6 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
       isRequired: true,
     },
     descriptionRef
-  );
-
-  const { inputProps: latInputProps } = useTextField(
-    {
-      label: "Latitude",
-      placeholder: "54",
-      name: "lat",
-      isRequired: true,
-      value: props.lat.toString() || "", // Set the initial value from props or empty string if not provided
-    },
-    latRef
-  );
-
-  const { inputProps: longInputProps } = useTextField(
-    {
-      label: "Longitude",
-      placeholder: "-89",
-      name: "long",
-      isRequired: true,
-      value: props.long.toString() || "", // Set the initial value from props or empty string if not provided
-    },
-    longRef
   );
 
   const { buttonProps } = useButton(
@@ -151,12 +122,7 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
           />
         </div>
         <div>
-          <label htmlFor="lat">Latitude: &nbsp;&nbsp;&nbsp;</label>
-          <input {...latInputProps} ref={latRef} id="lat" />
-        </div>
-        <div>
-          <label htmlFor="long">Longitude: </label>
-          <input {...longInputProps} ref={longRef} id="long" />
+          <p> Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )</p>
         </div>
         <>
           <label id="hsb-label-id-1">Color: </label>
