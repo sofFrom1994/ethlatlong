@@ -1,0 +1,35 @@
+@import "colors.css";
+
+.timeline {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.timeline-header {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.timeline-header>h3 {
+  display: "inline-block";
+  margin: 0;
+  padding: 0;
+}
+
+.posts {
+  display: grid;
+  grid-auto-flow: row dense;
+  gap: 0.25rem;
+  grid-auto-rows: 22%;
+  overflow-y: auto;
+}
+
+.post {
+  border-radius: 0.45rem;
+  width: 95%;
+  background-color: var(--green-dark);
+  overflow: hidden;
+}

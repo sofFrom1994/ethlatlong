@@ -1,5 +1,4 @@
-/* These styles come from the default react-aria starter kits at https://react-spectrum.adobe.com/react-aria/getting-started.html#starter-kits 
-    z indeces are modified to work with the leaflet map and media */
+/* The base of these styles come from the default react-aria docs for the respective components. The rest are app specific edits.*/
 @import "@react-aria/example-theme";
 @import "colors.css";
 
@@ -42,7 +41,6 @@
   outline: none;
   align-self: top;
   padding: 1rem;
-  max-height: 70svh;
   box-sizing: border-box;
   overflow: auto;
 
@@ -215,7 +213,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-color: skyblue;
   z-index: 2147483600;
 
   &[data-entering] {
@@ -234,7 +231,6 @@
   color: var(--text-color);
   border: 1px solid var(--gray-400);
   outline: none;
-  max-width: 92vw;
   background-color: var(--blue-green-medium-opaque);
   opacity: 0.90;
   z-index: 2147483601;

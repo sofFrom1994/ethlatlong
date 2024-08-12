@@ -1,15 +1,29 @@
-import { ReactNode, useEffect, useState } from "react";
-import { Button, Dialog, DialogTrigger, ListBox, ListBoxItem, Modal } from "react-aria-components";
-import { Config, useAccount, UseAccountReturnType, useReadContract } from "wagmi";
+import "../styles/UserTimeline.css";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogTrigger,
+  Modal,
+} from "react-aria-components";
+import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { embedType, layerType } from "./types";
 import { LoadingSpinner } from "./Loading";
 import userIcon from "../assets/user-pin.svg";
+import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-// todo, instead of reading layers from here, read them from
-// a parent component and pass data to all components that need it.
+const closeButtonStyle = {
+  marginTop: "-0.7rem",
+  marginRight: "-0.4rem",
+  marginLeft: "auto",
+  width: "fit-content",
+  height: "fit-content",
+  borderRadius: "1rem",
+  color: "white",
+};
 
 const Timeline = (props: { author: string }) => {
   const [layers, setLayers] = useState<layerType[]>([]);
@@ -41,8 +55,11 @@ const Timeline = (props: { author: string }) => {
   }, [data, readError]);
 
   if (error) {
-    console.log(error);
-    return <></>;
+    return (
+      <span>
+        error {error.name} reading getAllLayers: {error.message}{" "}
+      </span>
+    );
   }
   if (isLoading) {
     return <LoadingSpinner />;
@@ -50,12 +67,42 @@ const Timeline = (props: { author: string }) => {
 
   if (!layers || layers.length === 0) return <></>;
 
-  const posts = layers.map((layer) => layerToPost(layer, props.author))
+  const posts = layers.map((layer) => layerToPost(layer, props.author));
 
   return (
-    <>
-      {posts}
-    </>
+    <div className="timeline">
+      <div className="timeline-header">
+        <h3>{props.author.substring(0,7)}...</h3>
+        <CloseButton label="x" style={closeButtonStyle}/>
+      </div>
+      <div className="posts">
+        {posts}
+      </div>
+    </div>
+  );
+};
+
+const layerPost = (layer: layerType) => {
+  return (
+    <span>
+      {layer.name}
+      <br />
+      {layer.description}
+      {layer.embedN.toString()}
+    </span>
+  );
+};
+
+const embedPost = (embed: embedType, layer: layerType) => {
+  return (
+    <span>
+      {layer.name}
+      <br />
+      {embed.message}
+      {embed.kind}
+      {embed.lat.toString()}
+      {embed.long.toString()}
+    </span>
   );
 };
 
@@ -69,58 +116,41 @@ const layerToPost = (layer: layerType, author: string) => {
 
   layer.embeds.forEach((embed) => {
     const currEmbed = embed;
-    console.log(embed);
-    console.log(embed.author);
-    console.log(author);
     if (embed.author === author) {
-      console.log("same");
       posts.push({ postType: "embed", post: currEmbed });
     }
   });
 
-  console.log("posts: ", posts)
-
-  const postView = posts.map(post => {
-    if (post.postType === "layer" ) {
-      let layerPost = post.post as layerType;
-      return <>
-        {layerPost.name}
-      <br />
-        {layerPost.description}
-        {layerPost.embedN.toString()}
-      <br />
-      </>
-    } else if (post.postType === "embed" ) {
-      let embedPost = post.post as embedType;
-      return <>
-        {layer.name}
-      <br />
-        {embedPost.message}
-        {embedPost.kind}
-        {embedPost.lat.toString()}
-        {embedPost.long.toString()}
-      <br />
-      </>
+  const postView = posts.map((post) => {
+    let postEL : JSX.Element;
+    if (post.postType === "layer") {
+      postEL = layerPost(post.post as layerType);
+    } else if (post.postType === "embed") {
+      postEL = embedPost(post.post as embedType, layer);
     } else {
-      return <></>
+      postEL = <></>;
     }
-  })
-  return postView
-}
-  
+    return <div className="post" onClick={() => console.log("open modal to go to post on map ")}>{postEL}</div>
+  });
+  return postView;
+};
 
-export const UserTimeline = (props: {account : UseAccountReturnType<Config> }) => {
+export const UserTimeline = (props: {
+  account: UseAccountReturnType<Config>;
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  let content: ReactNode;
   if (!props.account.isConnected) {
-    return null
+    return null;
   }
-  content = <Timeline author={String(props.account.address)} />;
+  const content = <Timeline author={String(props.account.address)} />;
 
   return (
     <>
-      <Button style={{ borderRadius: "0.9rem", borderColor: "#06B4A5CC"   }} onPress={() => setIsModalOpen(true)}>
+      <Button
+        style={{ borderRadius: "0.9rem", borderColor: "#06B4A5CC" }}
+        onPress={() => setIsModalOpen(true)}
+      >
         <span>
           <img
             width="inherit"
@@ -132,8 +162,8 @@ export const UserTimeline = (props: {account : UseAccountReturnType<Config> }) =
       </Button>
       {content && (
         <DialogTrigger isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
-          <Modal style={{width: "84svw"}}isDismissable>
-            <Dialog>{content}</Dialog>
+          <Modal style={{marginTop: "2.5rem", height: "92%", width: "90%"}}isDismissable>
+            <Dialog style={{height: "90svh", width: "100%"}}>{content}</Dialog>
           </Modal>
         </DialogTrigger>
       )}
