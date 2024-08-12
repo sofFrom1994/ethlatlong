@@ -3,6 +3,7 @@
 .map-controls {
   background-color: var(--green-medium);
   display: grid;
+  grid-template-columns: 0.20fr 0.09fr 0.20fr;
   z-index: 240000000;
   gap: 0.36rem;
   align-items: center;
@@ -13,8 +14,14 @@
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
-  grid-template-columns: 0.20fr 0.18fr 0.20fr;
   height: 2.6rem;
+}
+
+@media (max-width: 450px) {
+  .map-controls {
+    grid-template-columns: 0.20fr 0.16fr 0.24fr;
+    height: 2.5rem;
+  }
 }
 
 .map-controls>button:active {
@@ -36,11 +43,7 @@
   opacity: 0.55;
 }
 
-@media (max-width: 450px) {
-  .map-controls {
-    grid-template-columns: 0.20fr 0.22fr 0.24fr;
-  }
-}
+
 
 .map-controls>* {
   display: grid;
