@@ -125,7 +125,7 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
         <h3 style={{ margin: 0, padding: 0, display: "inline-block" }}>
           Add Layer
         </h3>
-        <CloseButton />
+        <CloseButton label="x"/>
       </span>
       <form onSubmit={submit}>
         <div>

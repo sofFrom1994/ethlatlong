@@ -1,6 +1,5 @@
-import { Config, UseAccountReturnType, useReadContract, useWriteContract, UseWriteContractReturnType } from "wagmi";
-import { ethLatLongAbi } from "../generated";
-import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
+import { Config, UseAccountReturnType,  useWriteContract, UseWriteContractReturnType } from "wagmi";
+import { LayerGroup, LayersControl } from "react-leaflet";
 import { embedType, layerType, markerFilter } from './types';
 import { embedToMarker } from './EmbedMarker';
 

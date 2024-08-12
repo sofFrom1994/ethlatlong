@@ -1,6 +1,6 @@
 import { DialogTrigger, Button, Popover, OverlayArrow, Dialog, Heading } from "react-aria-components"
 import "../styles/Footer.css"
-import { ReactElement, ReactNode } from "react"
+import { ReactNode } from "react"
 
 import messageIcon from "../assets/message-outline.svg"
 import mediaIcon from "../assets/photo-outline.svg"

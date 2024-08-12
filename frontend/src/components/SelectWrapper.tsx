@@ -1,5 +1,5 @@
-import type {ListBoxItemProps, SelectProps, ValidationResult} from 'react-aria-components';
-import {Button, FieldError, Label, ListBox, Popover, Select, SelectValue, Text} from 'react-aria-components';
+import type { SelectProps, ValidationResult} from 'react-aria-components';
+import {Button, Label, ListBox, Popover, Select, SelectValue } from 'react-aria-components';
 
 interface SelectWrapperProps<T extends object>
   extends Omit<SelectProps<T>, 'children'> {
