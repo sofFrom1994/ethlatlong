@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { Button, Dialog, DialogTrigger, Heading, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { Button, Dialog, DialogTrigger, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import "../styles/Add.css";
 import { AddLayerForm } from './AddLayerForm';
 import { AddMessageForm } from './AddMessageForm';
 import L, { LatLng } from 'leaflet';
 import { Marker, Popup, useMap } from "react-leaflet";
-import mapPlus from "../assets/map-plus.svg";
 import { layerType } from './types';
 import { ReadContractErrorType } from 'wagmi/actions';
 import { useAccount } from 'wagmi';
@@ -30,27 +29,6 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
   );
 }
 
-// todo: use the appropriate icon for each add
-const DraggableMarker = ({ draggable, eventHandlers, position, markerRef, toggleDraggable, icon }) => {
-  return (
-    <Marker
-      draggable={draggable}
-      eventHandlers={eventHandlers}
-      position={position}
-      ref={markerRef}
-      icon={icon}>
-      
-      <Popup minWidth={90}>
-        <span onClick={toggleDraggable}>
-          {draggable
-            ? 'Marker is draggable'
-            : 'Click here to make marker draggable'}
-        </span>
-      </Popup>
-    </Marker>
-  );
-}
-
 const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
   useEffect(() => {
     markerRef.current.openPopup();
@@ -66,7 +44,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
     >
       <Popup minWidth={90}>
         <span>
-          Add content <button onClick={() => { console.log("here"); markerRef.current.fire("dragend") }}>here</button> or
+          Add content <button onClick={() => { markerRef.current.fire("dragend") }}>here</button> or
           drag this marker to your desired location.
         </span>
       </Popup>

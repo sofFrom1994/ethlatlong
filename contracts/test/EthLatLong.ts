@@ -117,7 +117,6 @@ describe("EthLatLong", function () {
       await ethLatLong.write.addMedia([erc721Address, BigInt(tokenID), lat, long, layerName, mediaDescription], { account: owner.account });
 
       const layer = await ethLatLong.read.getLayer([layerName]);
-      console.log(layer.embeds[0].description);
       expect(layer.embeds[0].description).to.equal(mediaDescription);
     });
 
