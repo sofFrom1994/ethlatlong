@@ -23,7 +23,8 @@
   display: grid;
   grid-auto-flow: row;
   border-radius: 1rem;
-  gap: 2rem;
+  background-color: var(--blue-green-medium-opaque);
+  gap: 0.4rem;
   overflow-y: auto;
 }
 
@@ -31,27 +32,36 @@
   display: grid;
   background-color: var(--blue-green-dark);
   grid-auto-flow: row;
+  gap: 0.35rem;
   border-radius: 1.45rem;
   width: 98%;
-  padding: 0.5rem;
+  padding-inline: 0.7rem;
+  padding-block: 0.6rem;
 }
 
 .post-header {
   border-radius: 1rem;
+  align-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.05rem;
+  grid-template-columns: 0.12fr auto 0.1fr;
+  grid-auto-flow: dense;
 }
 
 .post-content {
+  min-height: 3rem;
   max-height: 8rem;
   background-color: var(--blue-green-darkest);
   word-wrap: break-word;
   overflow-y: auto;
+  border-radius: 0.25rem;
 }
 
 .post-footer {
-  background-color: var(--blue-green-dark);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   border-radius: 1rem;
+  align-items: center;
+  display: grid;
+  gap: 0.15rem;
+  grid-template-columns: auto 0.1fr;
+  grid-auto-flow: dense;
 }

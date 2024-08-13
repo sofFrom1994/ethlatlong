@@ -24,6 +24,12 @@ import { nToColor } from "../utils";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
+const colorSwatchStyle = {
+  borderRadius: "0.2rem",
+  height: "90%",
+  width: "90%",
+};
+
 const Timeline = (props: { author: string; map: L.Map | null }) => {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -147,13 +153,19 @@ const layerPost = (layer: layerType) => {
   return (
     <div className="post">
       <div className="post-header">
-        <ColorSwatch style={{height: "2rem", width: "2rem"}} color={layerColor} />
+        <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img width="auto" height="auto" src={layerSVG} alt="message embed" />
+        <img
+          title="layer embed"
+          width="auto"
+          height="auto"
+          src={layerSVG}
+          alt="message embed"
+        />
       </div>
       <div className="post-content">
-          {layer.description}
-          {layer.embedN.toString()}
+        {layer.description}
+        {layer.embedN.toString()}
       </div>
     </div>
   );
@@ -179,27 +191,31 @@ const embedPost = (
   const layerColor = `#${nToColor(layer.color)}`;
   return (
     //<span onClick={() => { setTimeout(() => state.close(), 1600); map?.flyTo([lat, long]); }}>
-    <div
-      className="post"
-      onClick={() => {
-        state.close();
-        map?.flyTo([lat, long], 18);
-      }}
-    >
+    <div className="post">
       <div className="post-header">
-        <ColorSwatch style={{height: "2rem", width: "2rem"}} color={layerColor} />
+        <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img width="auto" height="auto" src={messageSVG} alt="message embed" />
+        <img
+          title="embed"
+          width="auto"
+          height="auto"
+          src={messageSVG}
+          alt="embed"
+        />
       </div>
       <div className="post-content">{embed.message}</div>
       <div className="post-footer">
-        <div>
-          <img width="auto" height="auto" src={goSVG} alt="go to embed" />
-          go here
-        </div>
-        <div>
-          <div style={{color: "red", alignSelf: "center"}}> delete </div>
-        </div>
+        <img
+          onClick={() => {
+            state.close();
+            map?.flyTo([lat, long], 18);
+          }}
+          width="auto"
+          height="auto"
+          src={goSVG}
+          alt="go to embed"
+        />
+        <div>{/*<div style={{ color: "red"}}> Delete </div>*/}</div>
       </div>
     </div>
   );
