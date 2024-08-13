@@ -2,6 +2,7 @@ import "../styles/UserTimeline.css";
 import { useContext, useEffect, useState } from "react";
 import {
   Button,
+  ColorSwatch,
   Dialog,
   DialogTrigger,
   Modal,
@@ -14,10 +15,16 @@ import { LoadingSpinner } from "./Loading";
 import userIcon from "../assets/user-pin.svg";
 import { CloseButton } from "./CloseButton";
 import { OverlayTriggerState } from "react-stately";
+import messageSVG from "../assets/message.svg";
+import mediaSVG from "../assets/photo.svg";
+import layerSVG from "../assets/map.svg";
+import goSVG from "../assets/map-pin-up.svg";
+import { nToColor } from "../utils";
+
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const Timeline = (props: { author: string, map : L.Map | null}) => {
+const Timeline = (props: { author: string; map: L.Map | null }) => {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
@@ -86,7 +93,7 @@ const Timeline = (props: { author: string, map : L.Map | null}) => {
   });
 
   if (empty) {
-    const closeButtonStyle = {color: "white"}
+    const closeButtonStyle = { color: "white" };
 
     return (
       <Modal isDismissable>
@@ -105,15 +112,15 @@ const Timeline = (props: { author: string, map : L.Map | null}) => {
 
   const postviews = contentToPostView(layerContent, props.map);
 
-const closeButtonStyle = {
-  marginTop: "-0.7rem",
-  marginRight: "-0.4rem",
-  marginLeft: "auto",
-  width: "fit-content",
-  height: "fit-content",
-  borderRadius: "1rem",
-  color: "white",
-};
+  const closeButtonStyle = {
+    marginTop: "-0.7rem",
+    marginRight: "-0.4rem",
+    marginLeft: "auto",
+    width: "fit-content",
+    height: "fit-content",
+    borderRadius: "1rem",
+    color: "white",
+  };
 
   return (
     <Modal
@@ -135,30 +142,66 @@ const closeButtonStyle = {
   );
 };
 
-const layerPost = (layer: layerType, map : L.Map | null) => {
+const layerPost = (layer: layerType) => {
+  const layerColor = `#${nToColor(layer.color)}`;
   return (
-    <span>
-      {layer.name}
-      <br />
-      {layer.description}
-      {layer.embedN.toString()}
-    </span>
+    <div className="post">
+      <div className="post-header">
+        <ColorSwatch style={{height: "2rem", width: "2rem"}} color={layerColor} />
+        <div>{layer.name}</div>
+        <img width="auto" height="auto" src={layerSVG} alt="message embed" />
+      </div>
+      <div className="post-content">
+          {layer.description}
+          {layer.embedN.toString()}
+      </div>
+    </div>
   );
 };
 
-const embedPost = (embed: embedType, layer: layerType, map : L.Map | null, state: OverlayTriggerState) => {
+const embedPost = (
+  embed: embedType,
+  layer: layerType,
+  map: L.Map | null,
+  state: OverlayTriggerState
+) => {
   const lat = Number(embed.lat) / 1e18;
   const long = Number(embed.long) / 1e18;
+
+  let iconSrc;
+
+  if (embed.kind === 0) {
+    iconSrc = messageSVG;
+  } else if (embed.kind === 1) {
+    iconSrc = mediaSVG;
+  }
+
+  const layerColor = `#${nToColor(layer.color)}`;
   return (
     //<span onClick={() => { setTimeout(() => state.close(), 1600); map?.flyTo([lat, long]); }}>
-    <span onClick={() => {state.close(); map?.flyTo([lat, long], 18); }}>
-      {layer.name}
-      <br />
-      {embed.message}
-      {embed.kind}
-      {embed.lat.toString()}
-      {embed.long.toString()}
-    </span>
+    <div
+      className="post"
+      onClick={() => {
+        state.close();
+        map?.flyTo([lat, long], 18);
+      }}
+    >
+      <div className="post-header">
+        <ColorSwatch style={{height: "2rem", width: "2rem"}} color={layerColor} />
+        <div>{layer.name}</div>
+        <img width="auto" height="auto" src={messageSVG} alt="message embed" />
+      </div>
+      <div className="post-content">{embed.message}</div>
+      <div className="post-footer">
+        <div>
+          <img width="auto" height="auto" src={goSVG} alt="go to embed" />
+          go here
+        </div>
+        <div>
+          <div style={{color: "red", alignSelf: "center"}}> delete </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -167,26 +210,20 @@ const contentToPostView = (
     layer: layerType;
     posts: { postType: string; post: layerType | embedType }[];
   }[],
-  map : L.Map | null
+  map: L.Map | null
 ) => {
   let state = useContext(OverlayTriggerStateContext)!;
   const postViews = content.map((postView) => {
     return postView.posts.map((post) => {
       let postEL: JSX.Element;
       if (post.postType === "layer") {
-        postEL = layerPost(post.post as layerType, map, state);
+        postEL = layerPost(post.post as layerType);
       } else if (post.postType === "embed") {
         postEL = embedPost(post.post as embedType, postView.layer, map, state);
       } else {
         postEL = <></>;
       }
-      return (
-        <div
-          className="post"
-        >
-          {postEL}
-        </div>
-      );
+      return postEL;
     });
   });
 
@@ -195,14 +232,16 @@ const contentToPostView = (
 
 export const UserTimeline = (props: {
   account: UseAccountReturnType<Config>;
-  map : L.Map | null
+  map: L.Map | null;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!props.account.isConnected) {
     return null;
   }
-  const content = <Timeline author={String(props.account.address)} map={props.map} />;
+  const content = (
+    <Timeline author={String(props.account.address)} map={props.map} />
+  );
 
   return (
     <>
