@@ -16,3 +16,11 @@ export const coloredIcon = (color: Color, svg: string, iconSize : L.PointExpress
     html: htmlS
   });
 }
+
+export const nToColor = (nColor: number) => {
+  console.log(nColor);
+  if (nColor === 0) {
+    return "000000"
+  }
+  return nColor.toString(16) as Color;
+};

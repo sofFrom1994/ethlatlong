@@ -5,16 +5,12 @@ import L from "leaflet";
 import messageSVG from "../assets/message-outline.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
 import { Color, embedType, layerType } from "./types";
-import { coloredIcon } from "../utils";
+import { coloredIcon, nToColor } from "../utils";
 import { Config, UseAccountReturnType, UseWriteContractReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
-
-const nToColor = (nColor: number) => {
-  return nColor.toString(16) as Color;
-};
 
 export const embedToMarker = (
   layer: layerType,
