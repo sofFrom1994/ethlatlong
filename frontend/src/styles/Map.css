@@ -75,10 +75,6 @@
   height: 1.12em;
 }
 
-.leaflet-bottom.leaflet-right {
-  position: absolute;
-  bottom: 3.8rem
-}
 
 .leaflet-control-attribution {
   position: absolute;
@@ -100,16 +96,22 @@
 
 .leaflet-popup-content button {
   background-color: var(--water-light);
-  border-width: 0.1rem;
   border-radius: 0.7rem;
+  padding-inline: 0 !important;
+  border-width: 0.1rem;
+  margin: 0;
   font-size: 112%;
   margin: auto;
-  width: 5rem;
   color: rgba(255, 255, 255) !important;
+}
+
+.leaflet-popup-content button[data-type="add"] {
+  width: 3rem;
 }
 
 .leaflet-popup-content button[data-type="delete"] {
   background-color: var(--red-medium-light);
+  width: 3.7rem;
 }
 
 .leaflet-popup-content button:disabled {
@@ -130,4 +132,52 @@
   .leaflet-control-container .leaflet-bottom {
     will-change: transform;
   }
+}
+
+.leaflet-control-layers {
+  background-color: orange;
+}  
+
+.leaflet-top.leaflet-right input[type="checkbox"] {
+  accent-color: var(--blue-green-medium);
+  border-radius: 1rem;
+}
+
+.leaflet-top.leaflet-right > .leaflet-control-layers-expanded {
+  color: white;
+  background-color: var(--blue-green-darkest);
+  padding-top: 0.17rem;
+  padding-inline: 0.2rem;
+  border-radius: 0.7rem;
+  width: 8rem;
+  height: 8.4rem;
+  overflow-y: scroll;
+}
+
+/*
+.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > label > span * {
+}
+
+#root > div > main > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > label:nth-child(7) > span > span {
+}
+*/
+
+.leaflet-top.leaflet-right > .leaflet-control-layers-expanded div {
+  padding-top: 0.3rem;
+  overflow-y: scroll;
+}
+
+.leaflet-top.leaflet-right {
+  padding: 0;
+  margin: -0.4rem;
+}
+
+.leaflet-top.leaflet-left {
+  padding: 0;
+  margin: -0.3rem;
+}
+
+.leaflet-bottom.leaflet-right {
+  position: absolute;
+  bottom: 3.5rem
 }

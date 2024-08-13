@@ -44,7 +44,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
     >
       <Popup minWidth={90}>
         <span>
-          Add content <button onClick={() => { markerRef.current.fire("dragend") }}>here</button> or
+          Add content <button data-type="add" onClick={() => { markerRef.current.fire("dragend") }}>here</button> or
           drag this marker to your desired location.
         </span>
       </Popup>

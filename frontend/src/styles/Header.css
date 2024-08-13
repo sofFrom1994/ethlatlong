@@ -39,6 +39,10 @@ header {
     margin-right: 0.25rem;
 }
 
+.account-manager button[data-testid="rk-connect-button"] {
+  background-color: var(--water-light);
+}
+
 .header-content h1 {
   font-weight: 400;
   height: 95%;
