@@ -119,8 +119,7 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
   const postviews = contentToPostView(layerContent, props.map);
 
   const closeButtonStyle = {
-    marginTop: "-0.7rem",
-    marginRight: "-0.4rem",
+    marginTop: "-0.8rem",
     marginLeft: "auto",
     width: "fit-content",
     height: "fit-content",
@@ -133,7 +132,7 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
       style={{ marginTop: "2.5rem", height: "92%", width: "90%" }}
       isDismissable
     >
-      <Dialog style={{ height: "90svh", width: "100%" }}>
+      <Dialog style={{ paddingTop: "1rem", paddingInline: "0.4rem", height: "90svh", width: "100%" }}>
         {
           <div className="timeline">
             <div className="timeline-header">
@@ -157,8 +156,8 @@ const layerPost = (layer: layerType) => {
         <div>{layer.name}</div>
         <img
           title="layer embed"
-          width="auto"
-          height="auto"
+          width="90%"
+          height="90%"
           src={layerSVG}
           alt="message embed"
         />
@@ -195,28 +194,19 @@ const embedPost = (
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img
-          title="embed"
-          width="auto"
-          height="auto"
-          src={messageSVG}
-          alt="embed"
-        />
+        <img title="embed" width="90%" height="90%" src={iconSrc} alt="embed" />
       </div>
       <div className="post-content">{embed.message}</div>
-      <div className="post-footer">
-        <img
-          onClick={() => {
-            state.close();
-            map?.flyTo([lat, long], 18);
-          }}
-          width="auto"
-          height="auto"
-          src={goSVG}
-          alt="go to embed"
-        />
-        <div>{/*<div style={{ color: "red"}}> Delete </div>*/}</div>
-      </div>
+      <img
+        onClick={() => {
+          state.close();
+          map?.flyTo([lat, long], 18);
+        }}
+        width="auto"
+        height="auto"
+        src={goSVG}
+        alt="go to embed"
+      />
     </div>
   );
 };

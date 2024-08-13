@@ -40,6 +40,7 @@
   --rock-light: #9E9E9E;
 
   --blue-green-darkest: rgba(28, 88, 93, 0.8);
+  --blue-green-darkest-opaque: rgba(28, 88, 93, 1);
   --blue-green-dark: rgba(50, 144, 153, 0.8);
   /*--blue-green-medium: rgba(32, 185, 172, 0.8);*/
   --blue-green-medium: rgba(14, 135, 125, 0.8);
