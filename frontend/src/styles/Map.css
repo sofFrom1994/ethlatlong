@@ -58,6 +58,10 @@
   border-color: var(--sky-light);
   justify-content: center;
   max-width: 25rem;
+  word-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow: hidden
 }
 
 .map-wrapper {
