@@ -24,7 +24,6 @@ export const coloredSVG = (color: Color, svg: string) => {
 }
 
 export const nToColor = (nColor: number) => {
-  console.log(nColor);
   if (nColor === 0) {
     return "000000"
   }

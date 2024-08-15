@@ -12,7 +12,6 @@ export const config = getDefaultConfig({
   ssr: false,
   chains: [baseSepolia, hardhat],
   transports: {
-    [baseSepolia.id]: http(),
-    [31_337]: http("http://127.0.0.1:8545/")
+    [baseSepolia.id]: http()
   }
 })
