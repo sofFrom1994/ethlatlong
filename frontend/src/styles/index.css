@@ -30,7 +30,9 @@ dd {
 }
 
 :root {
-  background-color: #181818;
+  --blue-green-dark-hsl: hsl(185deg 34% 9%);
+  --blue-green-light-hsl: hsl(185deg 97% 91%);
+  background-color: var(--blue-green-dark-hsl);
   color: rgba(255, 255, 255, 0.87);
   color-scheme: light dark;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -47,6 +49,13 @@ dd {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    background-color: var(--blue-green-light-hsl);
+    color: #213547;
+  }
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -96,13 +105,6 @@ select {
   font-size: 150%; 
 }
 
-
-@media (prefers-color-scheme: light) {
-  :root {
-    background-color: #f8f8f8;
-    color: #181818;
-  }
-}
 
 @media (min-width: 824px) {
   body {
