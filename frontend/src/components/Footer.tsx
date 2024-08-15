@@ -67,7 +67,7 @@ const roadmap = () => {
         Roadmap{" "}
       </Button>
       <Modal
-        style={{ height: "min-content", width: "40rem", paddingInline: "0rem" }}
+        style={{ maxHeight: "60svh", maxWidth: "90svw" , overflowY: "auto", paddingInline: "0rem" }}
         isDismissable
       >
         <Dialog>
@@ -75,20 +75,20 @@ const roadmap = () => {
           <span className="roadmap">
             <h3> Future features </h3>
             <ul className="roadmap-list">
-              <li> embed media UI. </li>
-              <li> farcaster integration </li>
+              <li> Embed media UI. </li>
+              <li> Farcaster integration </li>
               <li>
                 {" "}
-                post paths created by using real time watch mode: for drawing a
+                Post paths created by using real time watch mode: for drawing a
                 path, enable watch on the map when the path starts and record
                 the starting location. As the user moves take snapshots (for
                 anything from determining the path points to speed or whatever),
                 until the user hits stop or the limit is reached. Make a list of
                 the points and order from start to end. This is the path.{" "}
               </li>
-              <li> 0 gas messages via zora minting </li>
-              <li> Permissioned / write controlled layers </li>
-              <li> 3D media embed( add orientation ) (ar related) </li>
+              <li> Gasless messages via zora minting </li>
+              <li> Permissioned (write controlled ) layers </li>
+              <li> 3D media embed( add orientation ) (ar related / pokemon go inspired) </li>
               <li> custom maps (areas, image overlays) </li>
             </ul>
             <h3> Improvements </h3>
@@ -109,7 +109,7 @@ const about = () => {
       <Button className="footer-button" aria-label="">
         About
       </Button>
-      <Modal style={{ height: "min-content", width: "40rem" }} isDismissable>
+      <Modal style={{ maxHeight: "60svh", maxWidth: "90svw" , overflowY: "auto", paddingInline: "0rem" }} isDismissable>
         <Dialog>
           <h2 slot="title">About</h2>
           <span className="about">
