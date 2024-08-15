@@ -31,7 +31,7 @@ dd {
 
 :root {
   --blue-green-dark-hsl: hsl(185deg 34% 9%);
-  --blue-green-light-hsl: hsl(185deg 97% 91%);
+  --blue-green-light-hsl: hsl(185deg 34% 95%);
   background-color: var(--blue-green-dark-hsl);
   color: rgba(255, 255, 255, 0.87);
   color-scheme: light dark;
