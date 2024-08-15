@@ -44,19 +44,16 @@ header {
 }
 
 .header-content h1 {
-  font-weight: 400;
-  height: 95%;
+  font-weight: 200;
   font-stretch: semi-expanded;
   font-family: "Luminari";
   white-space: nowrap;
   color: var(--cloud-medium);
-  font-size: 2rem;
   border-radius: 1.5rem;
-  grid-column: 1;
   justify-self: left;
   align-items: center;
   -webkit-text-fill-color: initial;
-  padding-inline: 0.5rem;
+  padding-inline: 1rem;
   background-image: var(--full-gradient);
   border-style: groove;
   border-width: 0.05rem;
