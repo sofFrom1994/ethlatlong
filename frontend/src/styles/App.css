@@ -126,5 +126,5 @@ main {
 
 wcm-modal {
   position: absolute;
-  z-index: 2147483646;
+  z-index: 2147483647;
 }

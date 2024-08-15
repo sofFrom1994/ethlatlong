@@ -106,7 +106,6 @@
     border-radius: 0;
     color: var(--field-text-color);
     margin: 0 -1px;
-    z-index: 1;
     font-size: 1rem;
     padding: 0.429rem 0.571rem;
     outline: none;
@@ -288,7 +287,7 @@
   --background-color: var(--blue-green-medium-opaque);
   opacity: 0.9;
   position: absolute;
-  z-index: 2147483647;
+  z-index: 2147483645;
 
   border: 0.1rem solid var(--border-color);
   box-shadow: 0 8px 20px rgba(66, 144, 81, 0.1);
@@ -419,15 +418,15 @@
 /* select */
 
 .react-aria-ListBox {
-  z-index: 2147483647;
+  z-index: 2147483646;
 }
 
 .react-aria-ListBoxItem {
-  z-index: 2147483647;
+  z-index: 2147483646;
 }
 
 .react-aria-Select {
-  z-index: 2147483647;
+  z-index: 2147483646;
   color: var(--text-color);
 
   .react-aria-Button {
@@ -468,7 +467,7 @@
 .react-aria-Popover[data-trigger="Select"] {
   min-width: var(--trigger-width);
   position: absolute;
-  z-index: 2147483647;
+  z-index: 2147483646;
 
   .react-aria-ListBoxItem {
     padding: 0.286rem 0.571rem 0.286rem 1.571rem;
