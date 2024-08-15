@@ -2,7 +2,6 @@
 
 .add {
   background-image: var(--full-gradient);
-  padding: 0.2rem;
   color: white !important;
 
   &[data-pressed] {
