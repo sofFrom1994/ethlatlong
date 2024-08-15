@@ -6,7 +6,7 @@ const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 const appURL = import.meta.env.VITE_APP_URL;
 
 export const config = getDefaultConfig({
-  appName: "eth-lat-long",
+  appName: "you-are-here",
   projectId: projectId,
   appUrl: appURL,
   ssr: false,

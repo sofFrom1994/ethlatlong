@@ -15,7 +15,7 @@ export const Header = (props: { account: UseAccountReturnType<Config>, map : L.M
   return (
     <header>
       <div className="header-content">
-        <h1>eth-lat-long</h1>
+        <h1>you are here</h1>
         <div className="account-manager">
           <ConnectButton
             label="Sign in"
