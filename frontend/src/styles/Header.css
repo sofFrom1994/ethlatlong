@@ -48,7 +48,7 @@ header {
   font-stretch: semi-expanded;
   font-family: "Luminari";
   white-space: nowrap;
-  color: var(--cloud-medium);
+  color: var(--font-white) !important;
   border-radius: 1.5rem;
   justify-self: left;
   align-items: center;
