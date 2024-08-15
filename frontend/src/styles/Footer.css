@@ -44,9 +44,8 @@ footer>button {
   }
 }
 
-.roadmap {
-  list-style-type: circle;
-  padding: 0;
+.roadmap-list {
+  margin-top: 0;
 }
 
 .legend {

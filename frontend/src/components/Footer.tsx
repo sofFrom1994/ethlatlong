@@ -12,14 +12,23 @@ import "../styles/Footer.css";
 import messageIcon from "../assets/message.svg?raw";
 import mediaIcon from "../assets/photo-outline.svg?raw";
 import castIcon from "../assets/purple-white.svg?raw";
-import layerIcon from "../assets/map.svg?raw"
+import layerIcon from "../assets/map.svg?raw";
 import { coloredSVG } from "../utils";
 
 const legend = () => {
   return (
     <DialogTrigger>
-      <Button className="footer-button" aria-label="">Legend</Button>
-      <Popover style={{ paddingBottom: "2.5rem", width: "10rem", height: "13rem", zIndex: 240000001 }}>
+      <Button className="footer-button" aria-label="">
+        Legend
+      </Button>
+      <Popover
+        style={{
+          paddingBottom: "2.5rem",
+          width: "10rem",
+          height: "13rem",
+          zIndex: 240000001,
+        }}
+      >
         <OverlayArrow>
           <svg width={12} height={12} viewBox="0 0 12 12">
             <path d="M0 0 L6 6 L12 0" />
@@ -30,7 +39,7 @@ const legend = () => {
           <div className="legend">
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", messageIcon)}
-              <h3> Messages  </h3>
+              <h3> Messages </h3>
             </div>
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", mediaIcon)}
@@ -51,22 +60,43 @@ const legend = () => {
   );
 };
 
- 
 const roadmap = () => {
   return (
     <DialogTrigger>
       <Button className="footer-button" aria-label="">
         Roadmap{" "}
       </Button>
-      <Modal isDismissable>
+      <Modal
+        style={{ height: "min-content", width: "40rem", paddingInline: "0rem" }}
+        isDismissable
+      >
         <Dialog>
-          <Heading slot="title">roadmap</Heading>
-          <ul className="roadmap">
-            <li> some element</li>
-            <li> some element</li>
-            <li> some element</li>
-            <li> some element</li>
-          </ul>
+          <h2>Roadmap</h2>
+          <span className="roadmap">
+            <h3> Future features </h3>
+            <ul className="roadmap-list">
+              <li> embed media UI. </li>
+              <li> farcaster integration </li>
+              <li>
+                {" "}
+                post paths created by using real time watch mode: for drawing a
+                path, enable watch on the map when the path starts and record
+                the starting location. As the user moves take snapshots (for
+                anything from determining the path points to speed or whatever),
+                until the user hits stop or the limit is reached. Make a list of
+                the points and order from start to end. This is the path.{" "}
+              </li>
+              <li> 0 gas messages via zora minting </li>
+              <li> Permissioned / write controlled layers </li>
+              <li> 3D media embed( add orientation ) (ar related) </li>
+              <li> custom maps (areas, image overlays) </li>
+            </ul>
+            <h3> Improvements </h3>
+            <ul className="roadmap-list">
+              <li> Use events to add a time component to all posts </li>
+              <li> layer categories / search </li>
+            </ul>
+          </span>
         </Dialog>
       </Modal>
     </DialogTrigger>
@@ -79,10 +109,21 @@ const about = () => {
       <Button className="footer-button" aria-label="">
         About
       </Button>
-      <Modal isDismissable>
+      <Modal style={{ height: "min-content", width: "40rem" }} isDismissable>
         <Dialog>
-          <Heading slot="title">about</Heading>
-          about
+          <h2 slot="title">About</h2>
+          <span className="about">
+            <span>
+              A geographical information layer for ethereum on Base. Explore the
+              world through user-created layers of messages, media, casts,
+              paths.
+              <span>
+                Built with leaflet, open street map, WAGMI, hardhat, react-aria,
+                rainbow and vite.
+              </span>
+              <span>todo: add links to about or footer-footer</span>
+            </span>
+          </span>
         </Dialog>
       </Modal>
     </DialogTrigger>
