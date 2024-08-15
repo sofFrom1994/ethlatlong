@@ -17,6 +17,12 @@ export const coloredIcon = (color: Color, svg: string, iconSize : L.PointExpress
   });
 }
 
+export const coloredSVG = (color: Color, svg: string) => {
+  return (
+    <span style={{color: color}} dangerouslySetInnerHTML={{__html: svg}} />
+  )
+}
+
 export const nToColor = (nColor: number) => {
   console.log(nColor);
   if (nColor === 0) {
