@@ -47,7 +47,7 @@ main {
 @media (min-height: 936px) and (-webkit-min-device-pixel-ratio: 2) {
   main {
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
-    grid-template-rows: 5svh 89.5svh max-content;
+    grid-template-rows: 4.5svh 90svh max-content;
     grid-gap: 0.3rem;
   }
 }
