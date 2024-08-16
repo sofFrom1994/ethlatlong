@@ -10,6 +10,9 @@
 
 #root>div[data-rk] {
  height: 100% !important;
+ z-index: 2147483646;
+ margin: 0 !important; 
+ padding: 0 !important;
 }
 
 header {
