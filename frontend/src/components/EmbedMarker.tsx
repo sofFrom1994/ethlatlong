@@ -8,6 +8,7 @@ import { Color, embedType, layerType } from "./types";
 import { coloredIcon, nToColor } from "../utils";
 import { Config, UseAccountReturnType, UseWriteContractReturnType } from "wagmi";
 import { ethLatLongAbi } from "../generated";
+import { Fragment } from "react";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -52,9 +53,8 @@ export const embedToMarker = (
     }
   }
   return (
-    <div>
+    <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
       <Marker
-        key={`marker-${layer.id.toString()}-${embed.id.toString()}-${embed.author}-${embed.kind}-${embed.message}`}
         position={
           [
             Number(embed.lat) / 1e18,
@@ -92,6 +92,6 @@ export const embedToMarker = (
           }
         </Popup>
       </Marker>
-    </div>
+    </Fragment>
   );
 };
