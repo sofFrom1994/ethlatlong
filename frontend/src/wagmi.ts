@@ -10,7 +10,7 @@ export const config = getDefaultConfig({
   projectId: projectId,
   appUrl: appURL,
   ssr: false,
-  chains: [baseSepolia, hardhat],
+  chains: [baseSepolia],
   transports: {
     [baseSepolia.id]: http()
   }
