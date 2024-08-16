@@ -44,8 +44,7 @@ main {
   }
 }
 
-
-@media (min-height: 1024px)  {
+@media (min-height: 940px) and (display-mode: standalone) {
   main {
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
     grid-template-rows: 5svh 89.5svh max-content;
@@ -53,7 +52,7 @@ main {
   }
 }
 
-@media (min-height: 1024px) and (display-mode: standalone) {
+@media (min-height: 1024px)  {
   main {
     padding: 0.2rem 0.2rem 0.3rem 0.2rem;
     grid-template-rows: 5svh 89.5svh max-content;
