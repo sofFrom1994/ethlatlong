@@ -11,12 +11,11 @@ import "../styles/Footer.css";
 import castIcon from "../assets/purple-white.svg";
 import leafletIcon from "../assets/Leaflet_logo.png";
 import wagmiIcon from "../assets/wagmi.svg";
-import hardhatIcon from "../assets/hardhat.png";
-import raIcon from "../assets/react-aria.jpg";
+import hardhatIcon from "../assets/hardhat-logo-dark.svg";
+import raIcon from "../assets/react_aria.png";
 import rainbowIcon from "../assets/rainbow.svg";
 import osmIcon from "../assets/osm.png";
 import gitIcon from "../assets/github.png";
-import viteIcon from "../assets/vite.svg";
 import twitterIcon from "../assets/x-black.png";
 
 import messageIconRaw from "../assets/message.svg?raw";
@@ -112,6 +111,7 @@ const roadmap = () => {
             </ul>
             <h3> Improvements </h3>
             <ul className="roadmap-list">
+              <li> Area based marker clusters </li>
               <li> Use events to add a time component to all posts </li>
               <li> layer categories / search </li>
             </ul>
@@ -148,69 +148,44 @@ const about = () => {
               </span>
               <h3> Built with </h3>
               <span className="built-with-links">
-                    <img
-                      src={leafletIcon}
-                      alt="HTML tutorial"
-                    />
-                <a href="default.asp">
-                    <img
-                      src={osmIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href="https://leafletjs.com/">
+                  <img  src={leafletIcon} alt="HTML tutorial" />
                 </a>
-                <a href="default.asp">
-                    <img
-                      src={wagmiIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href="https://wagmi.sh/">
+                  <img src={wagmiIcon} alt="HTML tutorial" />
                 </a>
-                <a href="default.asp">
-                    <img
-                      src={hardhatIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href="https://hardhat.org">
+                  <img src={hardhatIcon} alt="HTML tutorial" />
                 </a>
-                <a href="default.asp">
-                    <img
-                      src={raIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href="https://react-spectrum.adobe.com/react-aria">
+                  <img src={raIcon} alt="HTML tutorial" />
                 </a>
-                <a href="default.asp">
-                    <img
-                      src={rainbowIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href=" https://www.openstreetmap.org">
+                  <img src={osmIcon} alt="HTML tutorial"/>
                 </a>
-                <a href="default.asp">
-                    <img
-                      src={viteIcon}
-                      alt="HTML tutorial"
-                    />
+                <a href="https://www.rainbowkit.com">
+                  <img
+                    src={rainbowIcon}
+                    alt="HTML tutorial"
+                  />
                 </a>
               </span>
             </span>
             <h3> Links </h3>
             <span className="app-links">
-              <a href="default.asp">
-                  <img
-                    src={gitIcon}
-                    alt="HTML tutorial"
-                  />
+              <a href="https://github.com/sofFrom1994/ethlatlong">
+                <img src={gitIcon} alt="HTML tutorial" />
               </a>
-              <a href="default.asp">
+              <a href="https://www.uarehere.online">
                 <img
                   src={castIcon}
                   alt="HTML tutorial"
-                  width={"100%"}
-                  height={"100%"}
+                  height={"auto"}
+                  width={"40rem"}
                 />
               </a>
-              <a href="default.asp">
-                  <img
-                    src={twitterIcon}
-                    alt="HTML tutorial"
-                  />{" "}
+              <a href="https://x.com/u_are_here_app">
+                <img src={twitterIcon} alt="HTML tutorial" />{" "}
               </a>
             </span>
           </span>
