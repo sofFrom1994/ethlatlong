@@ -4,15 +4,25 @@ import {
   Popover,
   OverlayArrow,
   Dialog,
-  Heading,
   Modal,
 } from "react-aria-components";
 import "../styles/Footer.css";
 
-import messageIcon from "../assets/message.svg?raw";
-import mediaIcon from "../assets/photo-outline.svg?raw";
-import castIcon from "../assets/purple-white.svg?raw";
-import layerIcon from "../assets/map.svg?raw";
+import castIcon from "../assets/purple-white.svg";
+import leafletIcon from "../assets/Leaflet_logo.png";
+import wagmiIcon from "../assets/wagmi.svg";
+import hardhatIcon from "../assets/hardhat.png";
+import raIcon from "../assets/react-aria.jpg";
+import rainbowIcon from "../assets/rainbow.svg";
+import osmIcon from "../assets/osm.png";
+import gitIcon from "../assets/github.png";
+import viteIcon from "../assets/vite.svg";
+import twitterIcon from "../assets/x-black.png";
+
+import messageIconRaw from "../assets/message.svg?raw";
+import mediaIconRaw from "../assets/photo-outline.svg?raw";
+import castIconRaw from "../assets/purple-white.svg?raw";
+import layerIconRaw from "../assets/map.svg?raw";
 import { coloredSVG } from "../utils";
 
 const legend = () => {
@@ -38,19 +48,19 @@ const legend = () => {
           <h2> Legend </h2>
           <div className="legend">
             <div className="legend-symbol">
-              {coloredSVG("#FFFFFF", messageIcon)}
+              {coloredSVG("#FFFFFF", messageIconRaw)}
               <h3> Messages </h3>
             </div>
             <div className="legend-symbol">
-              {coloredSVG("#FFFFFF", mediaIcon)}
+              {coloredSVG("#FFFFFF", mediaIconRaw)}
               <h3> Media </h3>
             </div>
             <div className="legend-symbol">
-              {coloredSVG("none", castIcon)}
+              {coloredSVG("none", castIconRaw)}
               <h3> Casts </h3>
             </div>
             <div className="legend-symbol">
-              {coloredSVG("#FFFFFF", layerIcon)}
+              {coloredSVG("#FFFFFF", layerIconRaw)}
               <h3> Layers </h3>
             </div>
           </div>
@@ -67,7 +77,12 @@ const roadmap = () => {
         Roadmap{" "}
       </Button>
       <Modal
-        style={{ maxHeight: "60svh", maxWidth: "90svw" , overflowY: "auto", paddingInline: "0rem" }}
+        style={{
+          maxHeight: "60svh",
+          maxWidth: "90svw",
+          overflowY: "auto",
+          paddingInline: "0rem",
+        }}
         isDismissable
       >
         <Dialog>
@@ -88,7 +103,11 @@ const roadmap = () => {
               </li>
               <li> Gasless messages via zora minting </li>
               <li> Permissioned (write controlled ) layers </li>
-              <li> 3D media embed( add orientation ) (ar related / pokemon go inspired) </li>
+              <li>
+                {" "}
+                3D media embed( add orientation ) (ar related / pokemon go
+                inspired){" "}
+              </li>
               <li> custom maps (areas, image overlays) </li>
             </ul>
             <h3> Improvements </h3>
@@ -109,19 +128,90 @@ const about = () => {
       <Button className="footer-button" aria-label="">
         About
       </Button>
-      <Modal style={{ maxHeight: "60svh", maxWidth: "90svw" , overflowY: "auto", paddingInline: "0rem" }} isDismissable>
+      <Modal
+        style={{
+          maxHeight: "60svh",
+          maxWidth: "90svw",
+          overflowY: "auto",
+          paddingInline: "0rem",
+        }}
+        isDismissable
+      >
         <Dialog>
           <h2 slot="title">About</h2>
           <span className="about">
             <span>
-              A geographical information layer for ethereum on Base. Explore the
-              world through user-created layers of messages, media, casts,
-              paths.
               <span>
-                Built with leaflet, open street map, WAGMI, hardhat, react-aria,
-                rainbow and vite.
+                A geographical information layer for ethereum on Base. Explore
+                the world through user-created layers of messages, media, casts,
+                paths.
               </span>
-              <span>todo: add links to about or footer-footer</span>
+              <h3> Built with </h3>
+              <span className="built-with-links">
+                    <img
+                      src={leafletIcon}
+                      alt="HTML tutorial"
+                    />
+                <a href="default.asp">
+                    <img
+                      src={osmIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+                <a href="default.asp">
+                    <img
+                      src={wagmiIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+                <a href="default.asp">
+                    <img
+                      src={hardhatIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+                <a href="default.asp">
+                    <img
+                      src={raIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+                <a href="default.asp">
+                    <img
+                      src={rainbowIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+                <a href="default.asp">
+                    <img
+                      src={viteIcon}
+                      alt="HTML tutorial"
+                    />
+                </a>
+              </span>
+            </span>
+            <h3> Links </h3>
+            <span className="app-links">
+              <a href="default.asp">
+                  <img
+                    src={gitIcon}
+                    alt="HTML tutorial"
+                  />
+              </a>
+              <a href="default.asp">
+                <img
+                  src={castIcon}
+                  alt="HTML tutorial"
+                  width={"100%"}
+                  height={"100%"}
+                />
+              </a>
+              <a href="default.asp">
+                  <img
+                    src={twitterIcon}
+                    alt="HTML tutorial"
+                  />{" "}
+              </a>
             </span>
           </span>
         </Dialog>
