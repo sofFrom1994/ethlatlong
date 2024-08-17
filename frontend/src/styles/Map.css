@@ -97,21 +97,19 @@
 .leaflet-popup-content button {
   background-color: var(--water-light);
   border-radius: 0.7rem;
-  padding-inline: 0 !important;
-  border-width: 0.1rem;
-  margin: 0;
-  font-size: 112%;
+  border-width: 0rem;
+  font-size: 107%;
   margin: auto;
   color: rgba(255, 255, 255) !important;
 }
 
 .leaflet-popup-content button[data-type="add"] {
-  width: 3rem;
+  width: 2.5rem;
 }
 
 .leaflet-popup-content button[data-type="delete"] {
   background-color: var(--red-medium-light);
-  width: 3.7rem;
+  width: 3.4rem;
 }
 
 .leaflet-popup-content button:disabled {
