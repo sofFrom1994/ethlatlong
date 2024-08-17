@@ -45,7 +45,7 @@ const legend = () => {
           </svg>
         </OverlayArrow>
         <Dialog>
-            <h2 style={{paddingBottom: "0.4rem"}}> Legend </h2>
+          <h2 style={{ paddingBottom: "0.4rem" }}> Legend </h2>
           <div className="legend">
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", messageIconRaw)}
@@ -78,10 +78,11 @@ const roadmap = () => {
       </Button>
       <Modal
         style={{
-          maxHeight: "60svh",
+          maxHeight: "71svh",
           maxWidth: "90svw",
           overflowY: "auto",
           paddingInline: "0rem",
+          marginBottom: "8rem"
         }}
         isDismissable
       >
@@ -141,11 +142,10 @@ const about = () => {
       </Button>
       <Modal
         style={{
-          marginBottom: "10rem",
-          maxHeight: "65svh",
+          marginBottom: "8rem",
+          maxHeight: "73svh",
           maxWidth: "91svw",
           overflowY: "auto",
-          paddingInline: "0rem",
         }}
         isDismissable
       >
