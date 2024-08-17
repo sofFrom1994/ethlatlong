@@ -86,6 +86,6 @@ footer>button {
 
 .app-links {
   display: grid;
-    grid-template-columns: 0.11fr 0.22fr 0.12fr;
-    gap: 0.2rem;
+    grid-template-columns: 0.12fr 0.10fr 0.12fr;
+    gap: 0.45rem;
 }

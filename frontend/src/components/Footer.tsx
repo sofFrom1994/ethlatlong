@@ -173,9 +173,6 @@ const about = () => {
             </span>
             <h3> Links </h3>
             <span className="app-links">
-              <a href="https://github.com/sofFrom1994/ethlatlong">
-                <img src={gitIcon} alt="HTML tutorial" />
-              </a>
               <a href="https://www.uarehere.online">
                 <img
                   src={castIcon}
@@ -186,6 +183,9 @@ const about = () => {
               </a>
               <a href="https://x.com/u_are_here_app">
                 <img src={twitterIcon} alt="HTML tutorial" />{" "}
+              </a>
+              <a href="https://github.com/sofFrom1994/ethlatlong">
+                <img src={gitIcon} alt="HTML tutorial" />
               </a>
             </span>
           </span>
