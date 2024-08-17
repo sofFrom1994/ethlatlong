@@ -23,6 +23,7 @@ import mediaIconRaw from "../assets/photo-outline.svg?raw";
 import castIconRaw from "../assets/purple-white.svg?raw";
 import layerIconRaw from "../assets/map.svg?raw";
 import { coloredSVG } from "../utils";
+import { CloseButton } from "./CloseButton";
 
 const legend = () => {
   return (
@@ -44,23 +45,23 @@ const legend = () => {
           </svg>
         </OverlayArrow>
         <Dialog>
-          <h2> Legend </h2>
+            <h2 style={{paddingBottom: "0.4rem"}}> Legend </h2>
           <div className="legend">
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", messageIconRaw)}
-              <h3> Messages </h3>
+              <p> Messages </p>
             </div>
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", mediaIconRaw)}
-              <h3> Media </h3>
+              <p> Media </p>
             </div>
             <div className="legend-symbol">
               {coloredSVG("none", castIconRaw)}
-              <h3> Casts </h3>
+              <p> Casts </p>
             </div>
             <div className="legend-symbol">
               {coloredSVG("#FFFFFF", layerIconRaw)}
-              <h3> Layers </h3>
+              <p> Layers </p>
             </div>
           </div>
         </Dialog>
@@ -85,7 +86,17 @@ const roadmap = () => {
         isDismissable
       >
         <Dialog>
-          <h2>Roadmap</h2>
+          <span
+            style={{
+              height: "1rem",
+              marginBottom: "1.5rem",
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+            }}
+          >
+            <h2>Roadmap</h2>
+            <CloseButton label="x" />
+          </span>
           <span className="roadmap">
             <h3> Future features </h3>
             <ul className="roadmap-list">
@@ -130,26 +141,48 @@ const about = () => {
       </Button>
       <Modal
         style={{
-          maxHeight: "60svh",
-          maxWidth: "90svw",
+          marginBottom: "10rem",
+          maxHeight: "65svh",
+          maxWidth: "91svw",
           overflowY: "auto",
           paddingInline: "0rem",
         }}
         isDismissable
       >
         <Dialog>
-          <h2 slot="title">About</h2>
+          <span
+            style={{
+              height: "1rem",
+              marginBottom: "1.5rem",
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+            }}
+          >
+            <h2 slot="title">About</h2>
+            <CloseButton label="x" />
+          </span>
           <span className="about">
             <span>
               <span>
                 A geographical information layer for ethereum on Base. Explore
                 the world through user-created layers of messages, media, casts,
-                paths.
+                paths. Embed onchain items in the "physical" world. The main
+                inspiration for this project was a summer and a half of pokemon
+                go in 2015-16 that first showed me what could be possible by
+                embedding the digital onto the physical.
+              </span>
+              <h3> Current state</h3>
+              <span>
+                The project is between the tech demo and alpha stages. It is
+                active development, and will remain public and seeking feedback
+                and more from this stage on. If interested in feedback,
+                collaboration, or anything at all, please reach out on any of
+                our links below.
               </span>
               <h3> Built with </h3>
               <span className="built-with-links">
                 <a href="https://leafletjs.com/">
-                  <img  src={leafletIcon} alt="HTML tutorial" />
+                  <img src={leafletIcon} alt="HTML tutorial" />
                 </a>
                 <a href="https://wagmi.sh/">
                   <img src={wagmiIcon} alt="HTML tutorial" />
@@ -161,13 +194,10 @@ const about = () => {
                   <img src={raIcon} alt="HTML tutorial" />
                 </a>
                 <a href=" https://www.openstreetmap.org">
-                  <img src={osmIcon} alt="HTML tutorial"/>
+                  <img src={osmIcon} alt="HTML tutorial" />
                 </a>
                 <a href="https://www.rainbowkit.com">
-                  <img
-                    src={rainbowIcon}
-                    alt="HTML tutorial"
-                  />
+                  <img src={rainbowIcon} alt="HTML tutorial" />
                 </a>
               </span>
             </span>
