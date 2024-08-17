@@ -33,7 +33,6 @@ export function ColorSlider(props) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
-        width: "17rem" 
       }}
     >
       {/* Create a flex container for the label and output element. */}

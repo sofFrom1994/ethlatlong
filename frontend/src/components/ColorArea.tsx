@@ -31,8 +31,8 @@ export function ColorArea(props) {
       {...colorAreaProps}
       style={{
         ...colorAreaProps.style,
-        width: "95%",
         height: "10rem",
+        width: "100%",
         borderRadius: BORDER_RADIUS,
         background: isDisabled
           ? 'rgb(142, 142, 142)'
