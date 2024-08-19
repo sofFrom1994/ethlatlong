@@ -11,11 +11,9 @@ import { useAccount } from 'wagmi';
 import { CloseButton } from './CloseButton';
 import { coloredIcon } from '../utils';
 
-import messageSVG from "../assets/message-outline.svg?raw";
+import messageSVG from "../assets/bubble-plus.svg?raw";
 import mapPlusSVG from "../assets/map-plus.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
-
-//todo depending on kind of embed, use different add markers. 
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -97,13 +95,13 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       return;
     }
     if (key === "layer") {
-      setIcon(coloredIcon("#0", mapPlusSVG, [20, 20], [10, -2]));
+      setIcon(coloredIcon("000000", mapPlusSVG, [80, 20], [10, -2]));
       setModalContent(
         <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "message") {
-      setIcon(coloredIcon("#0", messageSVG, [20, 20], [10, -2]));
+      setIcon(coloredIcon("000000", messageSVG, [20, 20], [10, -2]));
       setModalContent(
         <AddMessageForm
           lat={currentCenter.lat}
@@ -114,7 +112,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       );
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
-      setIcon(coloredIcon("#0", mediaSVG));
+      setIcon(coloredIcon("000000", mediaSVG));
       let closeButtonStyle = {color: "white"}
       setModalContent(
         <span>
