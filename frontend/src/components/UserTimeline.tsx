@@ -15,7 +15,7 @@ import { LoadingSpinner } from "./Loading";
 import userIcon from "../assets/user-pin.svg";
 import { CloseButton } from "./CloseButton";
 import { OverlayTriggerState } from "react-stately";
-import messageSVG from "../assets/message.svg";
+import messageSVG from "../assets/bubble-outline.svg";
 import mediaSVG from "../assets/photo.svg";
 import layerSVG from "../assets/map.svg";
 import goSVG from "../assets/map-pin-up.svg";
