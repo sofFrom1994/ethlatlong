@@ -34,15 +34,15 @@ export const EmbedMarker = (
   let embedIcon: L.Icon<L.IconOptions> | L.DivIcon;
   //
   if (embed.kind === 0) {
-    embedIcon = coloredIcon(markerColor, messageSVG);
+    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
   } else if (embed.kind === 1) {
     // todo: path icon
-    embedIcon = coloredIcon(markerColor, messageSVG);
+    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
   } else if (embed.kind === 2) {
-    embedIcon = coloredIcon(markerColor, mediaSVG);
+    embedIcon = coloredIcon(markerColor, mediaSVG, undefined, undefined, undefined, undefined);
   } else {
     // unknown marker
-    embedIcon = coloredIcon(markerColor, messageSVG);
+    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
   }
 
   let deleteButton = null;
