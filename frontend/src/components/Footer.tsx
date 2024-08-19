@@ -18,8 +18,8 @@ import osmIcon from "../assets/osm.png";
 import gitIcon from "../assets/github.png";
 import twitterIcon from "../assets/x-black.png";
 
-import filterIcon from "../assets/filter.svg?raw"
-import leafletLayerIcon from "../assets/layers.png"
+import filterIcon from "../assets/filter.svg?raw";
+import leafletLayerIcon from "../assets/layers.png";
 
 import messageIconRaw from "../assets/message.svg?raw";
 import mediaIconRaw from "../assets/photo-outline.svg?raw";
@@ -46,14 +46,15 @@ const legend = () => {
             <path d="M0 0 L6 6 L12 0" />
           </svg>
         </OverlayArrow>
-        <Dialog style={{overflowY: "auto"}}>
+        <Dialog style={{ overflowY: "auto" }}>
           <h2> Guide </h2>
           <h3> Embeds </h3>
           <p>
             {" "}
             Embeds are onchain objects with a location on the map and a
             particular layer. Click on them to see more, double click on them to
-            zoom to them. To add an embed click the + button and choose the embed kind and location.
+            zoom to them. To add an embed click the + button and choose the
+            embed kind and location.
           </p>
           <div className="guide-symbols">
             <div className="guide-symbol">
@@ -72,25 +73,28 @@ const legend = () => {
               {coloredSVG("#FFFFFF", layerIconRaw)}
               <p> Layers </p>
             </div>
-            </div>
-            
-  <h3> Layers and Filters </h3>
+          </div>
+
+          <h3> Layers and Filters </h3>
           <p>
-            To make the map more manageable you can choose which layers to see on the top right and filter which kinds of
-            embeds to see with the filter button.
+            To make the map more manageable you can choose which layers to see
+            on the top right and filter which kinds of embeds to see with the
+            filter button.
           </p>
-            <div className="guide-symbols">
-              <div className="guide-symbol">
-                {coloredSVG("#FFFFFF", filterIcon)}
-                <p> Filter </p>
-              </div>
-              <div className="guide-symbol">
-                <img src={leafletLayerIcon} alt="HTML tutorial"
-                  height={"auto"}
-                  width={"auto"}
-                  />
-                <p> Layers </p>
-              </div>
+          <div className="guide-symbols">
+            <div className="guide-symbol">
+              {coloredSVG("#FFFFFF", filterIcon)}
+              <p> Filter </p>
+            </div>
+            <div className="guide-symbol">
+              <img
+                src={leafletLayerIcon}
+                alt="HTML tutorial"
+                height={"auto"}
+                width={"auto"}
+              />
+              <p> Layers </p>
+            </div>
           </div>
         </Dialog>
       </Popover>
@@ -127,9 +131,14 @@ const roadmap = () => {
             <CloseButton label="x" />
           </span>
           <span className="roadmap">
-            <h3> Future features </h3>
+            <h3> Coming Soon </h3>
             <ul className="roadmap-list">
               <li> Embed media UI. </li>
+              <li> Area based marker clusters </li>
+              <li> Use events to add a time component to all posts </li>
+            </ul>
+            <h3> Future features </h3>
+            <ul className="roadmap-list">
               <li> Farcaster integration </li>
               <li>
                 {" "}
@@ -148,12 +157,6 @@ const roadmap = () => {
                 inspired){" "}
               </li>
               <li> custom maps (areas, image overlays) </li>
-            </ul>
-            <h3> Improvements </h3>
-            <ul className="roadmap-list">
-              <li> Area based marker clusters </li>
-              <li> Use events to add a time component to all posts </li>
-              <li> layer categories / search </li>
             </ul>
           </span>
         </Dialog>
