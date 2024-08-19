@@ -27,6 +27,18 @@
   }
 }
 
+@media (min-width: 824px) {
+  .map-controls {
+    grid-template-columns: 0.10fr 0.07fr 0.10fr;
+  }
+}
+
+@media (min-width: 1224px) {
+  .map-controls {
+    grid-template-columns: 0.10fr 0.05fr 0.10fr;
+  }
+}
+
 .map-controls>button:active {
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.1);
   background: var(--button-background-pressed);
@@ -49,7 +61,7 @@
 .map-controls>* {
   display: grid;
   background-color: var(--green-light);
-  height: 90%;
+  height: 75%;
   width: 100%;
   justify-content: center;
   justify-self: center;
