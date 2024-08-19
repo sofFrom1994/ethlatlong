@@ -65,7 +65,7 @@ export const EmbedMarker = (
         icon={embedIcon}
         eventHandlers={{
           dblclick: (e) => {
-            map.flyTo(e.latlng);
+            map.flyTo(e.latlng, 18);
           }
         }}
       >
