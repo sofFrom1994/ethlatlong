@@ -36,7 +36,7 @@ const defaultFilter: markerFilter = {
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const Map = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) => {
+export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -85,5 +85,3 @@ const Map = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) => {
     </MapContainer>
   );
 };
-
-export default Map;
