@@ -1,8 +1,8 @@
 import { Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import { Map, LatLngExpression } from "leaflet";
 import L from "leaflet";
 
-import messageSVG from "../assets/message-outline.svg?raw";
+import messageSVG from "../assets/bubble.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
 import { Color, embedType, layerType } from "./types";
 import { coloredIcon, nToColor } from "../utils";
@@ -13,11 +13,12 @@ import { Fragment } from "react";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const embedToMarker = (
+export const EmbedMarker = (
   layer: layerType,
   embed: embedType,
   account: UseAccountReturnType<Config>,
-  writeContractAction : UseWriteContractReturnType<Config, unknown>
+  writeContractAction : UseWriteContractReturnType<Config, unknown>,
+  map : Map
 ) => {
   const markerColor = nToColor(layer.color);
 
@@ -62,6 +63,11 @@ export const embedToMarker = (
           ] as LatLngExpression
         }
         icon={embedIcon}
+        eventHandlers={{
+          dblclick: (e) => {
+            map.flyTo(e.latlng);
+          }
+        }}
       >
         <Popup>
           <div>

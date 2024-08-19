@@ -1,11 +1,13 @@
 import { Config, UseAccountReturnType,  useWriteContract, UseWriteContractReturnType } from "wagmi";
-import { LayerGroup, LayersControl } from "react-leaflet";
+import { LayerGroup, LayersControl, useMap } from "react-leaflet";
+import { Map} from "leaflet";
 import { embedType, layerType, markerFilter } from './types';
-import { embedToMarker } from './EmbedMarker';
+import { EmbedMarker } from './EmbedMarker';
 import { Fragment } from "react";
 
 export const LayerChoiceModal = (props : { filter : markerFilter, account : UseAccountReturnType<Config>, layers : layerType[], error : Error | null} ) => {
   const writeContractAction  = useWriteContract();
+  const map = useMap();
 
   if (props.error) {
     console.log(props.error);
@@ -13,7 +15,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter, account : UseA
   } 
 
   if (!props.layers || props.layers.length === 0) return <></>;
-  const layerViews = props.layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account, writeContractAction));
+  const layerViews = props.layers.map((layer) => layerToLayerControlOverlay(layer, props.filter, props.account, writeContractAction, map));
   return (
     <LayersControl>
       {layerViews}
@@ -31,12 +33,12 @@ const embedFilter = (embed: embedType, filter: markerFilter) => {
   }
 };
 
-const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>, writeContract : UseWriteContractReturnType<Config, unknown>) => {
+const layerToLayerControlOverlay = (layer: layerType, filter: markerFilter, account : UseAccountReturnType<Config>, writeContract : UseWriteContractReturnType<Config, unknown>, map : Map) => {
   const markers = layer.embeds
     .filter((embed) => {
       return embedFilter(embed, filter);
     })
-    .map((embed) => embedToMarker(layer, embed, account, writeContract));
+    .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (
     <Fragment
       key={`layer-${layer.id.toString()}`}
