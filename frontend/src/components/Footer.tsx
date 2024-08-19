@@ -18,6 +18,9 @@ import osmIcon from "../assets/osm.png";
 import gitIcon from "../assets/github.png";
 import twitterIcon from "../assets/x-black.png";
 
+import filterIcon from "../assets/filter.svg?raw"
+import leafletLayerIcon from "../assets/layers.png"
+
 import messageIconRaw from "../assets/message.svg?raw";
 import mediaIconRaw from "../assets/photo-outline.svg?raw";
 import castIconRaw from "../assets/purple-white.svg?raw";
@@ -29,40 +32,65 @@ const legend = () => {
   return (
     <DialogTrigger>
       <Button className="footer-button" aria-label="">
-        Legend
+        Guide
       </Button>
       <Popover
         style={{
-          paddingBottom: "2.5rem",
-          width: "10rem",
-          height: "13rem",
+          width: "24rem",
+          paddingInline: "0.5rem",
           zIndex: 240000001,
         }}
       >
         <OverlayArrow>
-          <svg width={12} height={12} viewBox="0 0 12 12">
+          <svg width={"4rem"} height={"2rem"} viewBox="0 0 12 12">
             <path d="M0 0 L6 6 L12 0" />
           </svg>
         </OverlayArrow>
-        <Dialog>
-          <h2 style={{ paddingBottom: "0.4rem" }}> Legend </h2>
-          <div className="legend">
-            <div className="legend-symbol">
+        <Dialog style={{overflowY: "auto"}}>
+          <h2> Guide </h2>
+          <h3> Embeds </h3>
+          <p>
+            {" "}
+            Embeds are onchain objects with a location on the map and a
+            particular layer. Click on them to see more, double click on them to
+            zoom to them. To add an embed click the + button and choose the embed kind and location.
+          </p>
+          <div className="guide-symbols">
+            <div className="guide-symbol">
               {coloredSVG("#FFFFFF", messageIconRaw)}
               <p> Messages </p>
             </div>
-            <div className="legend-symbol">
+            <div className="guide-symbol">
               {coloredSVG("#FFFFFF", mediaIconRaw)}
               <p> Media </p>
             </div>
-            <div className="legend-symbol">
+            <div className="guide-symbol">
               {coloredSVG("none", castIconRaw)}
               <p> Casts </p>
             </div>
-            <div className="legend-symbol">
+            <div className="guide-symbol">
               {coloredSVG("#FFFFFF", layerIconRaw)}
               <p> Layers </p>
             </div>
+            </div>
+            
+  <h3> Layers and Filters </h3>
+          <p>
+            To make the map more manageable you can choose which layers to see on the top right and filter which kinds of
+            embeds to see with the filter button.
+          </p>
+            <div className="guide-symbols">
+              <div className="guide-symbol">
+                {coloredSVG("#FFFFFF", filterIcon)}
+                <p> Filter </p>
+              </div>
+              <div className="guide-symbol">
+                <img src={leafletLayerIcon} alt="HTML tutorial"
+                  height={"auto"}
+                  width={"auto"}
+                  />
+                <p> Layers </p>
+              </div>
           </div>
         </Dialog>
       </Popover>
@@ -82,7 +110,7 @@ const roadmap = () => {
           maxWidth: "90svw",
           overflowY: "auto",
           paddingInline: "0rem",
-          marginBottom: "8rem"
+          marginBottom: "8rem",
         }}
         isDismissable
       >

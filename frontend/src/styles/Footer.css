@@ -47,13 +47,13 @@ footer>button {
   margin-top: 0;
 }
 
-.legend {
+.guide-symbols {
   display: grid;
-  grid-auto-flow: row;
-  gap: 0.3rem;
+  grid-template-columns: 1fr 1fr;
+  padding-block: 0.3rem;
 }
 
-.legend-symbol {
+.guide-symbol {
   display: flex;
   gap: 0.5rem;
 }
