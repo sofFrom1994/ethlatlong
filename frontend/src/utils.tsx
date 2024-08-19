@@ -6,8 +6,8 @@ export const parseLatLong = (latlong : string) => {
   return parseUnits(latlong, 18)
 }
 
-export const coloredIcon = (color: Color, svg: string, iconSize : L.PointExpression = [15, 15], iconAnchor : L.PointExpression = [9, 15]) => {
-  const htmlS = `<span style="color: #${color};">${svg}</span>`;
+export const coloredIcon = (color: Color, svg: string, iconSize : L.PointExpression = [15, 15], iconAnchor : L.PointExpression = [9, 15], opacity=0.70) => {
+  const htmlS = `<span style="color: #${color};opacity: ${opacity};">${svg}</span>`;
   return L.divIcon({
     iconUrl: svg,
     className: "colored-icon",
