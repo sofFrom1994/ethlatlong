@@ -95,13 +95,13 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       return;
     }
     if (key === "layer") {
-      setIcon(coloredIcon("000000", mapPlusSVG, [50, 50], [10, -20], 1, [0,20]));
+      setIcon(coloredIcon("000000", mapPlusSVG, undefined, [10, -20], 1, [0,20]));
       setModalContent(
         <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "message") {
-      setIcon(coloredIcon("000000", messageSVG, [50, 50], [10, -20], 1, [0, 20]));
+      setIcon(coloredIcon("000000", messageSVG, undefined, [10, -20], 1, [0, 20]));
       setModalContent(
         <AddMessageForm
           lat={currentCenter.lat}

@@ -21,7 +21,7 @@ import twitterIcon from "../assets/x-black.png";
 import filterIcon from "../assets/filter.svg?raw";
 import leafletLayerIcon from "../assets/layers.png";
 
-import messageIconRaw from "../assets/bubble.svg?raw";
+import messageIconRaw from "../assets/bubble-outline.svg?raw";
 import mediaIconRaw from "../assets/photo-outline.svg?raw";
 import castIconRaw from "../assets/purple-white.svg?raw";
 import layerIconRaw from "../assets/map.svg?raw";
