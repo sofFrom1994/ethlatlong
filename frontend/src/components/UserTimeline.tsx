@@ -98,6 +98,8 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
     layerContent.push({ layer: currLayer, posts });
   });
 
+  const authorHeader = `${props.author.substring(0, 7)}...${props.author.substring(38,42)}`
+
   if (empty) {
     const closeButtonStyle = { color: "white" };
 
@@ -106,7 +108,7 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
         <Dialog>
           <span>
             <div className="timeline-header">
-              <h3>{props.author.substring(0, 7)}...</h3>
+              <h3>{authorHeader}</h3>
             </div>
             Your timeline is empty.
             <CloseButton label="Close" style={closeButtonStyle} />
@@ -136,7 +138,7 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
         {
           <div className="timeline">
             <div className="timeline-header">
-              <h3>{props.author.substring(0, 7)}...</h3>
+              <h3>{authorHeader}</h3>
               <CloseButton label="x" style={closeButtonStyle} />
             </div>
             <div className="posts">{postviews}</div>

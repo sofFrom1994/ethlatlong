@@ -124,7 +124,7 @@ export const EmbedMarker = (
             <div className="post-popup-content">
               <p>{embed.message}</p>
             </div>
-            <div className="post-popup-footer">by {embed.author}</div>
+            <div className="post-popup-footer">by {embed.author.substring(0,4)}...{embed.author.substring(38, 42)}</div>
             {deleteButton && deleteButton()}
             {writeContractAction.isPending && (
               <div> Waiting for confirmation... </div>
