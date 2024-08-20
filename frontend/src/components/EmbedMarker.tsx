@@ -6,19 +6,31 @@ import messageSVG from "../assets/bubble.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
 import { Color, embedType, layerType } from "./types";
 import { coloredIcon, nToColor } from "../utils";
-import { Config, UseAccountReturnType, UseWriteContractReturnType } from "wagmi";
+import {
+  BaseError,
+  Config,
+  UseAccountReturnType,
+  UseWriteContractReturnType,
+} from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { Fragment } from "react";
+import { ColorSwatch } from "react-aria-components";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
+
+const colorSwatchStyle = {
+  borderRadius: "0.2rem",
+  height: "90%",
+  width: "90%",
+};
 
 export const EmbedMarker = (
   layer: layerType,
   embed: embedType,
   account: UseAccountReturnType<Config>,
-  writeContractAction : UseWriteContractReturnType<Config, unknown>,
-  map : Map
+  writeContractAction: UseWriteContractReturnType<Config, unknown>,
+  map: Map
 ) => {
   const markerColor = nToColor(layer.color);
 
@@ -34,25 +46,59 @@ export const EmbedMarker = (
   let embedIcon: L.Icon<L.IconOptions> | L.DivIcon;
   //
   if (embed.kind === 0) {
-    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
+    embedIcon = coloredIcon(
+      markerColor,
+      messageSVG,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
   } else if (embed.kind === 1) {
     // todo: path icon
-    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
+    embedIcon = coloredIcon(
+      markerColor,
+      messageSVG,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
   } else if (embed.kind === 2) {
-    embedIcon = coloredIcon(markerColor, mediaSVG, undefined, undefined, undefined, undefined);
+    embedIcon = coloredIcon(
+      markerColor,
+      mediaSVG,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
   } else {
     // unknown marker
-    embedIcon = coloredIcon(markerColor, messageSVG, undefined, undefined, undefined, undefined);
+    embedIcon = coloredIcon(
+      markerColor,
+      messageSVG,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
   }
 
   let deleteButton = null;
   if (account.isConnected) {
     if (String(account.address) === embed.author) {
       deleteButton = () => {
-        return <button data-type="delete" onClick={() => deleteMarker()}>Delete</button>;
+        return (
+          <button data-type="delete" onClick={() => deleteMarker()}>
+            Delete
+          </button>
+        );
       };
     }
   }
+
+  const layerColor = `#${nToColor(layer.color)}`;
   return (
     <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
       <Marker
@@ -66,36 +112,38 @@ export const EmbedMarker = (
         eventHandlers={{
           dblclick: (e) => {
             map.flyTo(e.latlng, 18);
-          }
+          },
         }}
       >
-        <Popup>
-          <div>
-            {embed.message}
-            <br />
-            by
-            <br />
-            {embed.author}
+        <Popup minWidth={100}>
+          <div className="popup-post">
+            <div className="post-popup-header">
+              <ColorSwatch style={colorSwatchStyle} color={layerColor} />
+              <div>{layer.name}</div>
+            </div>
+            <div className="post-popup-content">
+              <p>{embed.message}</p>
+            </div>
+            <div className="post-popup-footer">by {embed.author}</div>
+            {deleteButton && deleteButton()}
+            {writeContractAction.isPending && (
+              <div> Waiting for confirmation... </div>
+            )}
+            {writeContractAction.isSuccess && (
+              <div>
+                {" "}
+                Transaction confirmed. Message should stop appearing soon.
+              </div>
+            )}
+            {writeContractAction.isError && (
+              <div>
+                {" "}
+                Error:{" "}
+                {(writeContractAction.error as BaseError).shortMessage ||
+                  writeContractAction.error.message}
+              </div>
+            )}
           </div>
-          {deleteButton && deleteButton()}
-          {
-
-          /*
-          {isConfirming && <div> Waiting for confirmation... </div>}
-          {isConfirmed && (
-            <div>
-              {" "}
-              Transaction confirmed. Message should stop appearing soon.
-            </div>
-          )}
-          {error && (
-            <div>
-              {" "}
-              Error: {(error as BaseError).shortMessage || error.message}
-            </div>
-          )}
-            */
-          }
         </Popup>
       </Marker>
     </Fragment>
