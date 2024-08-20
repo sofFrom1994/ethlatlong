@@ -234,7 +234,7 @@ const about = () => {
             </span>
             <h3> Links </h3>
             <span className="app-links">
-              <a href="https://www.uarehere.online">
+              <a href="https://warpcast.com/youarehere">
                 <img
                   src={castIcon}
                   alt="HTML tutorial"
