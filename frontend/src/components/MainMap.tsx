@@ -79,7 +79,7 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) =
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
-        <AddMenu layers={layers} error={readError} />
+        <AddMenu layers={layers} error={readError} address={account.address as string} />
         <FilterMenu filterSetter={setFilter} />
       </div>
     </MapContainer>

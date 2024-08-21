@@ -14,6 +14,17 @@ import { coloredIcon } from '../utils';
 import messageSVG from "../assets/bubble-plus.svg?raw";
 import mapPlusSVG from "../assets/map-plus.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
+import { AddMediaForm } from './AddMediaForm';
+
+const disabledMediaAdd = () => {
+  let closeButtonStyle = { color: "white" };
+  return (
+    <span>
+      <p> Media can only be embededed via smart contract at this moment. </p>
+      <CloseButton label="Close" style={closeButtonStyle} />
+    </span>
+  );
+};
 
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
@@ -50,7 +61,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
   );
 }
 
-export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null}) => {
+export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null, address : string}) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
@@ -113,12 +124,8 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
       setIcon(coloredIcon("000000", mediaSVG));
-      let closeButtonStyle = {color: "white"}
       setModalContent(
-        <span>
-          <p> Media can only be embededed via smart contract at this moment. </p>
-          <CloseButton label="Close" style={closeButtonStyle}/>
-        </span>
+        <AddMediaForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error} address={props.address} />
       );
       setIsModalOpen(true);
       setRequireMarkerPlacement(false);
