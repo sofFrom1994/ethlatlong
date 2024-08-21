@@ -1,5 +1,5 @@
 .vscode/
 todo.txt
 .env
-
+.vercel
 ./ignition/deployments/
