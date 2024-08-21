@@ -20,11 +20,10 @@ const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const getNFTsURL = "/getAddressNFTs?address="
 
-console.log(contract_address);
-
 const OwnedNFTs = (props: {address: string} ) => {
   const reqURL = serverURL+getNFTsURL+props.address;
   console.log(reqURL);
+  /*
   const { isLoading, error, data } = useQuery({
     queryKey: ['getAddressNFTs', props.address],
     queryFn: async () => {
@@ -42,6 +41,11 @@ const OwnedNFTs = (props: {address: string} ) => {
       {data}
     </div>
   )
+    */
+return (
+  <div>
+  </div>
+)
 }
 
 export const AddMediaForm = (props: { lat: number; long: number, address : string, layers : layerType[], error :  ReadContractErrorType | null }) => {
