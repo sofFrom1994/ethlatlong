@@ -18,34 +18,28 @@ import { useQuery } from "@tanstack/react-query";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 const serverURL = import.meta.env.VITE_SERVER_URL;
-const getNFTsURL = "/getAddressNFTs?address="
+const getNFTsURL = "getAddressNFTs?address="
 
 const OwnedNFTs = (props: {address: string} ) => {
   const reqURL = serverURL+getNFTsURL+props.address;
   console.log(reqURL);
-  /*
   const { isLoading, error, data } = useQuery({
     queryKey: ['getAddressNFTs', props.address],
     queryFn: async () => {
       const res = await fetch(reqURL);
-      console.log(res);
       return res.json();
     }
   });
   if (isLoading) return 'Loading...'
 
-  if (error) return 'An error has occurred: ' + error.message
+  if (error) return <span > An error has occurred: {error.message}  </span>
+  console.log(data);
 
   return (
     <div>
       {data}
     </div>
   )
-    */
-return (
-  <div>
-  </div>
-)
 }
 
 export const AddMediaForm = (props: { lat: number; long: number, address : string, layers : layerType[], error :  ReadContractErrorType | null }) => {
