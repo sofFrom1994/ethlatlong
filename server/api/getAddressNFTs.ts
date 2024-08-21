@@ -17,7 +17,15 @@ const getNFTsFrom = async (address: string) => {
 export async function GET(request: Request) {
 
   if (request.method === 'OPTIONS') {
-    return new Response("");
+    const optionsResponse = new Response("", { status: 204 });
+    optionsResponse.headers.append('Access-Control-Allow-Credentials', "true");
+    optionsResponse.headers.append('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN);
+    optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    optionsResponse.headers.append(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+    return optionsResponse;
   }
   const parsedUrl = url.parse(request.url, true);
   const queryParams = parsedUrl.query;
@@ -31,8 +39,7 @@ export async function GET(request: Request) {
   const nfts = await getNFTsFrom(address);
   const res = new Response(`${nfts.toString()}`);
   res.headers.append('Access-Control-Allow-Credentials', "true");
-  res.headers.append('Access-Control-Allow-Origin', 'https://www.uarehere.online/'); // move to env variable
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.headers.append('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN); // move to env variable
   res.headers.append('Access-Control-Allow-Methods', 'GET');
   res.headers.append(
     'Access-Control-Allow-Headers',
