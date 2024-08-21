@@ -15,18 +15,7 @@ const getNFTsFrom = async (address: string) => {
 
 export async function GET(request: Request) {
 
-  if (request.method === 'OPTIONS') {
-    const optionsResponse = new Response("", { status: 204 });
-    optionsResponse.headers.set('Access-Control-Allow-Credentials', "true");
-    optionsResponse.headers.set('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || "none");
-    optionsResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    optionsResponse.headers.set(
-      'Access-Control-Allow-Headers',
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
-    return optionsResponse;
-  }
-  const parsedUrl = url.parse(request.url, true);
+const parsedUrl = url.parse(request.url, true);
   const queryParams = parsedUrl.query;
   const address = queryParams.address;
   if (!address) {
@@ -36,14 +25,21 @@ export async function GET(request: Request) {
     return new Response('there should only be one address per request')
   }
 
-  const nfts = await getNFTsFrom(address);
   const headers = new Headers({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Credentials': "true",
     'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || "none",
-    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  })
+  });
+  console.log(headers);
+
+  if (request.method === 'OPTIONS') {
+    return new Response("", {status: 200, headers});
+  }
+
+  const nfts = await getNFTsFrom(address);
+
   const res = new Response(JSON.stringify(nfts), { status: 200, headers: headers });
 
   return res;
