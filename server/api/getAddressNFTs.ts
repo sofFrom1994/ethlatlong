@@ -1,4 +1,3 @@
-// Setup: npm install alchemy-sdk
 import { Alchemy, Network } from "alchemy-sdk";
 import url from "url"
 
@@ -18,10 +17,10 @@ export async function GET(request: Request) {
 
   if (request.method === 'OPTIONS') {
     const optionsResponse = new Response("", { status: 204 });
-    optionsResponse.headers.append('Access-Control-Allow-Credentials', "true");
-    optionsResponse.headers.append('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN);
-    optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    optionsResponse.headers.append(
+    optionsResponse.headers.set('Access-Control-Allow-Credentials', "true");
+    optionsResponse.headers.set('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || "none");
+    optionsResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    optionsResponse.headers.set(
       'Access-Control-Allow-Headers',
       'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
@@ -31,20 +30,21 @@ export async function GET(request: Request) {
   const queryParams = parsedUrl.query;
   const address = queryParams.address;
   if (!address) {
-    return new Response(`no address requested`)
+    return new Response(`no address requested`, { status: 400 })
   }
   if (Array.isArray(address)) {
     return new Response('there should only be one address per request')
   }
+
   const nfts = await getNFTsFrom(address);
-  const res = new Response(`${nfts.toString()}`);
-  res.headers.append('Access-Control-Allow-Credentials', "true");
-  res.headers.append('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN); // move to env variable
-  res.headers.append('Access-Control-Allow-Methods', 'GET');
-  res.headers.append(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Credentials': "true",
+    'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || "none",
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  })
+  const res = new Response(JSON.stringify(nfts), { status: 200, headers: headers });
 
   return res;
 }
