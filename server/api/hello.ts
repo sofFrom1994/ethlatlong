@@ -17,7 +17,6 @@ const getNFTsFrom = async (address : string) => {
 export async function GET(request: Request) {
   const parsedUrl = url.parse(request.url, true);
   const queryParams = parsedUrl.query;
-  queryParams
   const address = queryParams.address;
   if (!address) {
     return new Response(`no address requested`)
