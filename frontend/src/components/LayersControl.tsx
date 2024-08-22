@@ -26,7 +26,7 @@ export const LayerChoiceModal = (props : { filter : markerFilter, account : UseA
 const embedFilter = (embed: embedType, filter: markerFilter) => {
   if (embed.kind === 0) {
     return filter.message;
-  } else if (embed.kind === 1) {
+  } else if (embed.kind === 2) {
     return filter.media;
   } else {
     return false;

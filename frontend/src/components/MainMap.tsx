@@ -28,7 +28,7 @@ function MapPlaceholder() {
 
 const defaultFilter: markerFilter = {
   message: true,
-  media: false,
+  media: true,
   path: false,
   cast: false,
 };
