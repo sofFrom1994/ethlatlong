@@ -54,11 +54,21 @@ const getNFTsURL = "getAddressNFTs?address=";
 
 const nftView = (
   nft: any,
-  onSelectNFT: (contractAddress: string, tokenId: string) => void
+  onSelectNFT: (contractAddress: string, tokenId: string) => void,
+  selectedNFT: {
+    contractAddress: string;
+    tokenId: string;
+} | null
 ) => {
+
+  let styles = {}; 
+  if (nft.contract.address === selectedNFT?.contractAddress && nft.tokenId === selectedNFT?.tokenId) {
+    styles = {backgroundColor: "black"};
+  }
   return (
     <div
       className="nft"
+      style={styles}
       onClick={() => onSelectNFT(nft.contract.address, nft.tokenId)}
     >
       <p> name: {nft.name} </p>
@@ -81,10 +91,13 @@ const nftView = (
 
 const OwnedNFTs = (props: {
   address: string;
-  onSelectNFT: (contractAddress: string, tokenId: string) => void;
+  onSelectNFT: (contractAddress: string, tokenId: string) => void,
+  selectedNFT: {
+    contractAddress: string;
+    tokenId: string;
+} | null
 }) => {
   const reqURL = serverURL + getNFTsURL + props.address;
-  console.log(reqURL);
   const { isLoading, error, data } = useQuery({
     queryKey: ["getAddressNFTs", props.address],
     queryFn: async () => {
@@ -96,7 +109,7 @@ const OwnedNFTs = (props: {
 
   if (error) return <span> An error has occurred: {error.message} </span>;
 
-  const nftViews = data.map((nft: any) => nftView(nft, props.onSelectNFT));
+  const nftViews = data.map((nft: any) => nftView(nft, props.onSelectNFT, props.selectedNFT));
 
   return <div className="owned-nfts">{nftViews}</div>;
 };
@@ -198,7 +211,7 @@ export const AddMediaForm = (props: {
 
         <div style={{overflow: "auto"}}>
           <label htmlFor="Message">Choose media to embed:</label>
-          <OwnedNFTs address={props.address} onSelectNFT={handleSelectNFT} />
+          <OwnedNFTs address={props.address} selectedNFT={selectedNFT} onSelectNFT={handleSelectNFT} />
         </div>
 
         <div>
