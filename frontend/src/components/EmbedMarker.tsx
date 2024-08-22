@@ -66,6 +66,7 @@ export const EmbedMarker = (
       undefined
     );
   } else if (embed.kind === 2) {
+    console.log(embed);
     embedIcon = coloredIcon(
       markerColor,
       mediaSVG,
@@ -103,6 +104,7 @@ export const EmbedMarker = (
   const layerColor = `#${nToColor(layer.color)}`;
   let embedMedia = null;
   if (url.length > 0) {
+    console.log(url);
     embedMedia = () => { return ( <img src={url} width={48} height={48} loading="lazy"/> )}
   }
   return (

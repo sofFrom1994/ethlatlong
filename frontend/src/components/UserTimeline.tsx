@@ -185,7 +185,7 @@ const embedPost = (
 
   if (embed.kind === 0) {
     iconSrc = messageSVG;
-  } else if (embed.kind === 1) {
+  } else if (embed.kind === 2) {
     iconSrc = mediaSVG;
   }
 
