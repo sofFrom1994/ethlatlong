@@ -140,8 +140,7 @@ export const EmbedMarker = (
   let embedMedia = null;
   if (url.length > 0) {
     const result = processMetadataURL(url);
-
-    if (result) {
+    if (result !== "") {
       const ipfsLink = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
       embedMedia = () => { return (<img width="48px" height="48px" src={ipfsLink} loading="lazy"/> ); }
     }
