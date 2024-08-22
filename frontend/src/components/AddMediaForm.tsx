@@ -187,7 +187,7 @@ export const AddMediaForm = (props: {
         </h3>
         <CloseButton label="x" />
       </span>
-      <form style={{overflow: "auto"}} onSubmit={submit}>
+      <form onSubmit={submit}>
         <Select name="layerName">
           <Label>Choose a Layer</Label>
           <Button>

@@ -30,7 +30,7 @@ const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
       <Modal isDismissable>
-        <Dialog>
+        <Dialog style={{overflow: "auto"}}>
           {children}
         </Dialog>
       </Modal>
