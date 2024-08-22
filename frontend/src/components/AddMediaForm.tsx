@@ -1,4 +1,5 @@
 import "../styles/react-aria.css";
+import "../styles/AddMedia.css"
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
