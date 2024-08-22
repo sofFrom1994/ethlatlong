@@ -196,7 +196,7 @@ export const AddMediaForm = (props: {
           </Popover>
         </Select>
 
-        <div>
+        <div style={{overflow: "auto"}}>
           <label htmlFor="Message">Choose media to embed:</label>
           <OwnedNFTs address={props.address} onSelectNFT={handleSelectNFT} />
         </div>
