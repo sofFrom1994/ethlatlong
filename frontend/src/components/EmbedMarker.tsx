@@ -13,7 +13,7 @@ import {
   UseWriteContractReturnType,
 } from "wagmi";
 import { ethLatLongAbi } from "../generated";
-import { Fragment } from "react";
+import { Fragment, ReactNode } from "react";
 import { ColorSwatch } from "react-aria-components";
 
 const abi = ethLatLongAbi;
@@ -44,6 +44,7 @@ export const EmbedMarker = (
   };
 
   let embedIcon: L.Icon<L.IconOptions> | L.DivIcon;
+  let url = "";
   //
   if (embed.kind === 0) {
     embedIcon = coloredIcon(
@@ -73,6 +74,7 @@ export const EmbedMarker = (
       undefined,
       undefined
     );
+    url = embed.url;
   } else {
     // unknown marker
     embedIcon = coloredIcon(
@@ -99,6 +101,10 @@ export const EmbedMarker = (
   }
 
   const layerColor = `#${nToColor(layer.color)}`;
+  let embedMedia = null;
+  if (url.length > 0) {
+    embedMedia = () => { return ( <img src={url} width={48} height={48} loading="lazy"/> )}
+  }
   return (
     <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
       <Marker
@@ -123,6 +129,7 @@ export const EmbedMarker = (
             </div>
             <div className="post-popup-content">
               <p>{embed.message}</p>
+              {embedMedia && embedMedia()}
             </div>
             <div className="post-popup-footer">by {embed.author.substring(0,4)}...{embed.author.substring(38, 42)}</div>
             {deleteButton && deleteButton()}

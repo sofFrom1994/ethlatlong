@@ -47,8 +47,6 @@ import { useState } from "react";
 ]
 */
 
-const abi = ethLatLongAbi;
-const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const getNFTsURL = "getAddressNFTs?address=";
 
@@ -114,6 +112,10 @@ const OwnedNFTs = (props: {
   return <div className="owned-nfts">{nftViews}</div>;
 };
 
+
+const abi = ethLatLongAbi;
+const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
+
 export const AddMediaForm = (props: {
   lat: number;
   long: number;
@@ -151,6 +153,12 @@ export const AddMediaForm = (props: {
       selectedNFT.contractAddress,
       selectedNFT.tokenId,
     ]);
+    writeContract({
+      address: contract_address,
+      abi,
+      functionName: "addMedia",
+      args: [selectedNFT.contractAddress as `0x${string}`, BigInt(selectedNFT.tokenId), parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), layerName, message],
+    });
   }
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
