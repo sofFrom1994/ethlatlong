@@ -173,7 +173,7 @@ export const AddMediaForm = (props: {
   });
 
   return (
-    <>
+    <div style={{overflow: "auto"}}>
       <span
         style={{
           height: "1rem",
@@ -230,6 +230,6 @@ export const AddMediaForm = (props: {
           <div>Error: {(error as BaseError).shortMessage || error.message}</div>
         )}
       </form>
-    </>
+    </div>
   );
 };
