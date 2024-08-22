@@ -1,5 +1,7 @@
 .owned-nfts {
   display: grid;
+  width: 40svw;
+  height: 40svh;
   grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)) 100px repeat(3, 200px);
   overflow: auto;
 }
