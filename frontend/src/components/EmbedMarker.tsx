@@ -25,6 +25,41 @@ const colorSwatchStyle = {
   width: "90%",
 };
 
+const processMetadataURL = (dataUrl : string) => {
+    try {
+        // Split the data URL into metadata and data parts
+        const [meta, data] = dataUrl.split(',');
+
+        // Extract the content type and encoding from the metadata
+        const metaParts = meta.split(';');
+        const mimeType = metaParts[0].replace('data:', '');
+        const encoding = metaParts[1];
+
+        let decodedData: string;
+
+        // Handle different encodings
+        if (encoding === 'base64') {
+            decodedData = atob(data);
+        } else if (encoding === 'charset=utf-8') {
+            decodedData = decodeURIComponent(data);
+        } else {
+            throw new Error(`Unsupported encoding: ${encoding}`);
+        }
+
+        // Handle different content types
+        if (mimeType === 'application/json') {
+            return JSON.parse(decodedData);
+        } else if (mimeType.startsWith('text/')) {
+            return decodedData; // Return as plain text
+        } else {
+            throw new Error(`Unsupported MIME type: ${mimeType}`);
+        }
+    } catch (error) {
+        console.error("Error processing the data URL:", error);
+        return "";
+    }
+}
+
 export const EmbedMarker = (
   layer: layerType,
   embed: embedType,
@@ -104,8 +139,12 @@ export const EmbedMarker = (
   const layerColor = `#${nToColor(layer.color)}`;
   let embedMedia = null;
   if (url.length > 0) {
-    console.log(url);
-    embedMedia = () => { return ( <img src={url} width={48} height={48} loading="lazy"/> )}
+    const result = processMetadataURL(url);
+
+    if (result) {
+      const ipfsLink = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+      embedMedia = () => { return (<img width="48px" height="48px" src={ipfsLink} loading="lazy"/> ); }
+    }
   }
   return (
     <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
