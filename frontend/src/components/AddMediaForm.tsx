@@ -9,11 +9,21 @@ import {
   useWriteContract,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import { Button, Label, ListBox, ListBoxItem, Popover, Select, SelectValue } from "react-aria-components";
+import {
+  Button,
+  Label,
+  ListBox,
+  ListBoxItem,
+  Popover,
+  Select,
+  SelectValue,
+} from "react-aria-components";
 import { layerType } from "./types";
 import { ReadContractErrorType } from "wagmi/actions";
 import { CloseButton } from "./CloseButton";
 import { useQuery } from "@tanstack/react-query";
+
+import { useState } from "react";
 
 /*
 [
@@ -39,77 +49,98 @@ import { useQuery } from "@tanstack/react-query";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 const serverURL = import.meta.env.VITE_SERVER_URL;
-const getNFTsURL = "getAddressNFTs?address="
+const getNFTsURL = "getAddressNFTs?address=";
 
-const nftView = (nft : any) => {
-  // nft.contract.address contract address
+const nftView = (
+  nft: any,
+  onSelectNFT: (contractAddress: string, tokenId: string) => void
+) => {
   return (
-    <div className="nft">
+    <div
+      className="nft"
+      onClick={() => onSelectNFT(nft.contract.address, nft.tokenId)}
+    >
       <p> name: {nft.name} </p>
       <p> contract: {nft.contract.name} </p>
       <p> {nft.tokenId} </p>
       <p> {nft.tokenType} </p>
       <p> {nft.name} </p>
-      {nft.image && <img width="48px" height="48px" loading="lazy" src={nft.image.thumbnailUrl} /> }
+      {nft.image && (
+        <img
+          width="48px"
+          height="48px"
+          loading="lazy"
+          src={nft.image.thumbnailUrl}
+          alt={nft.name}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-const OwnedNFTs = (props: {address: string} ) => {
-  const reqURL = serverURL+getNFTsURL+props.address;
+const OwnedNFTs = (props: {
+  address: string;
+  onSelectNFT: (contractAddress: string, tokenId: string) => void;
+}) => {
+  const reqURL = serverURL + getNFTsURL + props.address;
   console.log(reqURL);
   const { isLoading, error, data } = useQuery({
-    queryKey: ['getAddressNFTs', props.address],
+    queryKey: ["getAddressNFTs", props.address],
     queryFn: async () => {
       const res = await fetch(reqURL);
       return res.json();
-    }
+    },
   });
-  if (isLoading) return 'Loading...'
+  if (isLoading) return "Loading...";
 
-  if (error) return <span > An error has occurred: {error.message}  </span>
+  if (error) return <span> An error has occurred: {error.message} </span>;
 
+  const nftViews = data.map((nft: any) => nftView(nft, props.onSelectNFT));
 
-  const nftViews = data.map(nft => nftView(nft));
+  return <div className="owned-nfts">{nftViews}</div>;
+};
 
-  return (
-    <div className="owned-nfts">
-      {nftViews}
-    </div>
-  )
-}
-
-export const AddMediaForm = (props: { lat: number; long: number, address : string, layers : layerType[], error :  ReadContractErrorType | null }) => {
+export const AddMediaForm = (props: {
+  lat: number;
+  long: number;
+  address: string;
+  layers: layerType[];
+  error: ReadContractErrorType | null;
+}) => {
+  const [selectedNFT, setSelectedNFT] = useState<{
+    contractAddress: string;
+    tokenId: string;
+  } | null>(null);
   const { writeContract, data: hash, isPending, error } = useWriteContract();
   const buttonRef = useRef(null);
 
-  if (props.error) {
-    console.log(props.error);
-    return <></>;
-  } 
-
-  if (!props.layers || props.layers.length === 0) {
-    console.log("no layers to select")
-  } 
+  const handleSelectNFT = (contractAddress: string, tokenId: string) => {
+    setSelectedNFT({ contractAddress, tokenId });
+  };
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!selectedNFT) {
+      alert("Please select an NFT");
+      return;
+    }
+
     const formData = new FormData(e.target as HTMLFormElement);
     const layerName = formData.get("layerName") as string;
     const message = formData.get("message") as string;
 
-    writeContract({
-      address: contract_address,
-      abi,
-      functionName: "addMessage",
-      args: [layerName, parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), message],
-    });
+    console.log([
+      layerName,
+      parseLatLong(props.lat.toString()),
+      parseLatLong(props.long.toString()),
+      message,
+      selectedNFT.contractAddress,
+      selectedNFT.tokenId,
+    ]);
   }
 
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-  } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({ hash });
 
   const { buttonProps } = useButton(
     {
@@ -121,47 +152,61 @@ export const AddMediaForm = (props: { lat: number; long: number, address : strin
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-          <ListBoxItem id={layer.name}>{layer.name}</ListBoxItem>
-    )
-  })
+      <ListBoxItem key={layer.name} id={layer.name}>
+        {layer.name}
+      </ListBoxItem>
+    );
+  });
 
   return (
     <>
-      <span style={{height: "1rem",marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "1fr auto"}}>
-        <h3 style={{ margin: 0, padding: 0, display: "inline-block"}}>Add Media</h3>
-        <CloseButton label="x"/>
+      <span
+        style={{
+          height: "1rem",
+          marginBottom: "1.5rem",
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+        }}
+      >
+        <h3 style={{ margin: 0, padding: 0, display: "inline-block" }}>
+          Add Media
+        </h3>
+        <CloseButton label="x" />
       </span>
       <form onSubmit={submit}>
-          <Select name="layerName">
-            <Label>Choose a Layer</Label>
-            <Button>
-              <SelectValue tabIndex={0}>
-                {({ defaultChildren, isPlaceholder }) => {
-                  return isPlaceholder ? (
-                    <>
-                      <b></b>
-                    </>
-                  ) : (
-                    defaultChildren
-                  );
-                }}
-              </SelectValue>
-              <span aria-hidden="true">▼</span>
-            </Button>
-            <Popover style={{zIndex: 2147483647}}>
-              <ListBox>
-                {layerListBoxes}
-              </ListBox>
-            </Popover>
-          </Select>
+        <Select name="layerName">
+          <Label>Choose a Layer</Label>
+          <Button>
+            <SelectValue tabIndex={0}>
+              {({ defaultChildren, isPlaceholder }) => {
+                return isPlaceholder ? (
+                  <>
+                    <b></b>
+                  </>
+                ) : (
+                  defaultChildren
+                );
+              }}
+            </SelectValue>
+            <span aria-hidden="true">▼</span>
+          </Button>
+          <Popover style={{ zIndex: 2147483647 }}>
+            <ListBox>{layerListBoxes}</ListBox>
+          </Popover>
+        </Select>
+
         <div>
           <label htmlFor="Message">Choose media to embed:</label>
-          <OwnedNFTs address={props.address}/>
+          <OwnedNFTs address={props.address} onSelectNFT={handleSelectNFT} />
         </div>
 
         <div>
-          <p> Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )</p>
+          <p>
+            {" "}
+            Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
+          </p>
         </div>
+
         <button {...buttonProps} ref={buttonRef}>
           Post
         </button>
@@ -174,4 +219,3 @@ export const AddMediaForm = (props: { lat: number; long: number, address : strin
     </>
   );
 };
-
