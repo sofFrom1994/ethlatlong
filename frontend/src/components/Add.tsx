@@ -29,7 +29,7 @@ const disabledMediaAdd = () => {
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
-      <Modal isDismissable>
+      <Modal style={{marginBottom: "8rem"}}isDismissable>
         <Dialog>
           {children}
         </Dialog>
