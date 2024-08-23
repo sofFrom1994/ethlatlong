@@ -124,6 +124,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
             id="description"
             rows={5}
             cols={30}
+            style={{writingMode: "horizontal-tb"}}
           />
         </div>
         <div>
