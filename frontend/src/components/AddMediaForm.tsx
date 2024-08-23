@@ -27,29 +27,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useState } from "react";
 
-
-
-/*
-[
-   
-    {
-        "image": {
-            "cachedUrl": "https://nft-cdn.alchemy.com/base-sepolia/bc169b94d35620157784253363dbcb7b",
-            "thumbnailUrl": "https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/base-sepolia/bc169b94d35620157784253363dbcb7b",
-            "pngUrl": "https://res.cloudinary.com/alchemyapi/image/upload/convert-png/base-sepolia/bc169b94d35620157784253363dbcb7b",
-            "contentType": "image/png",
-            "size": 15459,
-            "originalUrl": "https://ipfs.io/ipfs/bafybeigwyq2mc4smvyn3tsmodf2a7yhexvbsm4ryg7ntvlup2knfaqlhhu"
-        },
-        "raw": {
-            "tokenUri": "data:application/json;base64,eyJuYW1lIjoidGVzIHQgbmZ0IDEgIzEiLCJpbWFnZSI6ImlwZnM6Ly9iYWZ5YmVpZ3d5cTJtYzRzbXZ5bjN0c21vZGYyYTd5aGV4dmJzbTRyeWc3bnR2bHVwMmtuZmFxbGhodSJ9",
-            "metadata": {
-                "image": "ipfs://bafybeigwyq2mc4smvyn3tsmodf2a7yhexvbsm4ryg7ntvlup2knfaqlhhu"
-            }
-        },
-]
-*/
-
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const getNFTsURL = "getAddressNFTs?address=";
 
@@ -126,17 +103,18 @@ const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const AddMediaForm = (props: {
-  lat: number;
-  long: number;
-  address: string;
-  layers: layerType[];
-  error: ReadContractErrorType | null;
+  lat: number,
+  long: number,
+  address: string,
+  layers: layerType[],
+  error: ReadContractErrorType | null,
+  refetch
 }) => {
   const [selectedNFT, setSelectedNFT] = useState<{
     contractAddress: string;
     tokenId: string;
   } | null>(null);
-  const { writeContract, data: hash, isPending, error } = useWriteContract();
+  const { writeContract, data: hash, isPending, error, status } = useWriteContract();
   const buttonRef = useRef(null);
 
   const handleSelectNFT = (contractAddress: string, tokenId: string) => {
@@ -186,6 +164,10 @@ export const AddMediaForm = (props: {
           <ListBoxItem key={layer.name} id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     );
   });
+
+  if (status === "success") {
+    props.refetch();
+  }
 
   return (
     <div>

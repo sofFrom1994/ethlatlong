@@ -1,5 +1,5 @@
 import "../styles/UserTimeline.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Button,
   ColorSwatch,
@@ -9,9 +9,7 @@ import {
   OverlayTriggerStateContext,
 } from "react-aria-components";
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
-import { ethLatLongAbi } from "../generated";
 import { embedType, layerType } from "./types";
-import { LoadingSpinner } from "./Loading";
 import userIcon from "../assets/user-pin.svg";
 import { CloseButton } from "./CloseButton";
 import { OverlayTriggerState } from "react-stately";
@@ -20,9 +18,7 @@ import mediaSVG from "../assets/photo.svg";
 import layerSVG from "../assets/map.svg";
 import goSVG from "../assets/map-pin-up.svg";
 import { nToColor } from "../utils";
-
-const abi = ethLatLongAbi;
-const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
+import { ReadContractErrorType } from "wagmi/actions";
 
 const colorSwatchStyle = {
   borderRadius: "0.2rem",
@@ -30,47 +26,8 @@ const colorSwatchStyle = {
   width: "90%",
 };
 
-const Timeline = (props: { author: string; map: L.Map | null }) => {
-  const [layers, setLayers] = useState<layerType[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  // useReadContract within the component render flow
-  const {
-    data,
-    isLoading,
-    error: readError,
-  } = useReadContract({
-    abi,
-    address: contract_address,
-    functionName: "getAllLayers",
-    blockTag: "latest",
-    query: {
-      refetchInterval: 2000,
-      staleTime: Infinity,
-    },
-  });
-
-  useEffect(() => {
-    if (readError) {
-      setError(readError);
-    } else {
-      const uniqueLayers = data ? [...new Set(data)] : [];
-      setLayers(uniqueLayers);
-    }
-  }, [data, readError]);
-
-  if (error) {
-    return (
-      <span>
-        error {error.name} reading getAllLayers: {error.message}{" "}
-      </span>
-    );
-  }
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (!layers || layers.length === 0) return <></>;
+const Timeline = (props: { author: string; map: L.Map | null, layers : layerType[] }) => {
+  if (!props.layers || props.layers.length === 0) return <></>;
 
   let layerContent: {
     layer: layerType;
@@ -78,7 +35,7 @@ const Timeline = (props: { author: string; map: L.Map | null }) => {
   }[] = [];
 
   let empty = true;
-  layers.forEach((layer) => {
+  props.layers.forEach((layer) => {
     let currLayer = layer;
     let posts: { postType: string; post: layerType | embedType }[] = [];
 
@@ -241,14 +198,23 @@ const contentToPostView = (
 export const UserTimeline = (props: {
   account: UseAccountReturnType<Config>;
   map: L.Map | null;
+  layers : layerType[];
+  error : ReadContractErrorType | null
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!props.account.isConnected) {
     return null;
   }
-  const content = (
-    <Timeline author={String(props.account.address)} map={props.map} />
+
+  let content;
+
+  if (props.error === null) {
+    content = <span> "error generating timeline" </span>
+  }
+
+  content = (
+    <Timeline author={String(props.account.address)} map={props.map} layers={props.layers}/>
   );
 
   return (

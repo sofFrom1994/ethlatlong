@@ -2,8 +2,10 @@ import "../styles/Header.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { UserTimeline } from "./UserTimeline";
 import { Config, UseAccountReturnType } from "wagmi";
+import { layerType } from "./types";
+import { ReadContractErrorType } from "wagmi/actions";
 
-export const Header = (props: { account: UseAccountReturnType<Config>, map : L.Map | null }) => {
+export const Header = (props: { account: UseAccountReturnType<Config>, map : L.Map | null, layers : layerType[], error: ReadContractErrorType | null }) => {
   let separator = null;
 
   if (props.account.isConnected) {
@@ -30,7 +32,7 @@ export const Header = (props: { account: UseAccountReturnType<Config>, map : L.M
           />
         </div>
           {separator && separator()}
-        <UserTimeline account={props.account} map={props.map}/>
+        <UserTimeline account={props.account} map={props.map} layers={props.layers} error={props.error}/>
       </div>
     </header>
   );

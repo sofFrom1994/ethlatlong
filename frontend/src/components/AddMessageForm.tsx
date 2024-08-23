@@ -24,8 +24,8 @@ const colorSwatchStyle = {
   width: "2rem",
 };
 
-export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null }) => {
-  const { writeContract, data: hash, isPending, error } = useWriteContract();
+export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null, refetch }) => {
+  const { writeContract, data: hash, isPending, error, status } = useWriteContract();
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -81,6 +81,10 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
           <ListBoxItem id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     )
   })
+
+  if (status === "success") {
+    props.refetch();
+  }
 
   return (
     <>

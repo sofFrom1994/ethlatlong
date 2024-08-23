@@ -61,7 +61,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
   );
 }
 
-export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null, address : string}) => {
+export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null, address : string, refetch}) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
@@ -108,7 +108,7 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
     if (key === "layer") {
       setIcon(coloredIcon("000000", mapPlusSVG, undefined, [10, -20], 1, [0,20]));
       setModalContent(
-        <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} />
+        <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} refetch={props.refetch} />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "message") {
@@ -119,13 +119,14 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
           long={currentCenter.lng}
           layers={props.layers}
           error={props.error}
+          refetch={props.refetch}
         />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "media") {
       setIcon(coloredIcon("000000", mediaSVG));
       setModalContent(
-        <AddMediaForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error} address={props.address} />
+        <AddMediaForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error} address={props.address} refetch={props.refetch}/>
       );
       setIsModalOpen(true);
       setRequireMarkerPlacement(false);

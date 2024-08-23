@@ -19,8 +19,8 @@ import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const AddLayerForm = (props: { lat: number; long: number }) => {
-  const { data: hash, writeContract, isPending, error } = useWriteContract();
+export const AddLayerForm = (props: { lat: number; long: number, refetch }) => {
+  const { data: hash, writeContract, isPending, error, status } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
@@ -35,7 +35,7 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
     const layerName = formData.get("layerName") as string;
     const description = formData.get("description") as string;
 
-    writeContract({
+   writeContract({
       address: contract_address,
       abi,
       functionName: "addLayer",
@@ -81,6 +81,10 @@ export const AddLayerForm = (props: { lat: number; long: number }) => {
     },
     buttonRef
   );
+
+  if (status === "success") {
+    props.refetch();
+  }
 
   return (
     <>

@@ -10,12 +10,16 @@ import { layerType, markerFilter } from "./types";
 import { FilterMenu } from "./MarkerFilter";
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
+import { ReadContractErrorType } from "wagmi/actions";
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
   account : UseAccountReturnType<Config>;
   mapRef : React.Dispatch<React.SetStateAction<L.Map | null>>; 
+  layers : layerType[];
+  error : ReadContractErrorType | null;
+  refetch
 }
 
 function MapPlaceholder() {
@@ -33,33 +37,8 @@ const defaultFilter: markerFilter = {
   cast: false,
 };
 
-const abi = ethLatLongAbi;
-const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
-
-export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) => {
+export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, error, refetch } : MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
-  const [layers, setLayers] = useState<layerType[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  const { data, error: readError } = useReadContract({
-    abi,
-    address: contract_address,
-    functionName: "getAllLayers",
-    blockTag: 'latest',
-    query: {
-      refetchInterval: 2000,
-      staleTime:3000,
-    }
-  });
-
-  useEffect(() => {
-    if (readError) {
-      setError(readError);
-    } else {
-      const uniqueLayers = data ? [...new Set(data)] : [];
-      setLayers(uniqueLayers);
-    }
-  }, [data, readError]);
 
   return (
     <MapContainer
@@ -75,11 +54,11 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef}: MapProps) =
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayerChoiceModal filter={filter} account={account} layers={layers} error={error}/>
+      <LayerChoiceModal filter={filter} account={account} layers={layers} error={error} refetch={refetch}/>
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
-        <AddMenu layers={layers} error={readError} address={account.address as string} />
+        <AddMenu layers={layers} error={error} address={account.address as string} refetch={refetch}/>
         <FilterMenu filterSetter={setFilter} />
       </div>
     </MapContainer>
