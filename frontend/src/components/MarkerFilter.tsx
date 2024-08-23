@@ -47,7 +47,7 @@ const selectionToMarkerFilter = (
 
 export const FilterMenu = ({ filterSetter }: { filterSetter: (filter: markerFilter) => void }) => {
   let [selected, setSelected] = React.useState<Selection>(
-    new Set(["message"])
+    new Set(["message", "media"])
   );
 
   const handleSelectionChange = (newSelection: Selection) => {
