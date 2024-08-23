@@ -63,6 +63,56 @@
   line-height: 2rem;
 }
 
+/* scrollbar styling */
+  .react-aria-Dialog::-webkit-scrollbar {
+    width: 1.3rem;
+    height: 1.5rem;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-thumb {
+    background: var(--horizontal-thumb);
+    box-shadow: inset 0 0 0.15rem 0.2rem var(--dark-bg-color-5);
+    border-radius: 0.6rem;
+    min-width: 3rem;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-track:vertical {
+    background: var(--full-gradient-h-2);
+    box-shadow: inset 0 0 0.4rem 0.1rem var(--dark-bg-color-5);
+    border-radius: 3rem;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-track:horizontal {
+    background: var(--full-gradient-h);
+    border-radius: 3rem;
+    box-shadow: inset 0 0 0.3rem 0.1rem var(--dark-bg-color-5);
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-corner {
+    background: var(--full-gradient);
+    border-radius: 0.6rem;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-button:single-button {
+    background: var(--full-gradient);
+    border-radius: 1.5rem;
+    border-width: 0.16rem;
+    border-color: var(--blue-green-medium);
+    display: block;
+    border-style: groove;
+    height: 1.5rem;
+    width: 2rem;
+    transition: border-width 1s ease-in-out;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-button:single-button:hover {
+    border-width: 0.18rem;
+  }
+
+  .react-aria-Dialog::-webkit-scrollbar-button:single-button:active {
+    border-width: 0.58rem;
+  }
+
 /* form and form fields */
 
 .react-aria-NumberField {
