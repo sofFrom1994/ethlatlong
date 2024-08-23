@@ -9,14 +9,20 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { parseLatLong } from "../utils";
-import { Button, Label, ListBox, ListBoxItem, Popover, Select, SelectValue } from "react-aria-components";
+import { nToColor, parseLatLong } from "../utils";
+import { Button, ColorSwatch, Label, ListBox, ListBoxItem, Popover, Select, SelectValue } from "react-aria-components";
 import { layerType } from "./types";
 import { ReadContractErrorType } from "wagmi/actions";
 import { CloseButton } from "./CloseButton";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
+
+const colorSwatchStyle = {
+  borderRadius: "0.2rem",
+  height: "2rem",
+  width: "2rem",
+};
 
 export const AddMessageForm = (props: { lat: number; long: number, layers : layerType[], error :  ReadContractErrorType | null }) => {
   const { writeContract, data: hash, isPending, error } = useWriteContract();
@@ -72,7 +78,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-          <ListBoxItem id={layer.name}>{layer.name}</ListBoxItem>
+          <ListBoxItem id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     )
   })
 

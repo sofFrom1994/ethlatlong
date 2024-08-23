@@ -9,9 +9,10 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { parseLatLong } from "../utils";
+import { nToColor, parseLatLong } from "../utils";
 import {
   Button,
+  ColorSwatch,
   Label,
   ListBox,
   ListBoxItem,
@@ -25,6 +26,8 @@ import { CloseButton } from "./CloseButton";
 import { useQuery } from "@tanstack/react-query";
 
 import { useState } from "react";
+
+
 
 /*
 [
@@ -49,6 +52,12 @@ import { useState } from "react";
 
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const getNFTsURL = "getAddressNFTs?address=";
+
+const colorSwatchStyle = {
+  borderRadius: "0.2rem",
+  height: "2rem",
+  width: "2rem",
+};
 
 const nftView = (
   nft: any,
@@ -174,9 +183,7 @@ export const AddMediaForm = (props: {
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-      <ListBoxItem key={layer.name} id={layer.name}>
-        {layer.name}
-      </ListBoxItem>
+          <ListBoxItem key={layer.name} id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     );
   });
 
