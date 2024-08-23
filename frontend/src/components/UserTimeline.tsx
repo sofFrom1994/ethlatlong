@@ -91,7 +91,7 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
       style={{ margin: "2.5rem", width: "100%" }}
       isDismissable
     >
-      <Dialog style={{ height: "min(fit-content, 90svh)", paddingTop: "1rem", paddingInline: "0.8rem" }}>
+      <Dialog style={{ height: "fit-content", maxHeight: "90svh", paddingTop: "1rem", paddingInline: "0.8rem" }}>
         {
           <div className="timeline">
             <div className="timeline-header">
