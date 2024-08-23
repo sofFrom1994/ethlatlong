@@ -4,7 +4,7 @@
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 0.25rem;
-  height: 100%;
+  height: min(fit-content, 80svh);
   width: 100%;
 }
 

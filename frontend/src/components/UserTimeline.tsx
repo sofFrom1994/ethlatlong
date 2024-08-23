@@ -14,7 +14,7 @@ import userIcon from "../assets/user-pin.svg";
 import { CloseButton } from "./CloseButton";
 import { OverlayTriggerState } from "react-stately";
 import messageSVG from "../assets/bubble-outline.svg";
-import mediaSVG from "../assets/photo.svg";
+import mediaSVG from "../assets/photo-outline.svg";
 import layerSVG from "../assets/map.svg";
 import goSVG from "../assets/map-pin-up.svg";
 import { nToColor } from "../utils";
@@ -88,10 +88,10 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
 
   return (
     <Modal
-      style={{ marginTop: "2.5rem", height: "92%", width: "90%" }}
+      style={{ margin: "2.5rem", width: "100%" }}
       isDismissable
     >
-      <Dialog style={{ paddingTop: "1rem", paddingInline: "0.4rem", height: "90svh", width: "100%" }}>
+      <Dialog style={{ height: "min(fit-content, 90svh)", paddingTop: "1rem", paddingInline: "0.8rem" }}>
         {
           <div className="timeline">
             <div className="timeline-header">
@@ -115,8 +115,8 @@ const layerPost = (layer: layerType) => {
         <div>{layer.name}</div>
         <img
           title="layer embed"
-          width="90%"
-          height="90%"
+          width="auto"
+          height="auto"
           src={layerSVG}
           alt="message embed"
         />
@@ -153,7 +153,7 @@ const embedPost = (
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img title="embed" width="90%" height="90%" src={iconSrc} alt="embed" />
+        <img title="embed" width="auto" height="auto" src={iconSrc} alt="embed" />
       </div>
       <div className="post-content">{embed.message}</div>
       <img
