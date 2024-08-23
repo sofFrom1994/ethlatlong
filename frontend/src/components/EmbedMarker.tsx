@@ -138,13 +138,35 @@ export const EmbedMarker = (
 
   const layerColor = `#${nToColor(layer.color)}`;
   let embedMedia = null;
+  let embedMediaName : string = "";
   if (url.length > 0) {
     const result = processMetadataURL(url);
     if (result !== "") {
       const ipfsLink = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
-      embedMedia = () => { return (<img width="48px" height="48px" src={ipfsLink} loading="lazy"/> ); }
+      embedMediaName = result.name;
+      embedMedia = () => { return (<img src={ipfsLink} loading="lazy"/> ); }
     }
   }
+
+  let popupContent = null;
+
+  if (embed.kind === 2) {
+    popupContent = (
+      <div className="post-popup-content">
+        <p>
+          {embedMediaName} {embed.message}
+        </p>
+        {embedMedia && embedMedia()}
+      </div>
+    );
+  } else {
+    popupContent = (
+      <div className="post-popup-content">
+        <p> {embed.message}</p>
+      </div>
+    );
+  }
+
   return (
     <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
       <Marker
@@ -167,30 +189,29 @@ export const EmbedMarker = (
               <ColorSwatch style={colorSwatchStyle} color={layerColor} />
               <div>{layer.name}</div>
             </div>
-            <div className="post-popup-content">
-              <p>{embed.message}</p>
-              {embedMedia && embedMedia()}
-            </div>
-            <div className="post-popup-footer">by {embed.author.substring(0,4)}...{embed.author.substring(38, 42)}</div>
-            {deleteButton && deleteButton()}
-            {writeContractAction.isPending && (
-              <div> Waiting for confirmation... </div>
-            )}
-            {writeContractAction.isSuccess && (
-              <div>
-                {" "}
-                Transaction confirmed. Message should stop appearing soon.
-              </div>
-            )}
-            {writeContractAction.isError && (
-              <div>
-                {" "}
-                Error:{" "}
-                {(writeContractAction.error as BaseError).shortMessage ||
-                  writeContractAction.error.message}
-              </div>
-            )}
+            {popupContent}
           </div>
+          <div className="post-popup-footer">
+            by {embed.author.substring(0, 4)}...{embed.author.substring(38, 42)}
+          </div>
+          {deleteButton && deleteButton()}
+          {writeContractAction.isPending && (
+            <div> Waiting for confirmation... </div>
+          )}
+          {writeContractAction.isSuccess && (
+            <div>
+              {" "}
+              Transaction confirmed. Message should stop appearing soon.
+            </div>
+          )}
+          {writeContractAction.isError && (
+            <div>
+              {" "}
+              Error:{" "}
+              {(writeContractAction.error as BaseError).shortMessage ||
+                writeContractAction.error.message}
+            </div>
+          )}
         </Popup>
       </Marker>
     </Fragment>
