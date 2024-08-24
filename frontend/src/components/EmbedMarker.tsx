@@ -144,7 +144,7 @@ export const EmbedMarker = (
     if (result !== "") {
       const ipfsLink = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
       embedMediaName = result.name;
-      embedMedia = () => { return (<img src={ipfsLink} loading="lazy"/> ); }
+      embedMedia = () => { return (<img loading="lazy" width="5svw" height="5svh" src={ipfsLink} /> ); }
     }
   }
 
