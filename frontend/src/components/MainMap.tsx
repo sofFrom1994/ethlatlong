@@ -58,12 +58,12 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       ref={mapRef}
       maxBoundsViscosity={0.6}
       maxBounds={bounds}
-      minZoom={3}
-      maxZoom={18}
+      minZoom={2}
+      maxZoom={22}
     >
       <TileLayer
       detectRetina={true}
-      maxNativeZoom={19}
+      maxNativeZoom={18}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
