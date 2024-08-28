@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "you are here",
+    "short_name": "uarehere",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#000000",
-    "background_color": "#000000",
-    "display": "standalone"
+    "theme_color": "#54a4ab",
+    "background_color": "#0f1d1f",
+    "display": "fullscreen"
 }
