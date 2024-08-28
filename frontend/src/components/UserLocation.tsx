@@ -18,7 +18,7 @@ export const UserLocation = () => {
     if (locate) {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
-        map.flyTo(e.latlng, 18);
+        map.flyTo(e.latlng, 19);
         setBbox(e.bounds.toBBoxString().split(","));
         setLocate(false);
       });
