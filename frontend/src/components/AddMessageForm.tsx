@@ -1,4 +1,5 @@
 import "../styles/react-aria.css";
+import "../styles/Add.css"
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
@@ -78,7 +79,7 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-          <ListBoxItem id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
+          <ListBoxItem id={layer.name}> <div className="layer-select-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     )
   })
 
@@ -122,9 +123,9 @@ export const AddMessageForm = (props: { lat: number; long: number, layers : laye
             {...descriptionInputProps}
             ref={descriptionRef}
             id="description"
+            style={{writingMode: "horizontal-tb", width:"fit-content", height: "fit-content"}}
             rows={5}
             cols={30}
-            style={{writingMode: "horizontal-tb"}}
           />
         </div>
         <div>

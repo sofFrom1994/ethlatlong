@@ -1,5 +1,6 @@
 import "../styles/react-aria.css";
 import "../styles/AddMedia.css"
+import "../styles/Add.css"
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
@@ -161,7 +162,7 @@ export const AddMediaForm = (props: {
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-          <ListBoxItem key={layer.name} id={layer.name}> <div className="post-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
+          <ListBoxItem key={layer.name} id={layer.name}> <div className="layer-select-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
     );
   });
 
