@@ -50,7 +50,6 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
   return (
     <MapContainer
       zoom={zoom}
-      scrollWheelZoom={false}
       placeholder={<MapPlaceholder />}
       center={posix}
       className="map-wrapper"
