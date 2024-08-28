@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import  L from "leaflet"
 import { MapContainer, TileLayer } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
@@ -11,6 +12,12 @@ import { FilterMenu } from "./MarkerFilter";
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { ethLatLongAbi } from "../generated";
 import { ReadContractErrorType } from "wagmi/actions";
+
+// Set map bounds.
+// Allow scroll over the international date line, so users can comfortably zoom into locations near the date line.
+const corner1 = L.latLng(-90, -Infinity)
+const corner2 = L.latLng(90, Infinity)
+const bounds = L.latLngBounds(corner1, corner2)
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
@@ -49,8 +56,14 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       className="map-wrapper"
       worldCopyJump={true}
       ref={mapRef}
+      maxBoundsViscosity={0.6}
+      maxBounds={bounds}
+      minZoom={3}
+      maxZoom={18}
     >
       <TileLayer
+      detectRetina={true}
+      maxNativeZoom={19}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
