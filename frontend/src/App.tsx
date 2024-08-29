@@ -16,12 +16,14 @@ function App() {
   const [layers, setLayers] = useState<layerType[]>([]);
   const [error, setError] = useState<ReadContractErrorType | null>(null);
 
-  map?.on('focus', () => {
-    map?.scrollWheelZoom.enable();
-  });
-  map?.on('blur', () => {
-    map?.scrollWheelZoom.disable();
-  });
+  useEffect(() => {
+    map?.on("focus", () => {
+      map?.scrollWheelZoom.enable();
+    });
+    map?.on("blur", () => {
+      map?.scrollWheelZoom.disable();
+    });
+  }, []);
 
 const {
   data,
