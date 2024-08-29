@@ -55,9 +55,9 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       className="map-wrapper"
       worldCopyJump={true}
       ref={mapRef}
-      maxBoundsViscosity={0.6}
+      maxBoundsViscosity={0.9}
       maxBounds={bounds}
-      minZoom={2}
+      minZoom={1}
     >
       <TileLayer
         maxNativeZoom={19}
