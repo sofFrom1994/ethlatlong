@@ -57,7 +57,8 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       ref={mapRef}
       maxBoundsViscosity={0.9}
       maxBounds={bounds}
-      minZoom={1}
+      zoomSnap={0.25}
+      minZoom={2}
     >
       <TileLayer
         maxNativeZoom={19}
