@@ -129,8 +129,9 @@ contract EthLatLong {
       Layer memory layer = layers[layerName];
       // check if layer exists
       require(bytes(layer.name).length != 0);
-      Embed memory embed = Embed(layer.embedN++, Kinds.Message, message, lat, long, msg.sender, "", "");
+      Embed memory embed = Embed(layer.embedN, Kinds.Message, message, lat, long, msg.sender, "", "");
       layers[layerName].embeds.push(embed);
+      layers[layerName].embedN = layers[layerName].embedN +1;
   }
 
     function addMedia(
@@ -159,6 +160,7 @@ contract EthLatLong {
 
         Embed memory embed = Embed(layer.embedN++, Kinds.Media, "", lat, long, msg.sender, uri, description); 
         layers[layerName].embeds.push(embed);
+        layers[layerName].embedN = layers[layerName].embedN +1;
     }
 
 function removeMessage(

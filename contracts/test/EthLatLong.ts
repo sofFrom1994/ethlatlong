@@ -102,6 +102,24 @@ describe("EthLatLong", function () {
       expect(layer.embeds[0].message).to.equal(message);
     });
 
+    it("Different embeds on a layer should have different ids", async function () {
+      const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
+      const layerName = "MessageLayer";
+      const description = "This layer is for messages";
+      const lat = BigInt(40.7128e18);
+      const long = BigInt(-74.0060e18);
+      const message1 = "Hello, World!";
+      const message2 = "Hello, World!";
+
+      await ethLatLong.write.addLayer([layerName, description, lat, long, defaultLayerColor], { account: owner.account });
+      await ethLatLong.write.addMessage([layerName, lat, long, message1], { account: owner.account });
+      await ethLatLong.write.addMessage([layerName, lat, long, message2], { account: owner.account });
+
+      const embeds = await ethLatLong.read.getEmbeds(["MessageLayer"]);
+      console.log(embeds);
+      expect(embeds[0].id).to.not.equal(embeds[1].id);
+    });
+
     it("Should add media to a layer", async function () {
       const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
       const { mockERC721, tokenID } = await loadFixture(deployMockERC721);
