@@ -15,14 +15,14 @@
     ],
     "screenshots" : [
   {
-    "src": "screenshot-wide",
+    "src": "screenshot-wide.png",
     "type": "image/webp",
     "form_factor": "wide",
     "label": "you are here",
     "sizes": "946x592"
   },
   {
-    "src": "screenshot-mobile",
+    "src": "screenshot-mobile.png",
     "type": "image/webp",
     "form_factor": "narrow",
     "label": "you are here",
