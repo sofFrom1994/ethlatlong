@@ -1,4 +1,4 @@
-import { Config, UseAccountReturnType,  useWriteContract, UseWriteContractReturnType } from "wagmi";
+import { Config, UseAccountReturnType,  useWaitForTransactionReceipt,  useWriteContract, UseWriteContractReturnType } from "wagmi";
 import { LayerGroup, LayersControl, useMap } from "react-leaflet";
 import { Map} from "leaflet";
 import { embedType, layerType, markerFilter } from './types';
@@ -6,8 +6,13 @@ import { EmbedMarker } from './EmbedMarker';
 import { Fragment } from "react";
 
 export const LayerChoiceModal = (props : { filter : markerFilter, account : UseAccountReturnType<Config>, layers : layerType[], error : Error | null, refetch} ) => {
-  const writeContractAction  = useWriteContract();
   const map = useMap();
+  const writeContractAction  = useWriteContract();
+  const { isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash: writeContractAction.data});
+
+  if (isConfirmed) {
+    props.refetch();
+  }
 
   if (props.error) {
     console.log(props.error);
