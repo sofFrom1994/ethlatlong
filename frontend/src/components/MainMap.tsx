@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import  L from "leaflet"
-import { MapContainer, TileLayer } from "react-leaflet";
+import { LayerGroup, LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
 import { AddMenu } from "./Add";
@@ -60,17 +60,41 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       zoomSnap={0.25}
       minZoom={2}
     >
-      <TileLayer
-        maxNativeZoom={19}
-        maxZoom={21}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      <LayersControl>
+          <LayersControl.Overlay checked={true} name="Standard">
+            <TileLayer
+              maxNativeZoom={19}
+              maxZoom={21}
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked={false} name="OpenTopoMap">
+            <TileLayer
+              maxNativeZoom={17}
+              maxZoom={19}
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenTopoMap</a> contributors'
+              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.Overlay>
+      </LayersControl>
+
+      <LayerChoiceModal
+        filter={filter}
+        account={account}
+        layers={layers}
+        error={error}
+        refetch={refetch}
       />
-      <LayerChoiceModal filter={filter} account={account} layers={layers} error={error} refetch={refetch}/>
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
-        <AddMenu layers={layers} error={error} address={account.address as string} refetch={refetch}/>
+        <AddMenu
+          layers={layers}
+          error={error}
+          address={account.address as string}
+          refetch={refetch}
+        />
         <FilterMenu filterSetter={setFilter} />
       </div>
     </MapContainer>

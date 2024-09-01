@@ -161,19 +161,11 @@
   padding-top: 0.17rem;
   padding-inline: 0.2rem;
   border-radius: 0.7rem;
-  width: 8rem;
-  height: 8.4rem;
-  overflow-y: scroll;
+  width: min(fit-content, 8rem);
+  height: min(fit-content, 10rem);
+  overflow-y: auto;
 }
 
-@media (min-width: 744px) {
-
-  .leaflet-top.leaflet-right>.leaflet-control-layers-expanded {
-    width: 12rem;
-    height: 12.4rem;
-    overflow-y: scroll;
-  }
-}
 /*
 .leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > label > span * {
 }
