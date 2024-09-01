@@ -30,3 +30,30 @@ export const nToColor = (nColor: number) => {
   }
   return nColor.toString(16) as Color;
 };
+
+export class LocalStorageManager {
+  static get(key : string) {
+      return window.localStorage.getItem(key);
+  }
+
+  static set = (
+    key: string,
+    value: any,
+  ) => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error: any) {
+      console.warn(`localStorage.setItem error: ${error.message}`);
+      return false;
+    }
+  };
+
+  static delete = (key : string) => {
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error: any) {
+      console.warn(`localStorage.removeItem error: ${error.message}`);
+    }
+  };
+}
