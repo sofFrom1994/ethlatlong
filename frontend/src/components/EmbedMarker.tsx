@@ -167,6 +167,37 @@ export const EmbedMarker = (
     );
   }
 
+  let deleteState;
+
+  if (writeContractAction.variables) {
+    const deleteLayer = writeContractAction.variables.args[0];
+    const embedID = writeContractAction.variables.args[1];
+
+    if (layer.name === deleteLayer && embed.id === embedID) {
+      deleteState = (
+        <div>
+          {writeContractAction.isPending && (
+            <div> Waiting for confirmation... </div>
+          )}
+          {writeContractAction.isSuccess && (
+            <div>
+              {" "}
+              Transaction confirmed. Message should stop appearing soon.
+            </div>
+          )}
+          {writeContractAction.isError && (
+            <div>
+              {" "}
+              Error:{" "}
+              {(writeContractAction.error as BaseError).shortMessage ||
+                writeContractAction.error.message}
+            </div>
+          )}
+        </div>
+      );
+    }
+  }
+
   return (
     <Fragment key={`marker-${layer.id.toString()}-${embed.id.toString()}`}>
       <Marker
@@ -195,23 +226,7 @@ export const EmbedMarker = (
             by {embed.author.substring(0, 4)}...{embed.author.substring(38, 42)}
           </div>
           {deleteButton && deleteButton()}
-          {writeContractAction.isPending && (
-            <div> Waiting for confirmation... </div>
-          )}
-          {writeContractAction.isSuccess && (
-            <div>
-              {" "}
-              Transaction confirmed. Message should stop appearing soon.
-            </div>
-          )}
-          {writeContractAction.isError && (
-            <div>
-              {" "}
-              Error:{" "}
-              {(writeContractAction.error as BaseError).shortMessage ||
-                writeContractAction.error.message}
-            </div>
-          )}
+          {deleteState}
         </Popup>
       </Marker>
     </Fragment>
