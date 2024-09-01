@@ -13,6 +13,22 @@
             "type": "image/png"
         }
     ],
+    "screenshots" : [
+  {
+    "src": "screenshot-wide",
+    "type": "image/webp",
+    "form_factor": "wide",
+    "label": "you are here",
+    "sizes": "946x592"
+  },
+  {
+    "src": "screenshot-mobile",
+    "type": "image/webp",
+    "form_factor": "narrow",
+    "label": "you are here",
+    "sizes": "380x826"
+  }
+],
     "theme_color": "#54a4ab",
     "background_color": "#0f1d1f",
     "display": "fullscreen",
