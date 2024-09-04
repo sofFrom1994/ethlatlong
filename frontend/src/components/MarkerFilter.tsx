@@ -53,8 +53,8 @@ export const FilterMenu = ({
       <Button aria-label="Filter Menu">
         <p className="filter">
           <img
-            width="inherit"
-            height="inherit"
+            width={24}
+            height={24}
             src={filterI}
             alt="filter content"
           />

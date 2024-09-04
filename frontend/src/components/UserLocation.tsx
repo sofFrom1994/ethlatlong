@@ -30,8 +30,8 @@ export const UserLocation = () => {
     <>
       <button onClick={() => setLocate(true)}>
         <img
-          width="inherit;"
-          height="inherit"
+          width="24;"
+          height="24"
           alt="my location"
           src={fixedLocationSVG}
         />
