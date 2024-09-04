@@ -71,25 +71,12 @@ export const MainMap = ({
       zoomSnap={0.25}
       minZoom={2}
     >
-      <LayersControl>
-        <LayersControl.Overlay checked={true} name="Standard">
-          <TileLayer
-            maxNativeZoom={19}
-            maxZoom={21}
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked={false} name="OpenTopoMap">
-          <TileLayer
-            maxNativeZoom={17}
-            maxZoom={19}
-            attribution='&copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a> contributors'
-            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-          />
-        </LayersControl.Overlay>
-      </LayersControl>
-
+      <TileLayer
+        maxNativeZoom={19}
+        maxZoom={21}
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
       <LayerChoiceModal
         filter={filter}
         account={account}
