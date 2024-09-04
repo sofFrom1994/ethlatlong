@@ -1,6 +1,6 @@
 import "../styles/react-aria.css";
 import "../styles/AddMedia.css";
-import "../AddForm.css";
+import "../styles/AddForm.css";
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
