@@ -1,6 +1,11 @@
+// MainMap.tsx
 import { useEffect, useState } from "react";
-import  L from "leaflet"
-import { LayerGroup, LayersControl, MapContainer, TileLayer } from "react-leaflet";
+import L from "leaflet";
+import {
+  LayersControl,
+  MapContainer,
+  TileLayer,
+} from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
 import { AddMenu } from "./Add";
@@ -9,24 +14,31 @@ import { UserLocation } from "./UserLocation";
 import { LayerChoiceModal } from "./LayersControl";
 import { layerType, markerFilter } from "./types";
 import { FilterMenu } from "./MarkerFilter";
+
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
-import { ethLatLongAbi } from "../generated";
 import { ReadContractErrorType } from "wagmi/actions";
 
 // Set map bounds.
-// Allow scroll over the international date line, so users can comfortably zoom into locations near the date line.
-const corner1 = L.latLng(-90, -Infinity)
-const corner2 = L.latLng(90, Infinity)
-const bounds = L.latLngBounds(corner1, corner2)
+const corner1 = L.latLng(-90, -Infinity);
+const corner2 = L.latLng(90, Infinity);
+const bounds = L.latLngBounds(corner1, corner2);
+
+// Single source of truth for the default filter
+const defaultFilter: markerFilter = {
+  message: true,
+  media: false,
+  path: false,
+  cast: false,
+};
 
 interface MapProps {
   posix?: LatLngExpression | LatLngTuple;
   zoom?: number;
-  account : UseAccountReturnType<Config>;
-  mapRef : React.Dispatch<React.SetStateAction<L.Map | null>>; 
-  layers : layerType[];
-  error : ReadContractErrorType | null;
-  refetch
+  account: UseAccountReturnType<Config>;
+  mapRef: React.Dispatch<React.SetStateAction<L.Map | null>>;
+  layers: layerType[];
+  error: ReadContractErrorType | null;
+  refetch: () => void;
 }
 
 function MapPlaceholder() {
@@ -37,14 +49,15 @@ function MapPlaceholder() {
   );
 }
 
-const defaultFilter: markerFilter = {
-  message: true,
-  media: true,
-  path: false,
-  cast: false,
-};
-
-export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, error, refetch } : MapProps) => {
+export const MainMap = ({
+  posix = [0, 0],
+  zoom = 4,
+  account,
+  mapRef,
+  layers,
+  error,
+  refetch,
+}: MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
 
   return (
@@ -61,22 +74,22 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
       minZoom={2}
     >
       <LayersControl>
-          <LayersControl.Overlay checked={true} name="Standard">
-            <TileLayer
-              maxNativeZoom={19}
-              maxZoom={21}
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked={false} name="OpenTopoMap">
-            <TileLayer
-              maxNativeZoom={17}
-              maxZoom={19}
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenTopoMap</a> contributors'
-              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            />
-          </LayersControl.Overlay>
+        <LayersControl.Overlay checked={true} name="Standard">
+          <TileLayer
+            maxNativeZoom={19}
+            maxZoom={21}
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked={false} name="OpenTopoMap">
+          <TileLayer
+            maxNativeZoom={17}
+            maxZoom={19}
+            attribution='&copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a> contributors'
+            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+          />
+        </LayersControl.Overlay>
       </LayersControl>
 
       <LayerChoiceModal
@@ -95,7 +108,7 @@ export const MainMap = ({ posix = [0,0], zoom = 4, account, mapRef, layers, erro
           address={account.address as string}
           refetch={refetch}
         />
-        <FilterMenu filterSetter={setFilter} />
+        <FilterMenu filterSetter={setFilter} initialFilter={defaultFilter} />
       </div>
     </MapContainer>
   );

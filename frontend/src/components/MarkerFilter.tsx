@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Button,
   Menu,
@@ -11,47 +10,37 @@ import {
 import { markerFilter } from "./types";
 import filterI from "../assets/filter.svg";
 
-const defaultMarkerFilter: markerFilter = {
-  message: false,
-  media: false,
-  path: false,
-  cast: false,
+const filterToSelectionSet = (filter: markerFilter): Set<string> => {
+  return new Set(
+    Object.keys(filter).filter((key) => filter[key as keyof markerFilter])
+  );
 };
 
-const selectionToMarkerFilter = (
-  selection: Set<string>
-): markerFilter => {
-  const filter: markerFilter = { ...defaultMarkerFilter };
-
+const selectionToMarkerFilter = (selection: Set<string>): markerFilter => {
+  const filter: markerFilter = {
+    message: false,
+    media: false,
+    path: false,
+    cast: false,
+  };
   selection.forEach((item) => {
-    switch (item) {
-      case "message":
-        filter.message = true;
-        break;
-      case "media":
-        filter.media = true;
-        break;
-      case "path":
-        filter.path = true;
-        break;
-      case "cast":
-        filter.cast = true;
-        break;
-      default:
-        console.warn(`Unknown selection: ${item}`);
-    }
+    filter[item as keyof markerFilter] = true;
   });
-
   return filter;
 };
 
-export const FilterMenu = ({ filterSetter }: { filterSetter: (filter: markerFilter) => void }) => {
+export const FilterMenu = ({
+  filterSetter,
+  initialFilter,
+}: {
+  filterSetter: (filter: markerFilter) => void;
+  initialFilter: markerFilter;
+}) => {
   let [selected, setSelected] = React.useState<Selection>(
-    new Set(["message", "media"])
+    filterToSelectionSet(initialFilter)
   );
 
   const handleSelectionChange = (newSelection: Selection) => {
-    // Convert Selection to Set<string>
     const stringSet = new Set<string>(Array.from(newSelection as Set<string>));
     setSelected(stringSet);
     const filter = selectionToMarkerFilter(stringSet);
@@ -62,7 +51,12 @@ export const FilterMenu = ({ filterSetter }: { filterSetter: (filter: markerFilt
     <MenuTrigger>
       <Button aria-label="Filter Menu">
         <p className="filter">
-          <img width="inherit" height="inherit" src={filterI} alt="filter content" />
+          <img
+            width="inherit"
+            height="inherit"
+            src={filterI}
+            alt="filter content"
+          />
           Filter
         </p>
       </Button>
