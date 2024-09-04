@@ -1,5 +1,5 @@
 // MainMap.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import L from "leaflet";
 import {
   LayersControl,
@@ -15,15 +15,13 @@ import { LayerChoiceModal } from "./LayersControl";
 import { layerType, markerFilter } from "./types";
 import { FilterMenu } from "./MarkerFilter";
 
-import { Config, UseAccountReturnType, useReadContract } from "wagmi";
+import { Config, UseAccountReturnType } from "wagmi";
 import { ReadContractErrorType } from "wagmi/actions";
 
-// Set map bounds.
 const corner1 = L.latLng(-90, -Infinity);
 const corner2 = L.latLng(90, Infinity);
 const bounds = L.latLngBounds(corner1, corner2);
 
-// Single source of truth for the default filter
 const defaultFilter: markerFilter = {
   message: true,
   media: false,

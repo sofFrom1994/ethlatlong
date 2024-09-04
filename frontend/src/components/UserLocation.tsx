@@ -5,7 +5,6 @@ import fixedLocationSVG from "../assets/location-outline-fixed.svg"
 import L from "leaflet";
 import { coloredIcon } from "../utils";
 
-//todo: change to location and add location to button too
 const locationIcon = coloredIcon("1CA7EC", locationSVG)
 
 export const UserLocation = () => {

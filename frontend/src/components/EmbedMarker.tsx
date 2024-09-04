@@ -4,7 +4,7 @@ import L from "leaflet";
 
 import messageSVG from "../assets/bubble.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
-import { Color, embedType, layerType } from "./types";
+import { embedType, layerType } from "./types";
 import { coloredIcon, nToColor } from "../utils";
 import {
   BaseError,
@@ -13,7 +13,7 @@ import {
   UseWriteContractReturnType,
 } from "wagmi";
 import { ethLatLongAbi } from "../generated";
-import { Fragment, ReactNode } from "react";
+import { Fragment } from "react";
 import { ColorSwatch } from "react-aria-components";
 
 const abi = ethLatLongAbi;
