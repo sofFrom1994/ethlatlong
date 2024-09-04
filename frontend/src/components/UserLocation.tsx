@@ -1,11 +1,13 @@
+import locationSVG from "../assets/location.svg?raw";
+import fixedLocationSVG from "../assets/location-outline-fixed.svg";
+
 import { useEffect, useState } from "react";
 import { Marker, useMap } from "react-leaflet";
-import locationSVG from "../assets/location.svg?raw"
-import fixedLocationSVG from "../assets/location-outline-fixed.svg"
 import L from "leaflet";
+
 import { coloredIcon } from "../utils";
 
-const locationIcon = coloredIcon("1CA7EC", locationSVG)
+const locationIcon = coloredIcon("1CA7EC", locationSVG);
 
 export const UserLocation = () => {
   const [position, setPosition] = useState<L.LatLng | null>(null);
@@ -26,11 +28,17 @@ export const UserLocation = () => {
 
   return (
     <>
-      <button onClick={() => setLocate(true)}><img width="inherit;" height="inherit" alt="my location" src={fixedLocationSVG} /></button>
+      <button onClick={() => setLocate(true)}>
+        <img
+          width="inherit;"
+          height="inherit"
+          alt="my location"
+          src={fixedLocationSVG}
+        />
+      </button>
       {position === null ? null : (
         <Marker position={position} icon={locationIcon}></Marker>
       )}
     </>
   );
 };
-

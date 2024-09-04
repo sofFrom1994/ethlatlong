@@ -1,11 +1,3 @@
-import {
-  DialogTrigger,
-  Button,
-  Popover,
-  OverlayArrow,
-  Dialog,
-  Modal,
-} from "react-aria-components";
 import "../styles/Footer.css";
 
 import castIcon from "../assets/purple-white.svg";
@@ -25,6 +17,15 @@ import messageIconRaw from "../assets/bubble-outline.svg?raw";
 import mediaIconRaw from "../assets/photo-outline.svg?raw";
 import castIconRaw from "../assets/purple-white.svg?raw";
 import layerIconRaw from "../assets/map.svg?raw";
+
+import {
+  DialogTrigger,
+  Button,
+  Popover,
+  OverlayArrow,
+  Dialog,
+  Modal,
+} from "react-aria-components";
 import { coloredSVG } from "../utils";
 import { CloseButton } from "./CloseButton";
 

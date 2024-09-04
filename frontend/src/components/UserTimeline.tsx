@@ -1,4 +1,13 @@
+import userIcon from "../assets/user-pin.svg";
+import { CloseButton } from "./CloseButton";
+import { OverlayTriggerState } from "react-stately";
+import messageSVG from "../assets/bubble-outline.svg";
+import mediaSVG from "../assets/photo-outline.svg";
+import layerSVG from "../assets/map.svg";
+import goSVG from "../assets/map-pin-up.svg";
+
 import "../styles/UserTimeline.css";
+
 import { useContext, useState } from "react";
 import {
   Button,
@@ -8,15 +17,9 @@ import {
   Modal,
   OverlayTriggerStateContext,
 } from "react-aria-components";
-import { Config, UseAccountReturnType, useReadContract } from "wagmi";
+import { Config, UseAccountReturnType } from "wagmi";
 import { embedType, layerType } from "./types";
-import userIcon from "../assets/user-pin.svg";
-import { CloseButton } from "./CloseButton";
-import { OverlayTriggerState } from "react-stately";
-import messageSVG from "../assets/bubble-outline.svg";
-import mediaSVG from "../assets/photo-outline.svg";
-import layerSVG from "../assets/map.svg";
-import goSVG from "../assets/map-pin-up.svg";
+
 import { nToColor } from "../utils";
 import { ReadContractErrorType } from "wagmi/actions";
 
@@ -26,7 +29,20 @@ const colorSwatchStyle = {
   width: "90%",
 };
 
-const Timeline = (props: { author: string; map: L.Map | null, layers : layerType[] }) => {
+const closeButtonStyle = {
+  marginTop: "-0.8rem",
+  marginLeft: "auto",
+  width: "fit-content",
+  height: "fit-content",
+  borderRadius: "1rem",
+  color: "white",
+};
+
+const Timeline = (props: {
+  author: string;
+  map: L.Map | null;
+  layers: layerType[];
+}) => {
   if (!props.layers || props.layers.length === 0) return <></>;
 
   let layerContent: {
@@ -55,7 +71,7 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
     layerContent.push({ layer: currLayer, posts });
   });
 
-  const authorHeader = `${props.author.substring(0, 7)}...${props.author.substring(38,42)}`
+  const authorHeader = `${props.author.substring(0, 7)}...${props.author.substring(38, 42)}`;
 
   if (empty) {
     const closeButtonStyle = { color: "white" };
@@ -77,21 +93,16 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
 
   const postviews = contentToPostView(layerContent, props.map);
 
-  const closeButtonStyle = {
-    marginTop: "-0.8rem",
-    marginLeft: "auto",
-    width: "fit-content",
-    height: "fit-content",
-    borderRadius: "1rem",
-    color: "white",
-  };
-
   return (
-    <Modal
-      style={{ margin: "2.5rem", width: "100%" }}
-      isDismissable
-    >
-      <Dialog style={{ height: "fit-content", maxHeight: "90svh", paddingTop: "1rem", paddingInline: "0.8rem" }}>
+    <Modal style={{ margin: "2.5rem", width: "100%" }} isDismissable>
+      <Dialog
+        style={{
+          height: "fit-content",
+          maxHeight: "90svh",
+          paddingTop: "1rem",
+          paddingInline: "0.8rem",
+        }}
+      >
         {
           <div className="timeline">
             <div className="timeline-header">
@@ -153,7 +164,13 @@ const embedPost = (
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img title="embed" width="auto" height="auto" src={iconSrc} alt="embed" />
+        <img
+          title="embed"
+          width="auto"
+          height="auto"
+          src={iconSrc}
+          alt="embed"
+        />
       </div>
       <div className="post-content">{embed.message}</div>
       <img
@@ -198,8 +215,8 @@ const contentToPostView = (
 export const UserTimeline = (props: {
   account: UseAccountReturnType<Config>;
   map: L.Map | null;
-  layers : layerType[];
-  error : ReadContractErrorType | null
+  layers: layerType[];
+  error: ReadContractErrorType | null;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -210,11 +227,15 @@ export const UserTimeline = (props: {
   let content;
 
   if (props.error === null) {
-    content = <span> "error generating timeline" </span>
+    content = <span> "error generating timeline" </span>;
   }
 
   content = (
-    <Timeline author={String(props.account.address)} map={props.map} layers={props.layers}/>
+    <Timeline
+      author={String(props.account.address)}
+      map={props.map}
+      layers={props.layers}
+    />
   );
 
   return (

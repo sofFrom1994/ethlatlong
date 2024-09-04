@@ -1,7 +1,7 @@
-import {useColorArea} from '@react-aria/color';
-import {useColorAreaState} from '@react-stately/color';
-import {useFocusRing} from '@react-aria/focus';
-import { useRef } from 'react';
+import { useColorArea } from "@react-aria/color";
+import { useColorAreaState } from "@react-stately/color";
+import { useFocusRing } from "@react-aria/focus";
+import { useRef } from "react";
 
 const FOCUSED_THUMB_SIZE = 28;
 const THUMB_SIZE = 20;
@@ -16,12 +16,10 @@ export function ColorArea(props) {
 
   let { isDisabled } = props;
 
-  let {
-    colorAreaProps,
-    xInputProps,
-    yInputProps,
-    thumbProps
-  } = useColorArea({ ...props, inputXRef, inputYRef, containerRef }, state);
+  let { colorAreaProps, xInputProps, yInputProps, thumbProps } = useColorArea(
+    { ...props, inputXRef, inputYRef, containerRef },
+    state
+  );
 
   let { focusProps, isFocusVisible } = useFocusRing();
 
@@ -35,9 +33,9 @@ export function ColorArea(props) {
         width: "100%",
         borderRadius: BORDER_RADIUS,
         background: isDisabled
-          ? 'rgb(142, 142, 142)'
+          ? "rgb(142, 142, 142)"
           : colorAreaProps.style.background,
-        opacity: isDisabled ? 0.3 : undefined
+        opacity: isDisabled ? 0.3 : undefined,
       }}
     >
       <div
@@ -45,14 +43,14 @@ export function ColorArea(props) {
         style={{
           ...thumbProps.style,
           background: isDisabled
-            ? 'rgb(142, 142, 142)'
-            : state.getDisplayColor().toString('css'),
-          border: `2px solid ${isDisabled ? 'rgb(142, 142, 142)' : 'white'}`,
-          borderRadius: '50%',
-          boxShadow: '0 0 0 1px black, inset 0 0 0 1px black',
-          boxSizing: 'border-box',
+            ? "rgb(142, 142, 142)"
+            : state.getDisplayColor().toString("css"),
+          border: `2px solid ${isDisabled ? "rgb(142, 142, 142)" : "white"}`,
+          borderRadius: "50%",
+          boxShadow: "0 0 0 1px black, inset 0 0 0 1px black",
+          boxSizing: "border-box",
           height: isFocusVisible ? FOCUSED_THUMB_SIZE + 4 : THUMB_SIZE,
-          width: isFocusVisible ? FOCUSED_THUMB_SIZE + 4 : THUMB_SIZE
+          width: isFocusVisible ? FOCUSED_THUMB_SIZE + 4 : THUMB_SIZE,
         }}
       >
         <input ref={inputXRef} {...xInputProps} {...focusProps} />

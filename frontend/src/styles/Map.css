@@ -147,7 +147,8 @@
 }
 
 .leaflet-control-layers {
-  background-color: orange;
+  background-color: var(--blue-green-medium);
+  opacity: 0.8;
 }  
 
 .leaflet-top.leaflet-right input[type="checkbox"] {

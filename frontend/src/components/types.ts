@@ -6,14 +6,14 @@ export type Color = RGB | RGBA | HEX;
 
 // the following should match the generated.ts types
 export type embedType = {
-    id: bigint;
-    kind: number;
-    message: string;
-    lat: bigint;
-    long: bigint;
-    author: `0x${string}`;
-    url: string;
-    description: string;
+  id: bigint;
+  kind: number;
+  message: string;
+  lat: bigint;
+  long: bigint;
+  author: `0x${string}`;
+  url: string;
+  description: string;
 }
 
 export type layerType = {
@@ -29,8 +29,8 @@ export type layerType = {
 }
 
 export type markerFilter = {
-  message : boolean,
-  media : boolean,
-  path : boolean
-  cast : boolean
+  message: boolean,
+  media: boolean,
+  path: boolean
+  cast: boolean
 }

@@ -1,20 +1,31 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Button, Dialog, DialogTrigger, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import "../styles/Add.css";
-import { AddLayerForm } from './AddLayerForm';
-import { AddMessageForm } from './AddMessageForm';
-import L, { LatLng } from 'leaflet';
-import { Marker, Popup, useMap } from "react-leaflet";
-import { layerType } from './types';
-import { ReadContractErrorType } from 'wagmi/actions';
-import { useAccount } from 'wagmi';
-import { CloseButton } from './CloseButton';
-import { coloredIcon } from '../utils';
 
 import messageSVG from "../assets/bubble-plus.svg?raw";
 import mapPlusSVG from "../assets/map-plus.svg?raw";
 import mediaSVG from "../assets/photo.svg?raw";
-import { AddMediaForm } from './AddMediaForm';
+
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import {
+  Button,
+  Dialog,
+  DialogTrigger,
+  Menu,
+  MenuItem,
+  MenuTrigger,
+  Modal,
+  Popover,
+} from "react-aria-components";
+import { AddLayerForm } from "./AddLayerForm";
+import { AddMessageForm } from "./AddMessageForm";
+import L, { LatLng } from "leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
+import { layerType } from "./types";
+import { ReadContractErrorType } from "wagmi/actions";
+import { useAccount } from "wagmi";
+import { CloseButton } from "./CloseButton";
+import { coloredIcon } from "../utils";
+
+import { AddMediaForm } from "./AddMediaForm";
 
 const disabledMediaAdd = () => {
   let closeButtonStyle = { color: "white" };
@@ -29,14 +40,12 @@ const disabledMediaAdd = () => {
 const AddModal = ({ children, isOpen, onOpenChange }) => {
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
-      <Modal style={{marginBottom: "8rem"}}isDismissable>
-        <Dialog>
-          {children}
-        </Dialog>
+      <Modal style={{ marginBottom: "8rem" }} isDismissable>
+        <Dialog>{children}</Dialog>
       </Modal>
     </DialogTrigger>
   );
-}
+};
 
 const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
   useEffect(() => {
@@ -53,15 +62,28 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
     >
       <Popup minWidth={90}>
         <span>
-          Add content <button data-type="add" onClick={() => { markerRef.current.fire("dragend") }}>here</button> or
-          drag this marker to your desired location.
+          Add content{" "}
+          <button
+            data-type="add"
+            onClick={() => {
+              markerRef.current.fire("dragend");
+            }}
+          >
+            here
+          </button>{" "}
+          or drag this marker to your desired location.
         </span>
       </Popup>
     </Marker>
   );
-}
+};
 
-export const AddMenu = (props: { layers : layerType[], error :  ReadContractErrorType | null, address : string, refetch}) => {
+export const AddMenu = (props: {
+  layers: layerType[];
+  error: ReadContractErrorType | null;
+  address: string;
+  refetch;
+}) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requireMarkerPlacement, setRequireMarkerPlacement] = useState(false);
@@ -73,31 +95,39 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   const markerRef = useRef<L.Marker<any>>(null);
   const account = useAccount();
 
-  const markerEventHandler = useMemo(() => ({
-    dragend() {
-      const marker = markerRef.current;
-      if (marker != null) {
-        const wrappedPos = marker.getLatLng().wrap();
-        setPosition(wrappedPos);
-        if (requireMarkerPlacement) {
-          setRequireMarkerPlacement(false);
-          setIsModalOpen(true);
+  const markerEventHandler = useMemo(
+    () => ({
+      dragend() {
+        const marker = markerRef.current;
+        if (marker != null) {
+          const wrappedPos = marker.getLatLng().wrap();
+          setPosition(wrappedPos);
+          if (requireMarkerPlacement) {
+            setRequireMarkerPlacement(false);
+            setIsModalOpen(true);
+          }
         }
-      }
-    },
-  }), [requireMarkerPlacement]);
+      },
+    }),
+    [requireMarkerPlacement]
+  );
 
   const handleAction = (key: React.Key) => {
     const currentCenter = map.getCenter();
 
     if (!account.isConnected) {
       setModalContent(
-        <span style={{display: "grid", justifyContent: "center", gridAutoFlow: "row", gap: "0.6rem"}}>
-          <p>
-            Sign in first to post content.
-          </p>
-          <span style={{marginLeft: "4.5rem"}}>
-          <CloseButton label="close" />
+        <span
+          style={{
+            display: "grid",
+            justifyContent: "center",
+            gridAutoFlow: "row",
+            gap: "0.6rem",
+          }}
+        >
+          <p>Sign in first to post content.</p>
+          <span style={{ marginLeft: "4.5rem" }}>
+            <CloseButton label="close" />
           </span>
         </span>
       );
@@ -106,13 +136,21 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
       return;
     }
     if (key === "layer") {
-      setIcon(coloredIcon("000000", mapPlusSVG, undefined, [10, -20], 1, [0,20]));
+      setIcon(
+        coloredIcon("000000", mapPlusSVG, undefined, [10, -20], 1, [0, 20])
+      );
       setModalContent(
-        <AddLayerForm lat={currentCenter.lat} long={currentCenter.lng} refetch={props.refetch} />
+        <AddLayerForm
+          lat={currentCenter.lat}
+          long={currentCenter.lng}
+          refetch={props.refetch}
+        />
       );
       setRequireMarkerPlacement(true);
     } else if (key === "message") {
-      setIcon(coloredIcon("000000", messageSVG, undefined, [10, -20], 1, [0, 20]));
+      setIcon(
+        coloredIcon("000000", messageSVG, undefined, [10, -20], 1, [0, 20])
+      );
       setModalContent(
         <AddMessageForm
           lat={currentCenter.lat}
@@ -126,7 +164,14 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
     } else if (key === "media") {
       setIcon(coloredIcon("000000", mediaSVG));
       setModalContent(
-        <AddMediaForm lat={currentCenter.lat} long={currentCenter.lng} layers={props.layers} error={props.error} address={props.address} refetch={props.refetch}/>
+        <AddMediaForm
+          lat={currentCenter.lat}
+          long={currentCenter.lng}
+          layers={props.layers}
+          error={props.error}
+          address={props.address}
+          refetch={props.refetch}
+        />
       );
       setIsModalOpen(true);
       setRequireMarkerPlacement(false);
@@ -140,7 +185,11 @@ export const AddMenu = (props: { layers : layerType[], error :  ReadContractErro
   return (
     <>
       <MenuTrigger>
-        <Button style={{height: "85%", borderRadius: "1.5rem"}} aria-label="Menu" className="add">
+        <Button
+          style={{ height: "85%", borderRadius: "1.5rem" }}
+          aria-label="Menu"
+          className="add"
+        >
           +
         </Button>
         <Popover placement="top">

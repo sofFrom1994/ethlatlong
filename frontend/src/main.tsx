@@ -1,25 +1,22 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { WagmiProvider } from 'wagmi'
-
-import App from './App.tsx'
-import { config } from './wagmi.ts'
-
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
+import "./styles/index.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
-import "./styles/index.css"
-import './styles/App.css'
-import "./styles/react-aria.css"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { WagmiProvider } from "wagmi";
 
-import '@rainbow-me/rainbowkit/styles.css';
+import App from "./App.tsx";
+import { config } from "./wagmi.ts";
+
 import {
   darkTheme,
   lightTheme,
   RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+} from "@rainbow-me/rainbowkit";
 
 const queryClient = new QueryClient();
 
