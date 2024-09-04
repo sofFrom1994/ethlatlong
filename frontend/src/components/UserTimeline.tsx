@@ -17,7 +17,7 @@ import {
   Modal,
   OverlayTriggerStateContext,
 } from "react-aria-components";
-import { Config, UseAccountReturnType, useReadContract } from "wagmi";
+import { Config, UseAccountReturnType } from "wagmi";
 import { embedType, layerType } from "./types";
 
 import { nToColor } from "../utils";
@@ -164,7 +164,13 @@ const embedPost = (
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
-        <img title="embed" width="auto" height="auto" src={iconSrc} alt="embed" />
+        <img
+          title="embed"
+          width="auto"
+          height="auto"
+          src={iconSrc}
+          alt="embed"
+        />
       </div>
       <div className="post-content">{embed.message}</div>
       <img
@@ -209,8 +215,8 @@ const contentToPostView = (
 export const UserTimeline = (props: {
   account: UseAccountReturnType<Config>;
   map: L.Map | null;
-  layers : layerType[];
-  error : ReadContractErrorType | null
+  layers: layerType[];
+  error: ReadContractErrorType | null;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -221,11 +227,15 @@ export const UserTimeline = (props: {
   let content;
 
   if (props.error === null) {
-    content = <span> "error generating timeline" </span>
+    content = <span> "error generating timeline" </span>;
   }
 
   content = (
-    <Timeline author={String(props.account.address)} map={props.map} layers={props.layers}/>
+    <Timeline
+      author={String(props.account.address)}
+      map={props.map}
+      layers={props.layers}
+    />
   );
 
   return (

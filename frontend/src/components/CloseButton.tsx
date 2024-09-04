@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button, OverlayTriggerStateContext } from "react-aria-components";
 
-const defaultStyle : React.CSSProperties = {
+const defaultStyle: React.CSSProperties = {
   marginTop: "-0.6rem",
   marginRight: "-0.6rem",
   marginLeft: "auto",
@@ -11,13 +11,11 @@ const defaultStyle : React.CSSProperties = {
   color: "white",
 };
 
-export function CloseButton( {label = "x", style=defaultStyle}) {
+export function CloseButton({ label = "x", style = defaultStyle }) {
   let state = useContext(OverlayTriggerStateContext)!;
   return (
-    <Button
-      className="dummy"
-      style={style}
-      onPress={() => state.close()}
-    >{label}</Button>
+    <Button className="dummy" style={style} onPress={() => state.close()}>
+      {label}
+    </Button>
   );
 }

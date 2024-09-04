@@ -1,6 +1,6 @@
 import "../styles/react-aria.css";
-import "../styles/AddMedia.css"
-import "../AddForm.css"
+import "../styles/AddMedia.css";
+import "../AddForm.css";
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";
@@ -43,12 +43,14 @@ const nftView = (
   selectedNFT: {
     contractAddress: string;
     tokenId: string;
-} | null
+  } | null
 ) => {
-
-  let styles = {}; 
-  if (nft.contract.address === selectedNFT?.contractAddress && nft.tokenId === selectedNFT?.tokenId) {
-    styles = {backgroundColor: "black"};
+  let styles = {};
+  if (
+    nft.contract.address === selectedNFT?.contractAddress &&
+    nft.tokenId === selectedNFT?.tokenId
+  ) {
+    styles = { backgroundColor: "black" };
   }
   return (
     <div
@@ -76,11 +78,11 @@ const nftView = (
 
 const OwnedNFTs = (props: {
   address: string;
-  onSelectNFT: (contractAddress: string, tokenId: string) => void,
+  onSelectNFT: (contractAddress: string, tokenId: string) => void;
   selectedNFT: {
     contractAddress: string;
     tokenId: string;
-} | null
+  } | null;
 }) => {
   const reqURL = serverURL + getNFTsURL + props.address;
   const { isLoading, error, data } = useQuery({
@@ -94,28 +96,35 @@ const OwnedNFTs = (props: {
 
   if (error) return <span> An error has occurred: {error.message} </span>;
 
-  const nftViews = data.map((nft: any) => nftView(nft, props.onSelectNFT, props.selectedNFT));
+  const nftViews = data.map((nft: any) =>
+    nftView(nft, props.onSelectNFT, props.selectedNFT)
+  );
 
   return <div className="owned-nfts">{nftViews}</div>;
 };
-
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const AddMediaForm = (props: {
-  lat: number,
-  long: number,
-  address: string,
-  layers: layerType[],
-  error: ReadContractErrorType | null,
-  refetch
+  lat: number;
+  long: number;
+  address: string;
+  layers: layerType[];
+  error: ReadContractErrorType | null;
+  refetch;
 }) => {
   const [selectedNFT, setSelectedNFT] = useState<{
     contractAddress: string;
     tokenId: string;
   } | null>(null);
-  const { writeContract, data: hash, isPending, error, status } = useWriteContract();
+  const {
+    writeContract,
+    data: hash,
+    isPending,
+    error,
+    status,
+  } = useWriteContract();
   const buttonRef = useRef(null);
 
   const handleSelectNFT = (contractAddress: string, tokenId: string) => {
@@ -145,7 +154,14 @@ export const AddMediaForm = (props: {
       address: contract_address,
       abi,
       functionName: "addMedia",
-      args: [selectedNFT.contractAddress as `0x${string}`, BigInt(selectedNFT.tokenId), parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), layerName, message],
+      args: [
+        selectedNFT.contractAddress as `0x${string}`,
+        BigInt(selectedNFT.tokenId),
+        parseLatLong(props.lat.toString()),
+        parseLatLong(props.long.toString()),
+        layerName,
+        message,
+      ],
     });
   }
 
@@ -162,7 +178,17 @@ export const AddMediaForm = (props: {
 
   const layerListBoxes = props.layers.map((layer) => {
     return (
-          <ListBoxItem key={layer.name} id={layer.name}> <div className="layer-select-header"> <ColorSwatch style={colorSwatchStyle} color={`#${nToColor(layer.color)}`} /> {layer.name} </div></ListBoxItem>
+      <ListBoxItem key={layer.name} id={layer.name}>
+        {" "}
+        <div className="layer-select-header">
+          {" "}
+          <ColorSwatch
+            style={colorSwatchStyle}
+            color={`#${nToColor(layer.color)}`}
+          />{" "}
+          {layer.name}{" "}
+        </div>
+      </ListBoxItem>
     );
   });
 
@@ -209,7 +235,11 @@ export const AddMediaForm = (props: {
 
         <div>
           <label htmlFor="Message">Choose media to embed:</label>
-          <OwnedNFTs address={props.address} selectedNFT={selectedNFT} onSelectNFT={handleSelectNFT} />
+          <OwnedNFTs
+            address={props.address}
+            selectedNFT={selectedNFT}
+            onSelectNFT={handleSelectNFT}
+          />
         </div>
 
         <div>

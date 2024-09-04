@@ -9,9 +9,7 @@ import {
   type BaseError,
 } from "wagmi";
 import { parseLatLong } from "../utils";
-import {
-  parseColor,
-} from "react-aria-components";
+import { parseColor } from "react-aria-components";
 import { ColorArea } from "./ColorArea";
 import { ColorSlider } from "./ColorSlider";
 import { CloseButton } from "./CloseButton";
@@ -19,8 +17,14 @@ import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const AddLayerForm = (props: { lat: number; long: number, refetch }) => {
-  const { data: hash, writeContract, isPending, error, status } = useWriteContract();
+export const AddLayerForm = (props: { lat: number; long: number; refetch }) => {
+  const {
+    data: hash,
+    writeContract,
+    isPending,
+    error,
+    status,
+  } = useWriteContract();
   const layerNameRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
@@ -35,18 +39,22 @@ export const AddLayerForm = (props: { lat: number; long: number, refetch }) => {
     const layerName = formData.get("layerName") as string;
     const description = formData.get("description") as string;
 
-   writeContract({
+    writeContract({
       address: contract_address,
       abi,
       functionName: "addLayer",
-      args: [layerName, description, parseLatLong(props.lat.toString()), parseLatLong(props.long.toString()), color.toHexInt()],
+      args: [
+        layerName,
+        description,
+        parseLatLong(props.lat.toString()),
+        parseLatLong(props.long.toString()),
+        color.toHexInt(),
+      ],
     });
   }
 
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-  } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({ hash });
 
   const {
     inputProps: layerNameInputProps,
@@ -99,7 +107,7 @@ export const AddLayerForm = (props: { lat: number; long: number, refetch }) => {
         <h3 style={{ margin: 0, padding: 0, display: "inline-block" }}>
           Add Layer
         </h3>
-        <CloseButton label="x"/>
+        <CloseButton label="x" />
       </span>
       <form onSubmit={submit}>
         <div>
@@ -125,7 +133,10 @@ export const AddLayerForm = (props: { lat: number; long: number, refetch }) => {
           />
         </div>
         <div>
-          <p> Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )</p>
+          <p>
+            {" "}
+            Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
+          </p>
         </div>
         <>
           <label id="hsb-label-id-1">Color: </label>
