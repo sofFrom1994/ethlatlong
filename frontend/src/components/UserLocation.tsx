@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { Marker, useMap } from "react-leaflet";
 import locationSVG from "../assets/location.svg?raw"
 import fixedLocationSVG from "../assets/location-outline-fixed.svg"
+
+import { useEffect, useState } from "react";
+import { Marker, useMap } from "react-leaflet";
 import L from "leaflet";
+
 import { coloredIcon } from "../utils";
 
 const locationIcon = coloredIcon("1CA7EC", locationSVG)

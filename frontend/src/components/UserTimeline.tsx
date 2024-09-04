@@ -1,4 +1,13 @@
+import userIcon from "../assets/user-pin.svg";
+import { CloseButton } from "./CloseButton";
+import { OverlayTriggerState } from "react-stately";
+import messageSVG from "../assets/bubble-outline.svg";
+import mediaSVG from "../assets/photo-outline.svg";
+import layerSVG from "../assets/map.svg";
+import goSVG from "../assets/map-pin-up.svg";
+
 import "../styles/UserTimeline.css";
+
 import { useContext, useState } from "react";
 import {
   Button,
@@ -10,13 +19,7 @@ import {
 } from "react-aria-components";
 import { Config, UseAccountReturnType, useReadContract } from "wagmi";
 import { embedType, layerType } from "./types";
-import userIcon from "../assets/user-pin.svg";
-import { CloseButton } from "./CloseButton";
-import { OverlayTriggerState } from "react-stately";
-import messageSVG from "../assets/bubble-outline.svg";
-import mediaSVG from "../assets/photo-outline.svg";
-import layerSVG from "../assets/map.svg";
-import goSVG from "../assets/map-pin-up.svg";
+
 import { nToColor } from "../utils";
 import { ReadContractErrorType } from "wagmi/actions";
 

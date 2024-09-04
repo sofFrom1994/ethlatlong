@@ -1,3 +1,5 @@
+import filterI from "../assets/filter.svg";
+
 import React from "react";
 import {
   Button,
@@ -8,7 +10,6 @@ import {
   type Selection,
 } from "react-aria-components";
 import { markerFilter } from "./types";
-import filterI from "../assets/filter.svg";
 
 const filterToSelectionSet = (filter: markerFilter): Set<string> => {
   return new Set(

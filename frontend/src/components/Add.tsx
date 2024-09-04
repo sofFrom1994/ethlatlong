@@ -1,5 +1,9 @@
 import "../styles/Add.css";
 
+import messageSVG from "../assets/bubble-plus.svg?raw";
+import mapPlusSVG from "../assets/map-plus.svg?raw";
+import mediaSVG from "../assets/photo.svg?raw";
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Button, Dialog, DialogTrigger, Menu, MenuItem, MenuTrigger, Modal, Popover } from 'react-aria-components';
 import { AddLayerForm } from './AddLayerForm';
@@ -12,9 +16,7 @@ import { useAccount } from 'wagmi';
 import { CloseButton } from './CloseButton';
 import { coloredIcon } from '../utils';
 
-import messageSVG from "../assets/bubble-plus.svg?raw";
-import mapPlusSVG from "../assets/map-plus.svg?raw";
-import mediaSVG from "../assets/photo.svg?raw";
+
 import { AddMediaForm } from './AddMediaForm';
 
 const disabledMediaAdd = () => {

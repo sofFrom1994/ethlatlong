@@ -1,4 +1,5 @@
-// MainMap.tsx
+import "../styles/Map.css";
+
 import { useState } from "react";
 import L from "leaflet";
 import {
@@ -8,7 +9,6 @@ import {
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
 import { AddMenu } from "./Add";
-import "../styles/Map.css";
 import { UserLocation } from "./UserLocation";
 import { LayerChoiceModal } from "./LayersControl";
 import { layerType, markerFilter } from "./types";
