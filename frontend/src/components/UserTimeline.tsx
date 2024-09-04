@@ -29,7 +29,20 @@ const colorSwatchStyle = {
   width: "90%",
 };
 
-const Timeline = (props: { author: string; map: L.Map | null, layers : layerType[] }) => {
+const closeButtonStyle = {
+  marginTop: "-0.8rem",
+  marginLeft: "auto",
+  width: "fit-content",
+  height: "fit-content",
+  borderRadius: "1rem",
+  color: "white",
+};
+
+const Timeline = (props: {
+  author: string;
+  map: L.Map | null;
+  layers: layerType[];
+}) => {
   if (!props.layers || props.layers.length === 0) return <></>;
 
   let layerContent: {
@@ -58,7 +71,7 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
     layerContent.push({ layer: currLayer, posts });
   });
 
-  const authorHeader = `${props.author.substring(0, 7)}...${props.author.substring(38,42)}`
+  const authorHeader = `${props.author.substring(0, 7)}...${props.author.substring(38, 42)}`;
 
   if (empty) {
     const closeButtonStyle = { color: "white" };
@@ -80,21 +93,16 @@ const Timeline = (props: { author: string; map: L.Map | null, layers : layerType
 
   const postviews = contentToPostView(layerContent, props.map);
 
-  const closeButtonStyle = {
-    marginTop: "-0.8rem",
-    marginLeft: "auto",
-    width: "fit-content",
-    height: "fit-content",
-    borderRadius: "1rem",
-    color: "white",
-  };
-
   return (
-    <Modal
-      style={{ margin: "2.5rem", width: "100%" }}
-      isDismissable
-    >
-      <Dialog style={{ height: "fit-content", maxHeight: "90svh", paddingTop: "1rem", paddingInline: "0.8rem" }}>
+    <Modal style={{ margin: "2.5rem", width: "100%" }} isDismissable>
+      <Dialog
+        style={{
+          height: "fit-content",
+          maxHeight: "90svh",
+          paddingTop: "1rem",
+          paddingInline: "0.8rem",
+        }}
+      >
         {
           <div className="timeline">
             <div className="timeline-header">
