@@ -1,13 +1,10 @@
 :root {
-  /* base colors */
   --base-blue: #0052FF;
 
-  /* Sky Colors */
   --sky-dark: #1A3A5F;
   --sky-medium: #305880;
   --sky-light: #4A78A0;
 
-  /* Cloud Colors */
   --cloud-dark: #4F4F4F;
   --cloud-medium: #B0B0B0;
   --cloud-light: #E0E0E0;
@@ -18,23 +15,19 @@
   --red-medium-dark: #810000;
   --red-dark: #570000;
 
-  /* Thunder Colors */
   --thunder-dark: #805500;
   --thunder-medium: #BF8000;
   --thunder-light: #FFD700;
 
-  /* Green Colors */
   --green-dark: #1A4D20;
   --green-medium: #2E6B38;
   --green-light: #3E8B50;
   --green-super-light: #04c230;
 
-  /* Water Colors */
   --water-dark: #132a36;
   --water-medium: #083c56;
   --water-light: #0073A6;
 
-  /* Rock Colors */
   --rock-dark: #2E2E2E;
   --rock-medium: #6E6E6E;
   --rock-light: #9E9E9E;

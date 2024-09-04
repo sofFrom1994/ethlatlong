@@ -1,0 +1,9 @@
+.layer-select-header {
+  border-radius: 1rem;
+  align-items: center;
+  z-index: 2147483647;
+  display: grid;
+  gap: 0.05rem;
+  grid-template-columns: 0.12fr 1fr 0.1fr;
+  grid-auto-flow: dense;
+}

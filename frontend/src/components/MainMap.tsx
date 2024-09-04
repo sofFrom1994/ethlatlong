@@ -2,7 +2,6 @@
 import { useState } from "react";
 import L from "leaflet";
 import {
-  LayersControl,
   MapContainer,
   TileLayer,
 } from "react-leaflet";

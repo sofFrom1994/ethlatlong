@@ -132,3 +132,8 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+wcm-modal {
+  position: absolute;
+  z-index: 2147483647;
+}

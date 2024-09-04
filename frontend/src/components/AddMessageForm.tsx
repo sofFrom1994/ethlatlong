@@ -1,5 +1,5 @@
 import "../styles/react-aria.css";
-import "../styles/Add.css"
+import "../AddForm.css"
 
 import { ethLatLongAbi } from "../generated";
 import { useRef } from "react";

@@ -1,3 +1,6 @@
+import "./styles/App.css";
+import "./styles/react-aria.css";
+
 import { MainMap } from "./components/MainMap";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -25,19 +28,19 @@ function App() {
     });
   }, []);
 
-const {
-  data,
-  error: readError,
-  refetch,
-} = useReadContract({
-  abi,
-  address: contract_address,
-  functionName: "getAllLayers",
-  blockTag: "latest",
-  query: {
-    staleTime: Infinity,
-  },
-});
+  const {
+    data,
+    error: readError,
+    refetch,
+  } = useReadContract({
+    abi,
+    address: contract_address,
+    functionName: "getAllLayers",
+    blockTag: "latest",
+    query: {
+      staleTime: Infinity,
+    },
+  });
 
   useEffect(() => {
     if (readError) {
@@ -50,7 +53,13 @@ const {
   return (
     <main>
       <Header account={account} map={map} layers={layers} error={error} />
-      <MainMap account={account} mapRef={setMap} layers={layers} refetch={refetch} error={error} />
+      <MainMap
+        account={account}
+        mapRef={setMap}
+        layers={layers}
+        refetch={refetch}
+        error={error}
+      />
       <Footer />
     </main>
   );
