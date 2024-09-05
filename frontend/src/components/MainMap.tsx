@@ -13,6 +13,7 @@ import { FilterMenu } from "./MarkerFilter";
 
 import { Config, UseAccountReturnType } from "wagmi";
 import { ReadContractErrorType } from "wagmi/actions";
+import AddHelloDiv from "./AppendLayerControl";
 
 const corner1 = L.latLng(-90, -Infinity);
 const corner2 = L.latLng(90, Infinity);
@@ -80,6 +81,7 @@ export const MainMap = ({
         error={error}
         refetch={refetch}
       />
+      <AddHelloDiv />
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
