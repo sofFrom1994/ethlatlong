@@ -10,6 +10,7 @@ import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
+import CheckboxHandler from "./CheckBoxHandler";
 
 export const LayerChoiceModal = (props: {
   filter: markerFilter;
@@ -77,6 +78,7 @@ const layerToLayerControlOverlay = (
       <LayersControl.Overlay checked name={layer.name}>
         <LayerGroup>{markers}</LayerGroup>
       </LayersControl.Overlay>
+      <CheckboxHandler />
     </Fragment>
   );
 };
