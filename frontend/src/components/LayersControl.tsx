@@ -9,7 +9,7 @@ import { LayerGroup, LayersControl, useMap } from "react-leaflet";
 import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import AppendLayerControl from "./AppendLayerControl";
 import CheckboxHandler from "./CheckBoxHandler";
 
@@ -20,6 +20,7 @@ export const LayerChoiceModal = (props: {
   error: Error | null;
   refetch;
 }) => {
+  const [checkedLayers, setCheckedLayers] = useState<string[]>([]);
   const map = useMap();
   const writeContractAction = useWriteContract();
   const { isSuccess: isConfirmed } = useWaitForTransactionReceipt({
@@ -43,13 +44,15 @@ export const LayerChoiceModal = (props: {
       props.account,
       writeContractAction,
       map,
-      props.refetch
+      props.refetch, 
+      checkedLayers
     )
   );
   return (
     <>
       <LayersControl>{layerViews}</LayersControl>
       <AppendLayerControl layers={props.layers} />
+      <CheckboxHandler checkedSetter={setCheckedLayers}/> 
     </>
   );
 };
@@ -70,8 +73,11 @@ const layerToLayerControlOverlay = (
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
   map: Map,
-  refetch
+  refetch,
+  checkedLayers : string[]
 ) => {
+  const isChecked = checkedLayers.includes(layer.name);
+
   const markers = layer.embeds
     .filter((embed) => {
       return embedFilter(embed, filter);
@@ -81,10 +87,9 @@ const layerToLayerControlOverlay = (
     );
   return (
     <Fragment key={`layer-${layer.id.toString()}`}>
-      <LayersControl.Overlay checked name={layer.name}>
+      <LayersControl.Overlay checked={isChecked} name={layer.name}>
         <LayerGroup>{markers}</LayerGroup>
       </LayersControl.Overlay>
-      <CheckboxHandler />
     </Fragment>
   );
 };
