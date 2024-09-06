@@ -1,26 +1,34 @@
 import { useEffect, useState } from 'react';
 import { LocalStorageManager } from '../utils';
 
-const CheckboxHandler = (props: {checkedSetter}) => {
+const CheckboxHandler = ({ checkedSetter }) => {
   const [checkedLayers, setCheckedLayers] = useState<string[]>([]);
 
+  // Synchronizes the DOM checkboxes with the React state
   const syncCheckedLayers = () => {
-    const checkboxes = document.querySelectorAll('input.leaflet-control-layers-selector');
+    const checkboxes = document.querySelectorAll(
+      'input.leaflet-control-layers-selector'
+    );
     checkboxes.forEach((checkbox) => {
       const layerName = checkbox.nextElementSibling.textContent.trim();
       checkbox.checked = checkedLayers.includes(layerName);
     });
-    props.checkedSetter(checkedLayers);
-  }
+    checkedSetter(checkedLayers);
+  };
 
   // Load checked layers from local storage on initial render
   useEffect(() => {
     const storedCheckedLayers = LocalStorageManager.get('checkedLayers');
     if (storedCheckedLayers) {
-      setCheckedLayers(JSON.parse(storedCheckedLayers));
-      syncCheckedLayers();
+      const parsedLayers = JSON.parse(storedCheckedLayers);
+      setCheckedLayers(parsedLayers);
     }
   }, []);
+
+  // Sync DOM checkboxes whenever `checkedLayers` changes
+  useEffect(() => {
+    syncCheckedLayers();
+  }, [checkedLayers]);
 
   // Handler for checkbox state changes
   const handleCheckboxChange = (event) => {
@@ -36,7 +44,7 @@ const CheckboxHandler = (props: {checkedSetter}) => {
       }
 
       // Update local storage with the latest state
-      LocalStorageManager.set('checkedLayers', newCheckedLayers);
+      LocalStorageManager.set('checkedLayers', JSON.stringify(newCheckedLayers));
       return newCheckedLayers;
     });
   };
@@ -44,7 +52,9 @@ const CheckboxHandler = (props: {checkedSetter}) => {
   // Add event listeners when checkboxes are detected in the DOM
   useEffect(() => {
     const addEventListeners = () => {
-      const checkboxes = document.querySelectorAll('input.leaflet-control-layers-selector');
+      const checkboxes = document.querySelectorAll(
+        'input.leaflet-control-layers-selector'
+      );
 
       checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', handleCheckboxChange);
@@ -62,7 +72,7 @@ const CheckboxHandler = (props: {checkedSetter}) => {
     const observer = new MutationObserver(() => addEventListeners());
 
     // Observe changes in the DOM, specifically targeting the container of the checkboxes
-    const targetNode = document.querySelector('.leaflet-control-layers-list'); // Adjust the selector as needed
+    const targetNode = document.querySelector('.leaflet-control-layers-list');
     if (targetNode) {
       observer.observe(targetNode, { childList: true, subtree: true });
     }
@@ -71,12 +81,7 @@ const CheckboxHandler = (props: {checkedSetter}) => {
     return () => {
       observer.disconnect();
     };
-  }, [handleCheckboxChange]);
-
-  // Sync checkbox DOM state with React state whenever `checkedLayers` changes
-  useEffect(() => {
-    syncCheckedLayers();
-  }, [checkedLayers]);
+  }, []);
 
   return null;
 };
