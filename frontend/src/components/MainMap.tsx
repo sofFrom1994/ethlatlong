@@ -81,7 +81,7 @@ export const MainMap = ({
         error={error}
         refetch={refetch}
       />
-      <AddHelloDiv />
+      <AddHelloDiv layers={layers}/>
       <MinimapControl position="bottomright" zoom={5} />
       <div className="map-controls">
         <UserLocation />
