@@ -6,21 +6,20 @@ import {createRoot} from 'react-dom/client';
 
 const colorSwatchStyle = {
   borderRadius: "0.2rem",
-  height: "2rem",
-  width: "2rem",
+  height: "1rem",
+  margin: 0,
+  padding: 0,
+  width: "1rem",
+  display: "inline"
 };
 
 const AddHelloDiv = (props: { layers : layerType[]}) => {
   useEffect(() => {
-    // Select all elements that match the selector
-    const labels = document.querySelectorAll('div.leaflet-control-layers-overlays > label');
-    const layerRows = document.querySelectorAll('div.leaflet-control-layers-overlays > label > span');
-    const layerNames = document.querySelectorAll('div.leaflet-control-layers-overlays > label > span > span');
+    const layerList = document.querySelectorAll('div.leaflet-control-layers-overlays > label > span > span');
 
      // Append the new HTML content to each selected element
-    layerNames.forEach((element) => {
+    layerList.forEach((element) => {
       const layerName = element.innerHTML.trim();
-      console.log(layerName);
 
       // Find the corresponding layer by name
       const layer = props.layers.find((v) => v.name === layerName);
@@ -43,7 +42,7 @@ const AddHelloDiv = (props: { layers : layerType[]}) => {
           if (tempContainer.firstChild) {
             element.appendChild(tempContainer.firstChild);
           }
-        }, 2000);
+        }, 400);
       }
     });
   }, [props.layers]); // Empty dependency array to run only once on mount
