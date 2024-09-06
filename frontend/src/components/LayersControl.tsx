@@ -10,6 +10,7 @@ import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
+import AppendLayerControl from "./AppendLayerControl";
 
 export const LayerChoiceModal = (props: {
   filter: markerFilter;
@@ -44,7 +45,12 @@ export const LayerChoiceModal = (props: {
       props.refetch
     )
   );
-  return <LayersControl>{layerViews}</LayersControl>;
+  return (
+    <>
+      <LayersControl>{layerViews}</LayersControl>
+      <AppendLayerControl layers={props.layers} />
+    </>
+  );
 };
 
 const embedFilter = (embed: embedType, filter: markerFilter) => {
