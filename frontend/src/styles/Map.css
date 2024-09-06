@@ -138,6 +138,17 @@
   opacity: 0.87;
 }
 
+div.leaflet-control-layers-overlays > label > span {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+ }
+
+ div.leaflet-control-layers-overlays > label > span > span {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+ }
+
 /* Safari bug fix for leaflet issue #8068. */
 @supports (-webkit-touch-callout: none) {
   .leaflet-control-container .leaflet-top,
