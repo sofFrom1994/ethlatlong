@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { LocalStorageManager } from '../utils';
 
 const CheckboxHandler = ({ checkedSetter }) => {
-  try {
-
   const [checkedLayers, setCheckedLayers] = useState<string[]>([]);
 
   // Synchronizes the DOM checkboxes with the React state
@@ -84,9 +82,6 @@ const CheckboxHandler = ({ checkedSetter }) => {
       observer.disconnect();
     };
   }, []);
-} catch (e ) {
-  console.log(e);
-}
 
   return null;
 };
