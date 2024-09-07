@@ -12,7 +12,7 @@ import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
 import AppendLayerControl from "./AppendLayerControl";
 
-export const LayerChoiceModal = (props: {
+export const EmbedLayerControl = (props: {
   filter: markerFilter;
   account: UseAccountReturnType<Config>;
   layers: layerType[];
