@@ -24,8 +24,16 @@ main {
   /* top right bottom left */
   padding: 0.4rem 0.3rem 0.3rem 0.3rem;
   display: grid;
-  grid-template-rows: 8svh 83.5svh max-content;
+  grid-template-rows: 9svh 81svh max-content;
   grid-gap: 0.2rem;
+}
+
+@media (min-height: 740px) {
+  main {
+    padding: 0.2rem 0.2rem 0.3rem 0.2rem;
+    grid-template-rows: 6.5svh 86svh max-content;
+    grid-gap: 0.25rem;
+  }
 }
 
 @media (min-height: 800px) {
@@ -77,6 +85,24 @@ main {
   }
 }
 
+@media only screen and (max-device-height: 410px) and (min-device-width: 630px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  main {
+    grid-template-rows: 1.5svh 71svh 3svh;
+  }
+}
+
+@media only screen and (max-device-height: 450px) and (min-device-width: 630px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  main {
+    grid-template-rows: 13.5svh 71svh 3svh;
+  }
+}
+
+@media only screen and (max-device-height: 450px) and (min-device-width: 630px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  main {
+    grid-template-rows: 13.5svh 71svh 3svh;
+  }
+}
+
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
   main {
     grid-template-rows: 4svh 90svh 3svh;
@@ -89,9 +115,35 @@ main {
   }
 }
 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (max-device-height: 380px) and (-webkit-min-device-pixel-ratio: 2) {
+  main {
+    grid-template-rows: 14svh 70svh 3svh;
+  }
+}
+
+@media only screen and (max-height: 450px) and (min-device-width: 830px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  main {
+    grid-template-rows: 13svh 67svh 3svh;
+  }
+}
+
 @media (min-device-width: 912px) and (max-device-width: 915px) {
   main {
-    grid-template-rows: 4svh 91.5svh 3svh;
+    grid-template-rows: 12svh 72.5svh 3svh;
+    gap: 0.34rem;
+  }
+}
+
+@media (min-device-width: 912px) and (max-device-width: 915px) and (-webkit-min-device-pixel-ratio: 2) {
+  main {
+    grid-template-rows: 4svh 91svh 3svh;
+    gap: 0.34rem;
+  }
+}
+
+@media (max-device-height: 420px) and (min-device-width: 912px) and (max-device-width: 915px) and (-webkit-min-device-pixel-ratio: 2) {
+  main {
+    grid-template-rows: 12svh 72svh 3svh;
     gap: 0.34rem;
   }
 }
