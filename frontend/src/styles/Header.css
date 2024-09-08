@@ -2,7 +2,8 @@
 
 header {
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0.2rem 0.1rem 0.1rem 0.3rem !important;
+  height: max-content;
 }
 
 .separator {
@@ -58,7 +59,7 @@ header {
   justify-self: left;
   align-items: center;
   -webkit-text-fill-color: initial;
-  padding-inline: 1rem;
+  padding-inline: 0.5rem;
   background-image: var(--full-gradient);
   border-style: groove;
   border-width: 0.05rem;
