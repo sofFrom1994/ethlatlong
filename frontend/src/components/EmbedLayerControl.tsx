@@ -17,7 +17,7 @@ export const EmbedLayerControl = (props: {
   account: UseAccountReturnType<Config>;
   layers: layerType[];
   error: Error | null;
-  refetch;
+  refetch: () => void;
 }) => {
   const map = useMap();
   const writeContractAction = useWriteContract();
@@ -75,9 +75,7 @@ const layerToLayerControlOverlay = (
     .filter((embed) => {
       return embedFilter(embed, filter);
     })
-    .map((embed) =>
-      EmbedMarker(layer, embed, account, writeContract, map, refetch)
-    );
+    .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (
     <Fragment key={`layer-${layer.id.toString()}`}>
       <LayersControl.Overlay checked name={layer.name}>
