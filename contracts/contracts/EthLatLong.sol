@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.24;
 
 import { SD59x18, sd } from "@prb/math/src/SD59x18.sol";
