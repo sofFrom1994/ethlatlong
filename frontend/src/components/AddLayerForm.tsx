@@ -134,7 +134,6 @@ export const AddLayerForm = (props: { lat: number; long: number; refetch }) => {
         </div>
         <div>
           <p>
-            {" "}
             Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
           </p>
         </div>
@@ -165,10 +164,7 @@ export const AddLayerForm = (props: { lat: number; long: number; refetch }) => {
         {isConfirming && <div> Waiting for confirmation... </div>}
         {isConfirmed && <div> Transaction confirmed. </div>}
         {error && (
-          <div>
-            {" "}
-            Error: {(error as BaseError).shortMessage || error.message}
-          </div>
+          <div>Error: {(error as BaseError).shortMessage || error.message}</div>
         )}
       </form>
     </>

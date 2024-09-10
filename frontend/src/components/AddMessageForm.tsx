@@ -109,7 +109,7 @@ export const AddMessageForm = (props: {
         <CloseButton label="x" />
       </span>
       <form onSubmit={submit}>
-        {selectLayer } 
+        {selectLayer}
         <div>
           <label htmlFor="Message">Message:</label>
           <br />
@@ -128,7 +128,6 @@ export const AddMessageForm = (props: {
         </div>
         <div>
           <p>
-            {" "}
             Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
           </p>
         </div>

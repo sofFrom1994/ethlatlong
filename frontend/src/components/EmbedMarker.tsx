@@ -179,13 +179,11 @@ export const EmbedMarker = (
           )}
           {writeContractAction.isSuccess && (
             <div>
-              {" "}
               Transaction confirmed. Message should stop appearing soon.
             </div>
           )}
           {writeContractAction.isError && (
             <div>
-              {" "}
               Error:{" "}
               {(writeContractAction.error as BaseError).shortMessage ||
                 writeContractAction.error.message}

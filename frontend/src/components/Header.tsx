@@ -23,9 +23,8 @@ export const Header = (props: {
     <header>
       <div className="header-content">
         <h1>
-          {" "}
           <a title="home" href="/">
-            you are here{" "}
+            you are here
           </a>
         </h1>
         <div className="account-manager">

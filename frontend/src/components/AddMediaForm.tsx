@@ -196,7 +196,6 @@ export const AddMediaForm = (props: {
 
         <div>
           <p>
-            {" "}
             Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
           </p>
         </div>

@@ -21,21 +21,19 @@ const layersToListBoxes = (layers: layerType[]) => {
   return layers.map((layer) => {
     return (
       <ListBoxItem key={layer.name} id={layer.name}>
-        {" "}
         <div className="layer-select-header">
-          {" "}
           <ColorSwatch
             style={colorSwatchStyle}
             color={`#${nToColor(layer.color)}`}
-          />{" "}
-          {layer.name}{" "}
+          />
+          {layer.name}
         </div>
       </ListBoxItem>
     );
   });
 };
 
-export const SelectLayer = (layers: layerType[], name : string) => {
+export const SelectLayer = (layers: layerType[], name: string) => {
   const layerListBoxes = layersToListBoxes(layers);
   return (
     <Select name={name}>
