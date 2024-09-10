@@ -1,8 +1,15 @@
 @import "colors.css";
 
+/*
+
+style={{ height: "85%", borderRadius: "1.5rem" }}
+*/
+
 .add {
   background-image: var(--full-gradient);
   color: white !important;
+  border-radius: 1.3rem !important;
+  height: 88% !important;
 
   &[data-pressed] {
     box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.1);
@@ -25,7 +32,9 @@
 
 @media (min-width: 820px) {
   .add {
-    border-width: 0.15rem !important;
+    border-width: 0.20rem !important;
+    border-radius: 1.3rem !important;
+    height: 88% !important;
   }
 
   &[data-pressed] {

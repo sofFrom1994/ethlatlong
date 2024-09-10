@@ -10,14 +10,14 @@ import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
-import AppendLayerControl from "./AppendLayerControl";
+import { AppendLayerControl } from "./AppendLayerControl";
 
 export const EmbedLayerControl = (props: {
   filter: markerFilter;
   account: UseAccountReturnType<Config>;
   layers: layerType[];
   error: Error | null;
-  refetch;
+  refetch: () => void;
 }) => {
   const map = useMap();
   const writeContractAction = useWriteContract();
@@ -41,8 +41,7 @@ export const EmbedLayerControl = (props: {
       props.filter,
       props.account,
       writeContractAction,
-      map,
-      props.refetch
+      map
     )
   );
   return (
@@ -68,16 +67,13 @@ const layerToLayerControlOverlay = (
   filter: markerFilter,
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
-  map: Map,
-  refetch
+  map: Map
 ) => {
   const markers = layer.embeds
     .filter((embed) => {
       return embedFilter(embed, filter);
     })
-    .map((embed) =>
-      EmbedMarker(layer, embed, account, writeContract, map, refetch)
-    );
+    .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (
     <Fragment key={`layer-${layer.id.toString()}`}>
       <LayersControl.Overlay checked name={layer.name}>

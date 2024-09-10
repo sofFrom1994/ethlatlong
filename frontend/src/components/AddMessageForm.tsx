@@ -10,36 +10,22 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { nToColor, parseLatLong } from "../utils";
-import {
-  Button,
-  ColorSwatch,
-  Label,
-  ListBox,
-  ListBoxItem,
-  Popover,
-  Select,
-  SelectValue,
-} from "react-aria-components";
+import { parseLatLong } from "../utils";
+
 import { layerType } from "./types";
 import { ReadContractErrorType } from "wagmi/actions";
 import { CloseButton } from "./CloseButton";
+import { SelectLayer } from "./SelectLayer";
 
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
-
-const colorSwatchStyle = {
-  borderRadius: "0.2rem",
-  height: "2rem",
-  width: "2rem",
-};
 
 export const AddMessageForm = (props: {
   lat: number;
   long: number;
   layers: layerType[];
   error: ReadContractErrorType | null;
-  refetch;
+  refetch: () => void ;
 }) => {
   const {
     writeContract,
@@ -101,21 +87,7 @@ export const AddMessageForm = (props: {
     buttonRef
   );
 
-  const layerListBoxes = props.layers.map((layer) => {
-    return (
-      <ListBoxItem id={layer.name}>
-        {" "}
-        <div className="layer-select-header">
-          {" "}
-          <ColorSwatch
-            style={colorSwatchStyle}
-            color={`#${nToColor(layer.color)}`}
-          />{" "}
-          {layer.name}{" "}
-        </div>
-      </ListBoxItem>
-    );
-  });
+  const selectLayer = SelectLayer(props.layers, "layerName");
 
   if (status === "success") {
     props.refetch();
@@ -137,26 +109,7 @@ export const AddMessageForm = (props: {
         <CloseButton label="x" />
       </span>
       <form onSubmit={submit}>
-        <Select name="layerName">
-          <Label>Choose a Layer</Label>
-          <Button>
-            <SelectValue tabIndex={0}>
-              {({ defaultChildren, isPlaceholder }) => {
-                return isPlaceholder ? (
-                  <>
-                    <b></b>
-                  </>
-                ) : (
-                  defaultChildren
-                );
-              }}
-            </SelectValue>
-            <span aria-hidden="true">▼</span>
-          </Button>
-          <Popover style={{ zIndex: 2147483647 }}>
-            <ListBox>{layerListBoxes}</ListBox>
-          </Popover>
-        </Select>
+        {selectLayer}
         <div>
           <label htmlFor="Message">Message:</label>
           <br />
@@ -175,7 +128,6 @@ export const AddMessageForm = (props: {
         </div>
         <div>
           <p>
-            {" "}
             Location: ( {props.lat.toFixed(5)}, {props.long.toFixed(5)} )
           </p>
         </div>

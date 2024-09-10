@@ -7,7 +7,7 @@ const FOCUSED_THUMB_SIZE = 28;
 const THUMB_SIZE = 20;
 const BORDER_RADIUS = 4;
 
-export function ColorArea(props) {
+export const ColorArea = (props) => {
   let inputXRef = useRef(null);
   let inputYRef = useRef(null);
   let containerRef = useRef(null);
@@ -58,4 +58,4 @@ export function ColorArea(props) {
       </div>
     </div>
   );
-}
+};

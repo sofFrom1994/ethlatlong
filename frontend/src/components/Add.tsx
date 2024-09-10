@@ -62,7 +62,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
     >
       <Popup minWidth={90}>
         <span>
-          Add content{" "}
+          Add content
           <button
             data-type="add"
             onClick={() => {
@@ -70,7 +70,7 @@ const AddMarker = ({ eventHandlers, position, markerRef, icon }) => {
             }}
           >
             here
-          </button>{" "}
+          </button>
           or drag this marker to your desired location.
         </span>
       </Popup>
@@ -82,7 +82,7 @@ export const AddMenu = (props: {
   layers: layerType[];
   error: ReadContractErrorType | null;
   address: string;
-  refetch;
+  refetch: () => void;
 }) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -185,11 +185,7 @@ export const AddMenu = (props: {
   return (
     <>
       <MenuTrigger>
-        <Button
-          style={{ height: "85%", borderRadius: "1.5rem" }}
-          aria-label="Menu"
-          className="add"
-        >
+        <Button aria-label="Menu" className="add">
           +
         </Button>
         <Popover placement="top">

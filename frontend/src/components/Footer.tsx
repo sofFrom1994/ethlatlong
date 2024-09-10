@@ -51,7 +51,6 @@ const legend = () => {
           <h2> Guide </h2>
           <h3> Embeds </h3>
           <p>
-            {" "}
             Embeds are onchain objects with a location on the map and a
             particular layer. Click on them to see more, double click on them to
             zoom to them. To add an embed click the + button and choose the
@@ -107,7 +106,7 @@ const roadmap = () => {
   return (
     <DialogTrigger>
       <Button className="footer-button" aria-label="">
-        Roadmap{" "}
+        Roadmap
       </Button>
       <Modal
         style={{
@@ -142,20 +141,18 @@ const roadmap = () => {
             <ul className="roadmap-list">
               <li> Farcaster integration </li>
               <li>
-                {" "}
                 Post paths created by using real time watch mode: for drawing a
                 path, enable watch on the map when the path starts and record
                 the starting location. As the user moves take snapshots (for
                 anything from determining the path points to speed or whatever),
                 until the user hits stop or the limit is reached. Make a list of
-                the points and order from start to end. This is the path.{" "}
+                the points and order from start to end. This is the path.
               </li>
               <li> Gasless messages via zora minting </li>
               <li> Permissioned (write controlled ) layers </li>
               <li>
-                {" "}
                 3D media embed( add orientation ) (ar related / pokemon go
-                inspired){" "}
+                inspired)
               </li>
               <li> custom maps (areas, image overlays) </li>
             </ul>
@@ -244,7 +241,7 @@ const about = () => {
                 />
               </a>
               <a href="https://x.com/u_are_here_app">
-                <img src={twitterIcon} alt="HTML tutorial" />{" "}
+                <img src={twitterIcon} alt="HTML tutorial" />
               </a>
               <a href="https://github.com/sofFrom1994/ethlatlong">
                 <img src={gitIcon} alt="HTML tutorial" />
