@@ -29,12 +29,7 @@ export const UserLocation = () => {
   return (
     <>
       <button onClick={() => setLocate(true)}>
-        <img
-          width="24;"
-          height="24"
-          alt="my location"
-          src={fixedLocationSVG}
-        />
+        <img width="24;" height="24" alt="my location" src={fixedLocationSVG} />
       </button>
       {position === null ? null : (
         <Marker position={position} icon={locationIcon}></Marker>

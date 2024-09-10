@@ -80,4 +80,4 @@ export const ColorSlider = (props) => {
       </div>
     </div>
   );
-}
+};

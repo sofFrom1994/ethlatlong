@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { layerType } from './types';
-import { ColorSwatch } from 'react-aria-components';
-import { nToColor } from '../utils';
-import {createRoot} from 'react-dom/client';
+import React, { useEffect } from "react";
+import { layerType } from "./types";
+import { ColorSwatch } from "react-aria-components";
+import { nToColor } from "../utils";
+import { createRoot } from "react-dom/client";
 
 const colorSwatchStyle = {
   borderRadius: "0.2rem",
@@ -10,12 +10,14 @@ const colorSwatchStyle = {
   margin: 0,
   padding: 0,
   width: "1rem",
-  display: "inline"
+  display: "inline",
 };
 
-export const AppendLayerControl = (props: { layers : layerType[]}) => {
+export const AppendLayerControl = (props: { layers: layerType[] }) => {
   useEffect(() => {
-    const layerList = document.querySelectorAll('div.leaflet-control-layers-overlays > label > span > span');
+    const layerList = document.querySelectorAll(
+      "div.leaflet-control-layers-overlays > label > span > span"
+    );
 
     layerList.forEach((element) => {
       const layerName = element.innerHTML.trim();
@@ -24,7 +26,7 @@ export const AppendLayerControl = (props: { layers : layerType[]}) => {
       const layer = props.layers.find((v) => v.name === layerName);
       if (layer !== undefined) {
         // Create a temporary container to render the JSX element into
-        const tempContainer = document.createElement('div');
+        const tempContainer = document.createElement("div");
 
         // Render the ColorSwatch component into the temporary container
         const root = createRoot(tempContainer);
@@ -44,7 +46,7 @@ export const AppendLayerControl = (props: { layers : layerType[]}) => {
         }, 400);
       }
     });
-  }, [props.layers]); 
+  }, [props.layers]);
 
-  return null; 
+  return null;
 };

@@ -18,4 +18,4 @@ export const CloseButton = ({ label = "x", style = defaultStyle }) => {
       {label}
     </Button>
   );
-}
+};
