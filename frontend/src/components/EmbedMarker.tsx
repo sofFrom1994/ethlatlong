@@ -27,17 +27,14 @@ const colorSwatchStyle = {
 
 const processMetadataURL = (dataUrl: string) => {
   try {
-    // Split the data URL into metadata and data parts
     const [meta, data] = dataUrl.split(",");
 
-    // Extract the content type and encoding from the metadata
     const metaParts = meta.split(";");
     const mimeType = metaParts[0].replace("data:", "");
     const encoding = metaParts[1];
 
     let decodedData: string;
 
-    // Handle different encodings
     if (encoding === "base64") {
       decodedData = atob(data);
     } else if (encoding === "charset=utf-8") {
@@ -46,7 +43,6 @@ const processMetadataURL = (dataUrl: string) => {
       throw new Error(`Unsupported encoding: ${encoding}`);
     }
 
-    // Handle different content types
     if (mimeType === "application/json") {
       return JSON.parse(decodedData);
     } else if (mimeType.startsWith("text/")) {
@@ -183,13 +179,11 @@ export const EmbedMarker = (
           )}
           {writeContractAction.isSuccess && (
             <div>
-              {" "}
               Transaction confirmed. Message should stop appearing soon.
             </div>
           )}
           {writeContractAction.isError && (
             <div>
-              {" "}
               Error:{" "}
               {(writeContractAction.error as BaseError).shortMessage ||
                 writeContractAction.error.message}

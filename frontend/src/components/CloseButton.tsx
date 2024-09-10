@@ -11,11 +11,11 @@ const defaultStyle: React.CSSProperties = {
   color: "white",
 };
 
-export function CloseButton({ label = "x", style = defaultStyle }) {
+export const CloseButton = ({ label = "x", style = defaultStyle }) => {
   let state = useContext(OverlayTriggerStateContext)!;
   return (
     <Button className="dummy" style={style} onPress={() => state.close()}>
       {label}
     </Button>
   );
-}
+};

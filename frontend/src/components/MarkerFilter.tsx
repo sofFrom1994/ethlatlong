@@ -52,12 +52,7 @@ export const FilterMenu = ({
     <MenuTrigger>
       <Button aria-label="Filter Menu">
         <p className="filter">
-          <img
-            width={24}
-            height={24}
-            src={filterI}
-            alt="filter content"
-          />
+          <img width={24} height={24} src={filterI} alt="filter content" />
           Filter
         </p>
       </Button>

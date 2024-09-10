@@ -10,15 +10,15 @@ import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment, useState } from "react";
-import AppendLayerControl from "./AppendLayerControl";
 import CheckboxHandler from "./CheckBoxHandler";
+import { AppendLayerControl } from "./AppendLayerControl";
 
-export const LayerChoiceModal = (props: {
+export const EmbedLayerControl = (props: {
   filter: markerFilter;
   account: UseAccountReturnType<Config>;
   layers: layerType[];
   error: Error | null;
-  refetch;
+  refetch: () => void;
 }) => {
   const [checkedLayers, setCheckedLayers] = useState<string[]>([]);
   const map = useMap();
@@ -44,7 +44,6 @@ export const LayerChoiceModal = (props: {
       props.account,
       writeContractAction,
       map,
-      props.refetch, 
       checkedLayers
     )
   );
@@ -73,7 +72,6 @@ const layerToLayerControlOverlay = (
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
   map: Map,
-  refetch,
   checkedLayers : string[]
 ) => {
   const isChecked = checkedLayers.includes(layer.name);
@@ -82,9 +80,7 @@ const layerToLayerControlOverlay = (
     .filter((embed) => {
       return embedFilter(embed, filter);
     })
-    .map((embed) =>
-      EmbedMarker(layer, embed, account, writeContract, map, refetch)
-    );
+    .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (
     <Fragment key={`layer-${layer.id.toString()}`}>
       <LayersControl.Overlay checked={isChecked} name={layer.name}>

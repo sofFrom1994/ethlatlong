@@ -7,7 +7,7 @@ import { LatLngExpression, LatLngTuple } from "leaflet";
 import { MinimapControl } from "./MinimapControl";
 import { AddMenu } from "./Add";
 import { UserLocation } from "./UserLocation";
-import { LayerChoiceModal } from "./LayersControl";
+import { EmbedLayerControl } from "./EmbedLayerControl";
 import { layerType, markerFilter } from "./types";
 import { FilterMenu } from "./MarkerFilter";
 
@@ -73,7 +73,7 @@ export const MainMap = ({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayerChoiceModal
+      <EmbedLayerControl
         filter={filter}
         account={account}
         layers={layers}
