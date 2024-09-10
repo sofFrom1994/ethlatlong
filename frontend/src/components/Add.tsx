@@ -186,7 +186,6 @@ export const AddMenu = (props: {
     <>
       <MenuTrigger>
         <Button
-          style={{ height: "85%", borderRadius: "1.5rem" }}
           aria-label="Menu"
           className="add"
         >
