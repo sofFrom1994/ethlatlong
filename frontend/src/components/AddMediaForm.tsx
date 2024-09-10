@@ -10,32 +10,18 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { nToColor, parseLatLong } from "../utils";
-import {
-  Button,
-  ColorSwatch,
-  Label,
-  ListBox,
-  ListBoxItem,
-  Popover,
-  Select,
-  SelectValue,
-} from "react-aria-components";
+import { parseLatLong } from "../utils";
+
 import { layerType } from "./types";
 import { ReadContractErrorType } from "wagmi/actions";
 import { CloseButton } from "./CloseButton";
 import { useQuery } from "@tanstack/react-query";
 
 import { useState } from "react";
+import { SelectLayer } from "./SelectLayer";
 
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const getNFTsURL = "getAddressNFTs?address=";
-
-const colorSwatchStyle = {
-  borderRadius: "0.2rem",
-  height: "2rem",
-  width: "2rem",
-};
 
 const nftView = (
   nft: any,
@@ -176,21 +162,7 @@ export const AddMediaForm = (props: {
     buttonRef
   );
 
-  const layerListBoxes = props.layers.map((layer) => {
-    return (
-      <ListBoxItem key={layer.name} id={layer.name}>
-        {" "}
-        <div className="layer-select-header">
-          {" "}
-          <ColorSwatch
-            style={colorSwatchStyle}
-            color={`#${nToColor(layer.color)}`}
-          />{" "}
-          {layer.name}{" "}
-        </div>
-      </ListBoxItem>
-    );
-  });
+  const selectLayer = SelectLayer(props.layers, "layerName");
 
   if (status === "success") {
     props.refetch();
@@ -212,27 +184,7 @@ export const AddMediaForm = (props: {
         <CloseButton label="x" />
       </span>
       <form onSubmit={submit}>
-        <Select name="layerName">
-          <Label>Choose a Layer</Label>
-          <Button>
-            <SelectValue tabIndex={0}>
-              {({ defaultChildren, isPlaceholder }) => {
-                return isPlaceholder ? (
-                  <>
-                    <b></b>
-                  </>
-                ) : (
-                  defaultChildren
-                );
-              }}
-            </SelectValue>
-            <span aria-hidden="true">▼</span>
-          </Button>
-          <Popover style={{ zIndex: 2147483647 }}>
-            <ListBox>{layerListBoxes}</ListBox>
-          </Popover>
-        </Select>
-
+        {selectLayer}
         <div>
           <label htmlFor="Message">Choose media to embed:</label>
           <OwnedNFTs
