@@ -159,7 +159,6 @@ const embedPost = (
 
   const layerColor = `#${nToColor(layer.color)}`;
   return (
-    //<span onClick={() => { setTimeout(() => state.close(), 1600); map?.flyTo([lat, long]); }}>
     <div className="post">
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
