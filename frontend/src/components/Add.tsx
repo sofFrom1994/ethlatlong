@@ -82,7 +82,7 @@ export const AddMenu = (props: {
   layers: layerType[];
   error: ReadContractErrorType | null;
   address: string;
-  refetch;
+  refetch: () => void;
 }) => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -25,7 +25,7 @@ export const AddMessageForm = (props: {
   long: number;
   layers: layerType[];
   error: ReadContractErrorType | null;
-  refetch;
+  refetch: () => void ;
 }) => {
   const {
     writeContract,

@@ -17,7 +17,7 @@ import { CloseButton } from "./CloseButton";
 const abi = ethLatLongAbi;
 const contract_address = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-export const AddLayerForm = (props: { lat: number; long: number; refetch }) => {
+export const AddLayerForm = (props: { lat: number; long: number; refetch: () => void}) => {
   const {
     data: hash,
     writeContract,

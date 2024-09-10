@@ -98,7 +98,7 @@ export const AddMediaForm = (props: {
   address: string;
   layers: layerType[];
   error: ReadContractErrorType | null;
-  refetch;
+  refetch: () => void;
 }) => {
   const [selectedNFT, setSelectedNFT] = useState<{
     contractAddress: string;
