@@ -41,8 +41,7 @@ export const EmbedLayerControl = (props: {
       props.filter,
       props.account,
       writeContractAction,
-      map,
-      props.refetch
+      map
     )
   );
   return (
@@ -68,8 +67,7 @@ const layerToLayerControlOverlay = (
   filter: markerFilter,
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
-  map: Map,
-  refetch
+  map: Map
 ) => {
   const markers = layer.embeds
     .filter((embed) => {
