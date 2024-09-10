@@ -7,7 +7,7 @@ import { useRef } from "react";
 const TRACK_THICKNESS = 28;
 const THUMB_SIZE = 20;
 
-export function ColorSlider(props) {
+export const ColorSlider = (props) => {
   let { isDisabled } = props;
   let { locale } = useLocale();
   let state = useColorSliderState({ ...props, locale });
@@ -38,14 +38,12 @@ export function ColorSlider(props) {
         alignItems: "start",
       }}
     >
-      {/* Create a flex container for the label and output element. */}
       <div style={{ display: "flex", alignSelf: "start", gap: "1rem" }}>
         <output
           {...outputProps}
           style={{ flex: "1 0 auto", textAlign: "end" }}
         ></output>
       </div>
-      {/* The track element holds the visible track line and the thumb. */}
       <div
         {...trackProps}
         ref={trackRef}
