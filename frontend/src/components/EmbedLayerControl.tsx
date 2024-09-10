@@ -10,7 +10,7 @@ import { Map } from "leaflet";
 import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
-import AppendLayerControl from "./AppendLayerControl";
+import { AppendLayerControl } from "./AppendLayerControl";
 
 export const EmbedLayerControl = (props: {
   filter: markerFilter;

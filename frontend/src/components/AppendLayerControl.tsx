@@ -13,11 +13,10 @@ const colorSwatchStyle = {
   display: "inline"
 };
 
-const AddHelloDiv = (props: { layers : layerType[]}) => {
+export const AppendLayerControl = (props: { layers : layerType[]}) => {
   useEffect(() => {
     const layerList = document.querySelectorAll('div.leaflet-control-layers-overlays > label > span > span');
 
-     // Append the new HTML content to each selected element
     layerList.forEach((element) => {
       const layerName = element.innerHTML.trim();
 
@@ -45,9 +44,7 @@ const AddHelloDiv = (props: { layers : layerType[]}) => {
         }, 400);
       }
     });
-  }, [props.layers]); // Empty dependency array to run only once on mount
+  }, [props.layers]); 
 
-  return null; // This component doesn't render anything
+  return null; 
 };
-
-export default AddHelloDiv;
