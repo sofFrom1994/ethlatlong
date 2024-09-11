@@ -151,8 +151,7 @@ contract EthLatLong {
 
       require(bytes(layer.name).length != 0);
       string memory uri = erc721Metadata.tokenURI(tokenId);
-
-      Embed memory embed = Embed(layer.embedN++, Kinds.Media, "", lat, long, msg.sender, uri, message); 
+      Embed memory embed = Embed(layer.embedN, Kinds.Media, message, lat, long, msg.sender, uri, block.timestamp); 
       layers[layerName].embeds.push(embed);
       emit EmbedAdded(layer.embedN, layer.name, message, msg.sender);
       layers[layerName].embedN = layers[layerName].embedN +1;
