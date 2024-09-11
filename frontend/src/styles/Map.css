@@ -2,6 +2,7 @@
 
 .map-wrapper {
   border-radius: 0.7rem;
+  height: 100%;
 }
 
 .map-controls {
@@ -19,6 +20,11 @@
   box-sizing: border-box;
   justify-content: center;
   height: 3rem;
+}
+
+.map-controls>*:focus {
+  border-width: 0.1rem;
+  border-color: var(--cloud-medium);
 }
 
 @media (max-width: 720px) {
@@ -177,14 +183,6 @@ div.leaflet-control-layers-overlays > label > span {
   height: min(fit-content, 10rem);
   overflow-y: auto;
 }
-
-/*
-.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > label > span * {
-}
-
-#root > div > main > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > label:nth-child(7) > span > span {
-}
-*/
 
 .leaflet-top.leaflet-right > .leaflet-control-layers-expanded div {
   padding-top: 0.3rem;
