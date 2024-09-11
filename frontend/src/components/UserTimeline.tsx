@@ -104,13 +104,13 @@ const Timeline = (props: {
         }}
       >
         {
-          <div className="timeline">
+          <span className="timeline">
             <div className="timeline-header">
               <h3>{authorHeader}</h3>
               <CloseButton label="x" style={closeButtonStyle} />
             </div>
             <div className="posts">{postviews}</div>
-          </div>
+          </span>
         }
       </Dialog>
     </Modal>
@@ -120,7 +120,7 @@ const Timeline = (props: {
 const layerPost = (layer: layerType) => {
   const layerColor = `#${nToColor(layer.color)}`;
   return (
-    <div className="post">
+    <article className="post">
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
@@ -136,7 +136,7 @@ const layerPost = (layer: layerType) => {
         {layer.description}
         {layer.embedN.toString()}
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -159,7 +159,7 @@ const embedPost = (
 
   const layerColor = `#${nToColor(layer.color)}`;
   return (
-    <div className="post">
+    <article className="post">
       <div className="post-header">
         <ColorSwatch style={colorSwatchStyle} color={layerColor} />
         <div>{layer.name}</div>
@@ -182,7 +182,7 @@ const embedPost = (
         src={goSVG}
         alt="go to embed"
       />
-    </div>
+    </article>
   );
 };
 
