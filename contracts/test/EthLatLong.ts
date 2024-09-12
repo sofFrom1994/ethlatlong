@@ -102,6 +102,24 @@ describe("EthLatLong", function () {
       expect(layer.embeds[0].message).to.equal(message);
     });
 
+    it("Should add a message to a layer", async function () {
+      const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
+      const layerName = "MessageLayer";
+      const description = "This layer is for messages";
+      const lat = BigInt(40.7128e18);
+      const long = BigInt(-74.0060e18);
+      const message1 = "Hello, World!";
+      const message2 = "Hello, World!";
+      await ethLatLong.write.addLayer([layerName, description, lat, long, defaultLayerColor], { account: owner.account });
+      await ethLatLong.write.addMessage([layerName, lat, long, message1], { account: owner.account });
+      setTimeout(async () => {
+        await ethLatLong.write.addMessage([layerName, lat, long, message2], { account: owner.account })
+        const layer = await ethLatLong.read.getLayer([layerName]);
+        const embedWithDelay = Number(layer.embeds[0].timestamp + BigInt(500));
+        expect(embedWithDelay).to.be.lt(Number(layer.embeds[1].timestamp)); //(layer.embeds[1].timestamp);
+      }, 1000);
+    });
+
     it("Different embeds on a layer should have different ids", async function () {
       const { ethLatLong, owner } = await loadFixture(deployEthLatLong);
       const layerName = "MessageLayer";
