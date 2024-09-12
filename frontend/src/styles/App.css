@@ -19,7 +19,7 @@ header {
   height: 4.5rem;
 }
 
-main {
+.app {
   height: 100% !important;
   /* top right bottom left */
   padding: 0.4rem 0.3rem 0.3rem 0.3rem;

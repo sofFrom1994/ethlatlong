@@ -51,17 +51,19 @@ function App() {
     }
   }, [data, readError]);
   return (
-    <main>
+    <div className="app">
       <Header account={account} map={map} layers={layers} error={error} />
-      <MainMap
-        account={account}
-        mapRef={setMap}
-        layers={layers}
-        refetch={refetch}
-        error={error}
-      />
+      <main>
+        <MainMap
+          account={account}
+          mapRef={setMap}
+          layers={layers}
+          refetch={refetch}
+          error={error}
+        />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
 

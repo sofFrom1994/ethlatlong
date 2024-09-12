@@ -211,18 +211,21 @@ export const EmbedMarker = (
         }}
       >
         <Popup minWidth={100}>
-          <div className="popup-post">
-            <div className="post-popup-header">
-              <ColorSwatch style={colorSwatchStyle} color={layerColor} />
-              <div>{layer.name}</div>
+          <article>
+            <div className="popup-post">
+              <div className="post-popup-header">
+                <ColorSwatch style={colorSwatchStyle} color={layerColor} />
+                <div>{layer.name}</div>
+              </div>
+              {popupContent}
             </div>
-            {popupContent}
-          </div>
-          <div className="post-popup-footer">
-            by {embed.author.substring(0, 4)}...{embed.author.substring(38, 42)}
-          </div>
-          {deleteButton && deleteButton()}
-          {deleteState}
+            <div className="post-popup-footer">
+              by {embed.author.substring(0, 4)}...
+              {embed.author.substring(38, 42)}
+            </div>
+            {deleteButton && deleteButton()}
+            {deleteState}
+          </article>
         </Popup>
       </Marker>
     </Fragment>
