@@ -116,7 +116,6 @@ describe("EthLatLong", function () {
       await ethLatLong.write.addMessage([layerName, lat, long, message2], { account: owner.account });
 
       const embeds = await ethLatLong.read.getEmbeds(["MessageLayer"]);
-      console.log(embeds);
       expect(embeds[0].id).to.not.equal(embeds[1].id);
     });
 
@@ -135,7 +134,7 @@ describe("EthLatLong", function () {
       await ethLatLong.write.addMedia([erc721Address, BigInt(tokenID), lat, long, layerName, mediaDescription], { account: owner.account });
 
       const layer = await ethLatLong.read.getLayer([layerName]);
-      expect(layer.embeds[0].description).to.equal(mediaDescription);
+      expect(layer.embeds[0].message).to.equal(mediaDescription);
     });
 
     it("Should not allow adding an embed to a non-existent layer", async function () {
@@ -186,14 +185,14 @@ describe("EthLatLong", function () {
       //expect(embeds[0].author).to.equal(owner.account.address);
 
       // Remove the message embed
-      await ethLatLong.write.removeMessage(["TestLayer", embeds[0].id]);
+      await ethLatLong.write.removeEmbed(["TestLayer", embeds[0].id]);
 
       // Get the embeds again
       const updatedEmbeds = await ethLatLong.read.getEmbeds(["TestLayer"]);
       expect(updatedEmbeds.length).to.equal(0);
     });
 
-    it("Should fail to remove message embed if not the author", async function () {
+    it("Should fail to remove embed if not the author", async function () {
       const { ethLatLong, owner, otherAccount } = await loadFixture(deployEthLatLong);
 
       const lat = BigInt(40.7128e18);
@@ -208,52 +207,10 @@ describe("EthLatLong", function () {
       const embeds = await ethLatLong.read.getEmbeds(["TestLayer"]);
       expect(embeds.length).to.equal(1);
 
-      await expect(ethLatLong.write.removeMessage(["TestLayer", embeds[0].id], { account: otherAccount.account })).to.be.rejectedWith(
+      await expect(ethLatLong.write.removeEmbed(["TestLayer", embeds[0].id], { account: otherAccount.account })).to.be.rejectedWith(
         "Caller is not the author of the message"
       );
     });
-
-    /*
-    it("Should add and remove a media embed", async function () {
-      const { ethLatLong, owner, otherAccount } = await loadFixture(deployEthLatLong);
-      // Add a layer
-      await ethLatLong.write.addLayer("TestLayer", "Test Description", 0, 0, 0xFFFFFF);
-
-      // Add a media embed
-      await ethLatLong.write.addMedia(owner.address, 1, 0, 0, "TestLayer", "Test Media Description");
-
-      // Get the embeds
-      const embeds = await ethLatLong.read.getEmbeds("TestLayer");
-      expect(embeds.length).to.equal(1);
-      expect(embeds[0].kind).to.equal(0); // Kinds.Media
-      expect(embeds[0].author).to.equal(owner.address);
-
-      // Remove the media embed
-      await ethLatLong.write.removeMedia("TestLayer", embeds[0].id);
-
-      // Get the embeds again
-      const updatedEmbeds = await ethLatLong.read.getEmbeds("TestLayer");
-      expect(updatedEmbeds.length).to.equal(0);
-    });
-
-    it("Should fail to remove media embed if not the author", async function () {
-      const { ethLatLong, owner, otherAccount } = await loadFixture(deployEthLatLong);
-      // Add a layer
-      await ethLatLong.write.addLayer("TestLayer", "Test Description", 0, 0, 0xFFFFFF);
-
-      // Add a media embed
-      await ethLatLong.write.addMedia(owner.address, 1, 0, 0, "TestLayer", "Test Media Description");
-
-      // Get the embeds
-      const embeds = await ethLatLong.read.getEmbeds("TestLayer");
-      expect(embeds.length).to.equal(1);
-
-      // Attempt to remove the media embed as a non-author
-      await expect(ethLatLong.write.removeMedia("TestLayer", embeds[0].id)).to.be.revertedWith(
-        "Caller is not the author of the media"
-      );
-    });
-    */
   });
 
   describe("Layer and Embed Retrieval", function () {
