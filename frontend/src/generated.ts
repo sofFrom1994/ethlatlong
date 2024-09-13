@@ -14,11 +14,43 @@ export const ethLatLongAbi = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'id', internalType: 'uint256', type: 'uint256', indexed: false },
+      {
+        name: 'layerName',
+        internalType: 'string',
+        type: 'string',
+        indexed: false,
+      },
+      {
+        name: 'message',
+        internalType: 'string',
+        type: 'string',
+        indexed: false,
+      },
+      {
+        name: 'author',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'EmbedAdded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'name', internalType: 'string', type: 'string', indexed: false },
       {
         name: 'description',
         internalType: 'string',
         type: 'string',
+        indexed: false,
+      },
+      {
+        name: 'author',
+        internalType: 'address',
+        type: 'address',
         indexed: false,
       },
     ],
@@ -45,7 +77,7 @@ export const ethLatLongAbi = [
       { name: 'lat', internalType: 'SD59x18', type: 'int256' },
       { name: 'long', internalType: 'SD59x18', type: 'int256' },
       { name: 'layerName', internalType: 'string', type: 'string' },
-      { name: 'description', internalType: 'string', type: 'string' },
+      { name: 'message', internalType: 'string', type: 'string' },
     ],
     name: 'addMedia',
     outputs: [],
@@ -84,7 +116,7 @@ export const ethLatLongAbi = [
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
           { name: 'url', internalType: 'string', type: 'string' },
-          { name: 'description', internalType: 'string', type: 'string' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -120,13 +152,14 @@ export const ethLatLongAbi = [
               { name: 'long', internalType: 'SD59x18', type: 'int256' },
               { name: 'author', internalType: 'address', type: 'address' },
               { name: 'url', internalType: 'string', type: 'string' },
-              { name: 'description', internalType: 'string', type: 'string' },
+              { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
             ],
           },
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
           { name: 'color', internalType: 'uint24', type: 'uint24' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -153,7 +186,7 @@ export const ethLatLongAbi = [
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
           { name: 'url', internalType: 'string', type: 'string' },
-          { name: 'description', internalType: 'string', type: 'string' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -189,13 +222,14 @@ export const ethLatLongAbi = [
               { name: 'long', internalType: 'SD59x18', type: 'int256' },
               { name: 'author', internalType: 'address', type: 'address' },
               { name: 'url', internalType: 'string', type: 'string' },
-              { name: 'description', internalType: 'string', type: 'string' },
+              { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
             ],
           },
           { name: 'lat', internalType: 'SD59x18', type: 'int256' },
           { name: 'long', internalType: 'SD59x18', type: 'int256' },
           { name: 'author', internalType: 'address', type: 'address' },
           { name: 'color', internalType: 'uint24', type: 'uint24' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -214,7 +248,7 @@ export const ethLatLongAbi = [
       { name: 'layerName', internalType: 'string', type: 'string' },
       { name: 'id', internalType: 'uint256', type: 'uint256' },
     ],
-    name: 'removeMessage',
+    name: 'removeEmbed',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -306,12 +340,12 @@ export const useWriteEthLatLongAddMessage =
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMessage"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeEmbed"`
  */
-export const useWriteEthLatLongRemoveMessage =
+export const useWriteEthLatLongRemoveEmbed =
   /*#__PURE__*/ createUseWriteContract({
     abi: ethLatLongAbi,
-    functionName: 'removeMessage',
+    functionName: 'removeEmbed',
   })
 
 /**
@@ -349,12 +383,12 @@ export const useSimulateEthLatLongAddMessage =
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeMessage"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ethLatLongAbi}__ and `functionName` set to `"removeEmbed"`
  */
-export const useSimulateEthLatLongRemoveMessage =
+export const useSimulateEthLatLongRemoveEmbed =
   /*#__PURE__*/ createUseSimulateContract({
     abi: ethLatLongAbi,
-    functionName: 'removeMessage',
+    functionName: 'removeEmbed',
   })
 
 /**
@@ -362,6 +396,15 @@ export const useSimulateEthLatLongRemoveMessage =
  */
 export const useWatchEthLatLongEvent =
   /*#__PURE__*/ createUseWatchContractEvent({ abi: ethLatLongAbi })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ethLatLongAbi}__ and `eventName` set to `"EmbedAdded"`
+ */
+export const useWatchEthLatLongEmbedAddedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ethLatLongAbi,
+    eventName: 'EmbedAdded',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ethLatLongAbi}__ and `eventName` set to `"LayerAdded"`

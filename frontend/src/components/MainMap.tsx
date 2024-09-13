@@ -53,6 +53,7 @@ export const MainMap = ({
   refetch,
 }: MapProps) => {
   const [filter, setFilter] = useState<markerFilter>(defaultFilter);
+  const [dateRange, setDateRange] = useState<number[]>([1725964900, Date.now()]);
 
   return (
     <MapContainer
@@ -78,6 +79,7 @@ export const MainMap = ({
         account={account}
         layers={layers}
         error={error}
+        dateRange={dateRange}
         refetch={refetch}
       />
       <MinimapControl position="bottomright" zoom={5} />
@@ -89,7 +91,7 @@ export const MainMap = ({
           address={account.address as string}
           refetch={refetch}
         />
-        <FilterMenu filterSetter={setFilter} initialFilter={defaultFilter} />
+        <FilterMenu filterSetter={setFilter} initialFilter={defaultFilter} dateRange={dateRange} setDateRange={setDateRange} />
       </div>
     </MapContainer>
   );

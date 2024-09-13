@@ -547,3 +547,74 @@
     }
   }
 }
+
+/* slider */
+
+.react-aria-Slider {
+  display: grid;
+  grid-template-areas: "output output"
+                       "track track";
+  grid-template-columns: 1fr auto;
+  color: var(--text-color);
+  z-index: 2147483647;
+
+  .react-aria-Label {
+    grid-area: label;
+  }
+
+  .react-aria-SliderOutput {
+    grid-area: output;
+  }
+
+  .react-aria-SliderTrack {
+    grid-area: track;
+    background-color: var(--blue-green-darkest);
+    position: relative;
+
+    /* track line */
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      background: var(--border-color);
+    }
+  }
+
+  .react-aria-SliderThumb {
+    width: 1.429rem;
+    height: 1.429rem;
+    border-radius: 50%;
+    background: var(--highlight-background);
+    border: 2px solid var(--background-color);
+    forced-color-adjust: none;
+
+    &[data-dragging] {
+      background: var(--highlight-background-pressed);
+    }
+
+    &[data-focus-visible] {
+      outline: 2px solid var(--focus-ring-color);
+    }
+  }
+
+  &[data-orientation=horizontal] {
+    flex-direction: column;
+    width: 300px;
+
+    .react-aria-SliderTrack {
+      height: 30px;
+      width: 100%;
+
+      &:before {
+        height: 3px;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .react-aria-SliderThumb {
+      top: 50%;
+    }
+  }
+}

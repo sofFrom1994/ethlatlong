@@ -69,7 +69,7 @@ export const EmbedMarker = (
     writeContractAction.writeContract({
       address: contract_address,
       abi,
-      functionName: "removeMessage",
+      functionName: "removeEmbed",
       args: [layer.name, embed.id],
     });
   };

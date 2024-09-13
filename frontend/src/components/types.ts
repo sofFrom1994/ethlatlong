@@ -4,6 +4,13 @@ type HEX = `#${string}`;
 
 export type Color = RGB | RGBA | HEX;
 
+export type markerFilter = {
+  message: boolean,
+  media: boolean,
+  path: boolean
+  cast: boolean
+}
+
 // the following should match the generated.ts types
 export type embedType = {
   id: bigint;
@@ -13,7 +20,7 @@ export type embedType = {
   long: bigint;
   author: `0x${string}`;
   url: string;
-  description: string;
+  timestamp: bigint;
 }
 
 export type layerType = {
@@ -26,11 +33,4 @@ export type layerType = {
   long: bigint;
   author: `0x${string}`;
   color: number;
-}
-
-export type markerFilter = {
-  message: boolean,
-  media: boolean,
-  path: boolean
-  cast: boolean
 }
