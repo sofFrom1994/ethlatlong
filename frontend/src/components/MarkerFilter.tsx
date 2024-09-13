@@ -1,15 +1,17 @@
 import filterI from "../assets/filter.svg";
 
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Button,
   Menu,
   MenuItem,
   MenuTrigger,
+  OverlayArrow,
   Popover,
   type Selection,
 } from "react-aria-components";
 import { markerFilter } from "./types";
+import { TimeSlider } from "./RangeSlider";
 
 const filterToSelectionSet = (filter: markerFilter): Set<string> => {
   return new Set(
@@ -33,11 +35,15 @@ const selectionToMarkerFilter = (selection: Set<string>): markerFilter => {
 export const FilterMenu = ({
   filterSetter,
   initialFilter,
+  dateRange, 
+  setDateRange
 }: {
   filterSetter: (filter: markerFilter) => void;
   initialFilter: markerFilter;
+  dateRange: number[];
+  setDateRange: Dispatch<SetStateAction<number[]>>
 }) => {
-  let [selected, setSelected] = React.useState<Selection>(
+  let [selected, setSelected] = useState<Selection>(
     filterToSelectionSet(initialFilter)
   );
 
@@ -56,7 +62,17 @@ export const FilterMenu = ({
           Filter
         </p>
       </Button>
-      <Popover>
+      <Popover
+        style={{
+          paddingBlock: "1rem",
+          paddingInline: "1rem",
+        }}
+      >
+        <OverlayArrow>
+          <svg width={12} height={12} viewBox="0 0 12 12">
+            <path d="M0 0 L6 6 L12 0" />
+          </svg>
+        </OverlayArrow>
         <Menu
           selectionMode="multiple"
           selectedKeys={selected}
@@ -71,6 +87,7 @@ export const FilterMenu = ({
             Path
           </MenuItem>
         </Menu>
+        <TimeSlider value={dateRange} setValue={setDateRange}/>
       </Popover>
     </MenuTrigger>
   );

@@ -1,5 +1,6 @@
 import {
   Config,
+  deserialize,
   UseAccountReturnType,
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -11,6 +12,7 @@ import { embedType, layerType, markerFilter } from "./types";
 import { EmbedMarker } from "./EmbedMarker";
 import { Fragment } from "react";
 import { AppendLayerControl } from "./AppendLayerControl";
+import { parseUnits } from "viem";
 
 export const EmbedLayerControl = (props: {
   filter: markerFilter;
@@ -18,6 +20,7 @@ export const EmbedLayerControl = (props: {
   layers: layerType[];
   error: Error | null;
   refetch: () => void;
+  dateRange: number[];
 }) => {
   const map = useMap();
   const writeContractAction = useWriteContract();
@@ -41,7 +44,8 @@ export const EmbedLayerControl = (props: {
       props.filter,
       props.account,
       writeContractAction,
-      map
+      map,
+      props.dateRange
     )
   );
   return (
@@ -52,7 +56,11 @@ export const EmbedLayerControl = (props: {
   );
 };
 
-const embedFilter = (embed: embedType, filter: markerFilter) => {
+const embedFilter = (embed: embedType, filter: markerFilter, dateRange: number[]) => {
+  const ets = Number(embed.timestamp) * 1000 ;
+  if ((ets < dateRange[0]) || (ets > dateRange[1])) {
+    return false;
+  }
   if (embed.kind === 0) {
     return filter.message;
   } else if (embed.kind === 2) {
@@ -67,11 +75,12 @@ const layerToLayerControlOverlay = (
   filter: markerFilter,
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
-  map: Map
+  map: Map,
+  dateRange: number[]
 ) => {
   const markers = layer.embeds
     .filter((embed) => {
-      return embedFilter(embed, filter);
+      return embedFilter(embed, filter, dateRange);
     })
     .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (
