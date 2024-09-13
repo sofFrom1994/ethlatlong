@@ -17,7 +17,7 @@ interface RangeSliderProps<T> extends SliderProps<T> {
 export function RangeSlider<T extends number | number[]>({
   label,
   thumbLabels,
-  formatThumbValue, // Added format function
+  formatThumbValue, 
   ...props
 }: RangeSliderProps<T>) {
   return (
@@ -45,9 +45,8 @@ export function RangeSlider<T extends number | number[]>({
   );
 }
 
-// Helper function to format Unix timestamp to a readable date string
 const formatUnixTime = (value: number) => {
-  const date = new Date(value); // Convert seconds to milliseconds
+  const date = new Date(value * 1000); 
   return date.toLocaleString('en-US', {
     year: 'numeric',
     month: 'numeric',
@@ -56,18 +55,20 @@ const formatUnixTime = (value: number) => {
   });
 };
 
-export const TimeSlider = (props: {value: number[], setValue: Dispatch<SetStateAction<number[]>> }) => {
+export const TimeSlider = (props: { value: number[], setValue: Dispatch<SetStateAction<number[]>> }) => {
+  const min = 1725964900 // approximate time contract was deployed
+  const max = Math.floor(Date.now() / 1000);
   return (
     <RangeSlider
-      style={{paddingTop: "1rem"}}
+      style={{ paddingTop: "1rem" }}
       defaultValue={[
-        1725964900, 
-        Date.now(), 
+        min, 
+        max
       ]}
       value={props.value}
       onChange={props.setValue}
-      minValue={1725964900} // Example minimum Unix timestamp (01/01/2021)
-      maxValue={Date.now()} // Maximum set to the current time
+      minValue={1725964900} 
+      maxValue={max}
       formatThumbValue={formatUnixTime}
     />
   );

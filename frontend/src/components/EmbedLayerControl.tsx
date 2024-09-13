@@ -57,7 +57,7 @@ export const EmbedLayerControl = (props: {
 };
 
 const embedFilter = (embed: embedType, filter: markerFilter, dateRange: number[]) => {
-  const ets = Number(embed.timestamp) * 1000 ;
+  const ets = Number(embed.timestamp) ;
   if ((ets < dateRange[0]) || (ets > dateRange[1])) {
     return false;
   }
