@@ -1,5 +1,6 @@
 import {
   Config,
+  deserialize,
   UseAccountReturnType,
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -12,6 +13,7 @@ import { EmbedMarker } from "./EmbedMarker";
 import { Fragment, useState } from "react";
 import CheckboxHandler from "./CheckBoxHandler";
 import { AppendLayerControl } from "./AppendLayerControl";
+import { parseUnits } from "viem";
 
 export const EmbedLayerControl = (props: {
   filter: markerFilter;
@@ -19,6 +21,7 @@ export const EmbedLayerControl = (props: {
   layers: layerType[];
   error: Error | null;
   refetch: () => void;
+  dateRange: number[];
 }) => {
   const [checkedLayers, setCheckedLayers] = useState<string[]>([]);
   const map = useMap();
@@ -44,7 +47,8 @@ export const EmbedLayerControl = (props: {
       props.account,
       writeContractAction,
       map,
-      checkedLayers
+      checkedLayers,
+      props.dateRange
     )
   );
   return (
@@ -56,7 +60,11 @@ export const EmbedLayerControl = (props: {
   );
 };
 
-const embedFilter = (embed: embedType, filter: markerFilter) => {
+const embedFilter = (embed: embedType, filter: markerFilter, dateRange: number[]) => {
+  const ets = Number(embed.timestamp) ;
+  if ((ets < dateRange[0]) || (ets > dateRange[1])) {
+    return false;
+  }
   if (embed.kind === 0) {
     return filter.message;
   } else if (embed.kind === 2) {
@@ -72,13 +80,14 @@ const layerToLayerControlOverlay = (
   account: UseAccountReturnType<Config>,
   writeContract: UseWriteContractReturnType<Config, unknown>,
   map: Map,
-  checkedLayers : string[]
+  checkedLayers : string[],
+  dateRange: number[]
 ) => {
   const isChecked = checkedLayers.includes(layer.name);
 
   const markers = layer.embeds
     .filter((embed) => {
-      return embedFilter(embed, filter);
+      return embedFilter(embed, filter, dateRange);
     })
     .map((embed) => EmbedMarker(layer, embed, account, writeContract, map));
   return (

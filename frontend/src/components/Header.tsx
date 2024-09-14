@@ -21,7 +21,7 @@ export const Header = (props: {
 
   return (
     <header>
-      <div className="header-content">
+      <nav className="header-content">
         <h1>
           <a title="home" href="/">
             you are here
@@ -47,7 +47,7 @@ export const Header = (props: {
           layers={props.layers}
           error={props.error}
         />
-      </div>
+      </nav>
     </header>
   );
 };
