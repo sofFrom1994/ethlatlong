@@ -20,8 +20,9 @@
   --thunder-light: #FFD700;
 
   --green-dark: #1A4D20;
-  --green-medium: #136c22;
-  --green-light: #0b9f2e;
+  --green-medium: #2E6B38;
+  --green-light: #3E8B50;
+
   --green-super-light: #04c230;
 
   --water-dark: #132a36;
@@ -33,7 +34,7 @@
   --rock-light: #9E9E9E;
 
   --blue-green-darkest: rgba(28, 88, 93, 0.8);
-  --blue-green-darkest-opaque: rgba(28, 88, 93, 1);
+  --blue-green-darkest-opaque: rgb(28, 93, 69);
   --blue-green-dark: rgba(50, 144, 153, 0.8);
   /*--blue-green-medium: rgba(32, 185, 172, 0.8);*/
   --blue-green-medium: rgba(14, 135, 125, 0.8);
