@@ -20,6 +20,12 @@ import {
 
 const queryClient = new QueryClient();
 
+if (import.meta.env.PROD === true) {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiProvider config={config}>
