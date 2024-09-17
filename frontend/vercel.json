@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://a.tile.openstreetmap.org https://c.tile.openstreetmap.org https://b.tile.openstreetmap.org; connect-src 'self' https://sepolia.base.org wss://relay.walletconnect.com wss://www.walletlink.org/rpc; frame-ancestors 'none'; upgrade-insecure-requests;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://a.tile.openstreetmap.org https://c.tile.openstreetmap.org https://b.tile.openstreetmap.org; connect-src 'self' https://explorer-api.walletconnect.com/ https://sepolia.base.org wss://relay.walletconnect.com wss://www.walletlink.org/rpc;  frame-src 'self' https://vercel.live https://verify.walletconnect.org; frame-ancestors 'none'; upgrade-insecure-requests;"
         }
       ]
     }
